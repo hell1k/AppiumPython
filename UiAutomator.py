@@ -1,10 +1,12 @@
 import time
 
 import allure
+import pytest
 import uiautomator2 as u
 
 
 @allure.description("test1")
+@pytest.mark.smoke
 def test_example():
     d = u.connect("emulator-5554")
     # d = u.connect("49e9905f")
@@ -25,6 +27,7 @@ def test_example():
 
 
 @allure.description("test2")
+@pytest.mark.smoke
 def test_example2():
     d = u.connect("emulator-5554")
     # d = u.connect("49e9905f")
