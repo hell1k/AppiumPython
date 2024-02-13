@@ -15,7 +15,7 @@ class TestExample:
     @pytest.mark.smoke
     def test_example(self):
         # d = u.connect("49e9905f")
-        d.app_install("/home/yapmap.apk")
+        # d.app_install("/home/yapmap.apk")
         d.app_start("com.yapmap.yapmap")
         try:
             d(resourceId="com.yapmap.yapmap:id/activity_welcome_button").click()
