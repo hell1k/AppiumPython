@@ -1,37 +1,28 @@
-import random
-import time
-
 import allure
 import pytest
 import uiautomator2 as u
-from selenium import webdriver
 
-# python3 -m pytest UiAutomator.py::test_example
+from pages.permission import Permission
+from pages.welcome_page import WelcomeActivity
+
 d = u.connect("emulator-5554")
 
 
+@pytest.mark.usefixtures("setup")
 class TestExample:
+
     @allure.title("test1")
     @pytest.mark.smoke
-    def test_example(self):
-        # d = u.connect("49e9905f")
-        d.app_start("com.yapmap.yapmap")
-        try:
-            d(resourceId="com.yapmap.yapmap:id/activity_welcome_button").click()
-        except:
-            pass
-        d(resourceId="com.yapmap.yapmap:id/sign_in_button").click()
+    def test_edit_profile(self):
         self.get_screen()
-        d.xpath(
-            '//*[@resource-id="com.yapmap.yapmap:id/email_edit_text_layout"]/android.widget.FrameLayout[1]').set_text(
-            "test@test.ru")
-        d.xpath(
-            '//*[@resource-id="com.yapmap.yapmap:id/password_edit_text_layout"]/android.widget.FrameLayout[1]').set_text(
-            "12345678")
-        d(resourceId="com.yapmap.yapmap:id/sign_in_button").click()
-        self.get_screen()
-        d.app_clear("com.yapmap.yapmap")
-        d.app_stop("com.yapmap.yapmap")
+        WelcomeActivity().close_tutorial()
+        self.login.authorization()
+        Permission().click_allow()
+        self.menu.open_profile()
+        self.profile.edit_profile()
+        # d.swipe(400, 1000, 400, 500)
+        # assert d(resourceId="com.yapmap.yapmap:id/referral_code_button").exists() == True
+
 
     @allure.title("test2")
     @pytest.mark.smoke
@@ -68,3 +59,8 @@ class TestExample:
         d.screenshot(screen)
         allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
 
+
+def test_test():
+    u.Device()._setup_uiautomator()
+    u.Device()._prepare_atx_agent()
+    # d.xpath('//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]').set_text("qeqwe")
