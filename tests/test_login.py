@@ -3,6 +3,7 @@ import pytest
 import uiautomator2 as u
 
 from pages.permission import Permission
+from pages.profile_page import ProfilePage
 from pages.welcome_page import WelcomeActivity
 
 d = u.connect("emulator-5554")
@@ -19,7 +20,7 @@ class TestExample:
         self.login.authorization()
         Permission().click_allow()
         self.menu.open_profile()
-        self.profile.edit_profile()
+        self.profile.edit_profile_fields()
         # d.swipe(400, 1000, 400, 500)
         # assert d(resourceId="com.yapmap.yapmap:id/referral_code_button").exists() == True
 
@@ -54,13 +55,23 @@ class TestExample:
         d.app_clear("com.yapmap.yapmap")
         d.app_stop("com.yapmap.yapmap")
 
-    def get_screen(self):
-        screen = "screen.png"
-        d.screenshot(screen)
-        allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
+    @allure.description("Проверка редактирования полей профиля: Gender, Status, Sexual orientation, Religion, Ethnos")
+    def test_test(self):
+        WelcomeActivity().close_tutorial()
+        self.login.authorization()
+        Permission().click_allow()
+        self.menu.open_profile()
+        self.profile.click_edit_profile()
+        profile_data = self.profile.edit_profile()
+        self.profile.click_edit_profile()
+        self.profile.wait_a_second()
+        self.profile.check_data_name(profile_data[0])
+        self.profile.check_data_name(profile_data[1])
+        self.profile.check_data_name(profile_data[2])
+        self.profile.check_data_name(profile_data[3])
+        self.profile.check_data_name(profile_data[4])
 
 
-def test_test():
-    u.Device()._setup_uiautomator()
-    u.Device()._prepare_atx_agent()
-    # d.xpath('//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]').set_text("qeqwe")
+def test_t1():
+    page = ProfilePage()
+    print(page.d.window_size()[1])

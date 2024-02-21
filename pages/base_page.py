@@ -1,11 +1,12 @@
+import time
+
 import allure
 import uiautomator2 as u
 from uiautomator2 import Initer, ConnectError
 
-d = u.connect("emulator-5554")
-
 
 class BasePage:
+    d = u.connect("emulator-5554")
 
     def click(self, locator, element_name=None):
         if element_name is not None:
@@ -23,11 +24,24 @@ class BasePage:
 
     def get_element(self, locator):
         if locator[0] == '/' and locator[1] == '/':
-            return d.xpath(locator)
+            return self.d.xpath(locator)
         else:
-            return d(resourceId=locator)
+            return self.d(resourceId=locator)
 
     def get_text(self, locator):
         return self.get_element(locator).get_text()
 
+    def wait_a_moment(self):
+        time.sleep(0.5)
+
+    def wait_a_second(self):
+        time.sleep(1)
+
+    def get_screen(self):
+        screen = "screen.png"
+        self.d.screenshot(screen)
+        allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
+
+    def swipe_down(self):
+        self.d.swipe(400, self.d.window_size()[1]/2, 400, self.d.window_size()[1]/4)
 
