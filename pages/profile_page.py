@@ -27,6 +27,9 @@ class ProfilePage(BasePage):
     height_weight_field = '//*[@resource-id="com.yapmap.yapmap:id/container"]'
     height_weight_done_btn = '//*[@resource-id="com.yapmap.yapmap:id/done_button"]'
     profile_data_value = "com.yapmap.yapmap:id/value_text_view"
+    date_field = '//*[@resource-id="com.yapmap.yapmap:id/dob_field"]'
+    date_ok = 'd(resourceId="android:id/button1")'
+    date_cancel = 'd(resourceId="android:id/button2")'
 
     def edit_profile_fields(self):
         self.click(self.edit_profile_icon)
@@ -45,7 +48,9 @@ class ProfilePage(BasePage):
     def click_edit_profile(self):
         self.click(self.edit_profile_icon)
 
+    @allure.step("Редактирование данных профиля: Date, Gender, Status, Sexual orientation, Religion, Ethnos, Height, Weight")
     def edit_profile(self):
+        self.edit_date()
         gender = self.edit_profile_data('Gender')
         self.check_data_name(gender)
         status = self.edit_profile_data('Status')
@@ -58,8 +63,8 @@ class ProfilePage(BasePage):
         self.check_data_name(ethnos)
         self.swipe_down()
         self.swipe_down()
-        height = "180"
-        weight = "80"
+        height = str(150 + random.randint(1, 50))
+        weight = str(50 + random.randint(1, 50))
         self.edit_height(height)
         self.edit_weight(weight)
         self.click(self.save_btn)
@@ -82,16 +87,26 @@ class ProfilePage(BasePage):
         assert self.d.xpath(f'//*[@text="{value}"]').exists == True
         self.get_screen()
 
+    @allure.step("Редактирование роста")
     def edit_height(self, value):
         self.click(self.height)
         self.set_text(self.height_weight_field, value)
         self.click(self.height_weight_done_btn)
 
+    @allure.step("Редактирование веса")
     def edit_weight(self, value):
         self.click(self.weight)
         self.set_text(self.height_weight_field, value)
         self.click(self.height_weight_done_btn)
 
     def load_photo(self):
-        self.d(resourceId="com.yapmap.yapmap:id/photos_field_add_photo_text_view").send_keys("/home/el_erizo/Загрузки/AppiumPython/screen.png")
+        self.d(resourceId="com.yapmap.yapmap:id/photos_field_add_photo_text_view").send_keys(
+            "/home/el_erizo/Загрузки/AppiumPython/screen.png")
         Permission().close_photo_permission()
+
+    @allure.step("Редактирование даты")
+    def edit_date(self):
+        self.click(self.date_field, "поле Дата")
+        random_date = random.randrange(1, 29)
+        self.click(self.d.xpath(f'//*[@text={str(random_date)}]'), f'дата {random_date}')
+        self.click(self.date_ok, "кнопка Ок")

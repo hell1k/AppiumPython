@@ -55,7 +55,7 @@ class TestExample:
         d.app_clear("com.yapmap.yapmap")
         d.app_stop("com.yapmap.yapmap")
 
-    @allure.description("Проверка редактирования полей профиля: Gender, Status, Sexual orientation, Religion, Ethnos")
+    @allure.description("Проверка редактирования полей профиля")
     def test_test(self):
         WelcomeActivity().close_tutorial()
         self.login.authorization()
@@ -70,6 +70,16 @@ class TestExample:
         self.profile.check_data_name(profile_data[2])
         self.profile.check_data_name(profile_data[3])
         self.profile.check_data_name(profile_data[4])
+
+    @allure.description("Проверка отмены редактирования")
+    def test_checking_undoing_changes(self):
+        WelcomeActivity().close_tutorial()
+        self.login.authorization()
+        Permission().click_allow()
+        self.menu.open_profile()
+        self.profile.click_edit_profile()
+
+
 
 
 def test_t1():

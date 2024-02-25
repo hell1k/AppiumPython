@@ -2,7 +2,6 @@ import time
 
 import allure
 import uiautomator2 as u
-from uiautomator2 import Initer, ConnectError
 
 
 class BasePage:
@@ -42,6 +41,7 @@ class BasePage:
         self.d.screenshot(screen)
         allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
 
+    @allure.step("Свайп")
     def swipe_down(self):
         self.d.swipe(400, self.d.window_size()[1]/2, 400, self.d.window_size()[1]/4)
 
