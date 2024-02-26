@@ -28,8 +28,13 @@ class ProfilePage(BasePage):
     height_weight_done_btn = '//*[@resource-id="com.yapmap.yapmap:id/done_button"]'
     profile_data_value = "com.yapmap.yapmap:id/value_text_view"
     date_field = '//*[@resource-id="com.yapmap.yapmap:id/dob_field"]'
-    date_ok = 'd(resourceId="android:id/button1")'
-    date_cancel = 'd(resourceId="android:id/button2")'
+    date_ok = '//*[@resource-id="android:id/button1"]'
+    date_cancel = '//*[@resource-id="android:id/button2"]'
+    back_btn = '//*[@content-desc="Back"]'
+    unsaved_changes_notification = '//*[@resource-id="com.yapmap.yapmap:id/title_text_view" and @text="Unsaved changes"]'
+    cancel_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_button" and @text="CANCEL"]'
+    no_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_accented_button" and @text="NO"]'
+    yes_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_accented_button" and @text="YES"]'
 
     def edit_profile_fields(self):
         self.click(self.edit_profile_icon)
@@ -44,9 +49,29 @@ class ProfilePage(BasePage):
         assert self.get_text(self.last_name_view) == new_last_name
         assert self.get_text(self.nickname_view) == '@' + new_nickname
 
+    def edit_first_name(self):
+        new_first_name = faker.first_name()
+        self.set_text(self.first_name_field, new_first_name)
+
+    def canceling_changes(self):
+        first_name = self.get_text(self.first_name_view)
+        self.click_edit_profile()
+        self.edit_first_name()
+        self.click_back()
+        self.wait_a_second()
+        self.wait_element(self.unsaved_changes_notification)
+        self.click(self.no_changes_btn)
+        self.wait_a_moment()
+        assert self.get_text(self.first_name_view) == first_name
+
+    @allure.step("Клик по кнопке Назад")
+    def click_back(self):
+        self.click(self.back_btn)
+
     @allure.step("Клик по кнопке редактирования профиля")
     def click_edit_profile(self):
         self.click(self.edit_profile_icon)
+        self.wait_a_second()
 
     @allure.step("Редактирование данных профиля: Date, Gender, Status, Sexual orientation, Religion, Ethnos, Height, Weight")
     def edit_profile(self):
@@ -61,8 +86,8 @@ class ProfilePage(BasePage):
         self.check_data_name(religion)
         ethnos = self.edit_profile_data('Ethnos')
         self.check_data_name(ethnos)
-        self.swipe_down()
-        self.swipe_down()
+        self.swipe_up()
+        self.swipe_up()
         height = str(150 + random.randint(1, 50))
         weight = str(50 + random.randint(1, 50))
         self.edit_height(height)

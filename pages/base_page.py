@@ -41,7 +41,19 @@ class BasePage:
         self.d.screenshot(screen)
         allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
 
-    @allure.step("Свайп")
-    def swipe_down(self):
-        self.d.swipe(400, self.d.window_size()[1]/2, 400, self.d.window_size()[1]/4)
+    @allure.step("Свайп вверх")
+    def swipe_up(self):
+        self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2, self.d.window_size()[0] / 2,
+                     self.d.window_size()[1] / 4)
 
+    @allure.step("Свайп вниз")
+    def swipe_down(self):
+        self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 4, self.d.window_size()[0] / 2,
+                     self.d.window_size()[1] / 2)
+
+    def wait_element(self, locator, element_name=None):
+        if element_name is not None:
+            with allure.step("Ожидание элемента '{element_name}'"):
+                assert self.get_element(locator).exists == True, print(element_name + " отсутствует")
+        else:
+            assert self.get_element(locator).exists == True

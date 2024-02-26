@@ -21,9 +21,6 @@ class TestExample:
         Permission().click_allow()
         self.menu.open_profile()
         self.profile.edit_profile_fields()
-        # d.swipe(400, 1000, 400, 500)
-        # assert d(resourceId="com.yapmap.yapmap:id/referral_code_button").exists() == True
-
 
     @allure.title("test2")
     @pytest.mark.smoke
@@ -64,7 +61,6 @@ class TestExample:
         self.profile.click_edit_profile()
         profile_data = self.profile.edit_profile()
         self.profile.click_edit_profile()
-        self.profile.wait_a_second()
         self.profile.check_data_name(profile_data[0])
         self.profile.check_data_name(profile_data[1])
         self.profile.check_data_name(profile_data[2])
@@ -77,8 +73,7 @@ class TestExample:
         self.login.authorization()
         Permission().click_allow()
         self.menu.open_profile()
-        self.profile.click_edit_profile()
-
+        self.profile.canceling_changes()
 
 
 
