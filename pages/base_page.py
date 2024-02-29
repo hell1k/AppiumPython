@@ -11,9 +11,11 @@ class BasePage:
         if element_name is not None:
             with allure.step(f"Клик по элементу '{element_name}'"):
                 self.get_element(locator).click()
+                self.wait_a_moment()
                 self.get_screen()
         else:
             self.get_element(locator).click()
+            self.wait_a_moment()
             self.get_screen()
 
     def set_text(self, locator, text, element_name=None):
