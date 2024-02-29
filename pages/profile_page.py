@@ -104,7 +104,7 @@ class ProfilePage(BasePage):
         self.wait_a_second()
         counter = random.randrange(0, self.get_element(self.profile_data_value).count)
         data_name = self.get_element(self.profile_data_value)[counter].get_text()
-        self.get_element(self.profile_data_value)[counter].click()
+        self.click(self.get_element(self.profile_data_value)[counter], data_name)
         return data_name
 
     def get_profile_data_title(self, title):
