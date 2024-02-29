@@ -9,7 +9,7 @@ class BasePage:
 
     def click(self, locator, element_name=None):
         if element_name is not None:
-            with allure.step("Клик по элементу '{element_name}'"):
+            with allure.step(f"Клик по элементу '{element_name}'"):
                 self.get_element(locator).click()
                 self.get_screen()
         else:
@@ -18,7 +18,7 @@ class BasePage:
 
     def set_text(self, locator, text, element_name=None):
         if element_name is not None:
-            with allure.step("Заполнение поля '{element_name}' текстом '{text}'"):
+            with allure.step(f"Заполнение поля '{element_name}' текстом '{text}'"):
                 self.get_element(locator).set_text(text)
         else:
             self.get_element(locator).set_text(text)
@@ -55,7 +55,7 @@ class BasePage:
 
     def wait_element(self, locator, element_name=None):
         if element_name is not None:
-            with allure.step("Ожидание элемента '{element_name}'"):
+            with allure.step(f"Ожидание элемента '{element_name}'"):
                 assert self.get_element(locator).exists == True, print(element_name + " отсутствует")
         else:
             assert self.get_element(locator).exists == True

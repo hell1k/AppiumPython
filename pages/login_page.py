@@ -14,7 +14,7 @@ class LoginPage(BasePage):
 
     @allure.step("Авторизация")
     def authorization(self):
-        self.click(self.sign_in_btn)
-        self.set_text(self.email_field, 'hell1k@yandex.ru')
-        self.set_text(self.password_field, '12345678Qq!')
-        self.click(self.sign_in_btn)
+        self.click(self.sign_in_btn, "sign in")
+        self.set_text(self.email_field, 'hell1k@yandex.ru', "поле Почта")
+        self.set_text(self.password_field, '12345678Qq!', "поле Пароль")
+        self.click(self.sign_in_btn, "кнопка Войти")
