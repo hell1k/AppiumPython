@@ -15,7 +15,6 @@ class TestExample:
     @allure.title("Проверка редактирования имени пользователя")
     @pytest.mark.smoke
     def test_edit_profile(self):
-        self.get_screen()
         WelcomeActivity().close_tutorial()
         self.login.authorization()
         Permission().click_allow()
@@ -52,9 +51,9 @@ class TestExample:
     #     d.app_clear("com.yapmap.yapmap")
     #     d.app_stop("com.yapmap.yapmap")
 
-    @allure.description("Проверка редактирования полей профиля")
+    @allure.title("Проверка редактирования полей профиля")
     @pytest.mark.smoke
-    def test_test(self):
+    def test_edit_profile_data(self):
         WelcomeActivity().close_tutorial()
         self.login.authorization()
         Permission().click_allow()
@@ -65,10 +64,11 @@ class TestExample:
         self.profile.check_data_name(profile_data[0])
         self.profile.check_data_name(profile_data[1])
         self.profile.check_data_name(profile_data[2])
+        self.profile.swipe_up()
         self.profile.check_data_name(profile_data[3])
         self.profile.check_data_name(profile_data[4])
 
-    @allure.description("Проверка отмены редактирования")
+    @allure.title("Проверка отмены редактирования")
     @pytest.mark.smoke
     def test_checking_undoing_changes(self):
         WelcomeActivity().close_tutorial()
@@ -79,6 +79,6 @@ class TestExample:
 
 
 
-# def test_t1():
-#     page = ProfilePage()
-#     print(page.d.window_size()[1])
+def test_t1():
+    page = ProfilePage()
+    page.click(page.date_field, "поле Дата")

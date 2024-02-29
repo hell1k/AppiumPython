@@ -87,9 +87,9 @@ class ProfilePage(BasePage):
         self.check_data_name(orientation)
         religion = self.edit_profile_data('Religion')
         self.check_data_name(religion)
+        self.swipe_up()
         ethnos = self.edit_profile_data('Ethnos')
         self.check_data_name(ethnos)
-        self.swipe_up()
         self.swipe_up()
         height = str(150 + random.randint(1, 50))
         weight = str(50 + random.randint(1, 50))
@@ -136,5 +136,5 @@ class ProfilePage(BasePage):
     def edit_date(self):
         self.click(self.date_field, "поле Дата")
         random_date = random.randrange(1, 29)
-        self.click(self.d.xpath(f'//*[@text={str(random_date)}]'), f'дата {random_date}')
+        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.date_ok, "кнопка Ок")

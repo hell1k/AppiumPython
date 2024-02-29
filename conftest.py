@@ -1,6 +1,7 @@
 import pytest
 import uiautomator2 as u
 
+from pages.base_page import BasePage
 from pages.login_page import LoginPage
 from pages.menu import Menu
 from pages.profile_page import ProfilePage
@@ -17,6 +18,7 @@ def open_app():
 
 
 def teardown():
+    BasePage().get_screen()
     d.app_clear("com.yapmap.yapmap")
     d.app_stop("com.yapmap.yapmap")
 
