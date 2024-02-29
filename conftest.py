@@ -10,7 +10,7 @@ d = u.connect("emulator-5554")
 
 def open_app():
     d.implicitly_wait(10)
-    d.app_install("/home/el_erizo/Загрузки/AppiumPython/yapmap.apk")
+    d.app_install("/home/qasquad/Загрузки/yapmap.apk")
     d.press('home')
     d.app_clear("com.yapmap.yapmap")
     d.app_start("com.yapmap.yapmap")

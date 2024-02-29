@@ -36,41 +36,44 @@ class ProfilePage(BasePage):
     no_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_accented_button" and @text="NO"]'
     yes_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_accented_button" and @text="YES"]'
 
+    @allure.step("Редактирование данных профиля: Имя, Фамилия, Ник")
     def edit_profile_fields(self):
-        self.click(self.edit_profile_icon)
+        self.click(self.edit_profile_icon, "иконка редактирования профиля")
         new_first_name = faker.first_name()
         new_last_name = faker.last_name()
         new_nickname = "nickname" + str(random.randint(0, 99999))
         self.set_text(self.first_name_field, new_first_name)
         self.set_text(self.last_name_field, new_last_name)
         self.set_text(self.nickname_field, new_nickname)
-        self.click(self.save_btn)
+        self.click(self.save_btn, "кнопка Сохранить")
         assert self.get_text(self.first_name_view) == new_first_name
         assert self.get_text(self.last_name_view) == new_last_name
         assert self.get_text(self.nickname_view) == '@' + new_nickname
 
+    @allure.step("Редактирование имени")
     def edit_first_name(self):
         new_first_name = faker.first_name()
         self.set_text(self.first_name_field, new_first_name)
 
+    @allure.step("Отмена редактирования")
     def canceling_changes(self):
         first_name = self.get_text(self.first_name_view)
         self.click_edit_profile()
         self.edit_first_name()
         self.click_back()
         self.wait_a_second()
-        self.wait_element(self.unsaved_changes_notification)
-        self.click(self.no_changes_btn)
+        self.wait_element(self.unsaved_changes_notification, "уведомление об отмене редактирования")
+        self.click(self.no_changes_btn, "кнопка отмены сохранения")
         self.wait_a_moment()
         assert self.get_text(self.first_name_view) == first_name
 
     @allure.step("Клик по кнопке Назад")
     def click_back(self):
-        self.click(self.back_btn)
+        self.click(self.back_btn, "кнопка Назад")
 
     @allure.step("Клик по кнопке редактирования профиля")
     def click_edit_profile(self):
-        self.click(self.edit_profile_icon)
+        self.click(self.edit_profile_icon, "кнопка редактирования профиля")
         self.wait_a_second()
 
     @allure.step("Редактирование данных профиля: Date, Gender, Status, Sexual orientation, Religion, Ethnos, Height, Weight")
@@ -97,7 +100,7 @@ class ProfilePage(BasePage):
 
     @allure.step("Редактирование '{title}'")
     def edit_profile_data(self, title):
-        self.click(self.get_profile_data_title(title))
+        self.click(self.get_profile_data_title(title), title)
         self.wait_a_second()
         counter = random.randrange(0, self.get_element(self.profile_data_value).count)
         data_name = self.get_element(self.profile_data_value)[counter].get_text()
@@ -114,15 +117,15 @@ class ProfilePage(BasePage):
 
     @allure.step("Редактирование роста")
     def edit_height(self, value):
-        self.click(self.height)
+        self.click(self.height, "рост")
         self.set_text(self.height_weight_field, value)
-        self.click(self.height_weight_done_btn)
+        self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
     @allure.step("Редактирование веса")
     def edit_weight(self, value):
-        self.click(self.weight)
+        self.click(self.weight, "вес")
         self.set_text(self.height_weight_field, value)
-        self.click(self.height_weight_done_btn)
+        self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
     def load_photo(self):
         self.d(resourceId="com.yapmap.yapmap:id/photos_field_add_photo_text_view").send_keys(

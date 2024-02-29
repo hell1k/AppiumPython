@@ -8,5 +8,5 @@ class Menu(BasePage):
 
     @allure.step("Переход в профиль")
     def open_profile(self):
-        self.click(self.profile_icon)
+        self.click(self.profile_icon, "иконка профиля")
 
