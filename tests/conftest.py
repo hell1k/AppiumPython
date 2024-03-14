@@ -43,3 +43,8 @@ def setup(request):
 def authorization():
     LoginPage().authorization()
     Permission().click_allow()
+
+
+@pytest.fixture()
+def install_app():
+    d.app_install("/home/qasquad/Загрузки/yapmap.apk")
