@@ -5,6 +5,8 @@ import pytest
 import uiautomator2 as u
 from selenium import webdriver
 
+from pages.base_page import BasePage
+
 d = u.connect("emulator-5554")
 
 
@@ -69,16 +71,17 @@ class TestExample:
 
 
 def test_chrome():
-    options = webdriver.FirefoxOptions()
+    options = webdriver.ChromeOptions()
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-gpu")
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-notifications")
     options.add_argument("--lang=en-US")
-    driver = webdriver.Firefox(options=options)
+    driver = webdriver.Chrome(options=options)
     driver.get("https://ya.ru")
     time.sleep(1)
+    BasePage().get_screen()
     print(driver.title)
     driver.close()
