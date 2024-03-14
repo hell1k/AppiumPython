@@ -14,7 +14,7 @@ d = u.connect("emulator-5554")
 @allure.step("Запуск приложения")
 def open_app():
     d.implicitly_wait(10)
-    # d.app_install("/home/qasquad/Загрузки/yapmap.apk")
+    d.app_install("/home/qasquad/Загрузки/yapmap.apk")
     # d.uiautomator.stop()
     # d.uiautomator.start()
     d.press('home')
