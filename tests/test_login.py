@@ -89,3 +89,7 @@ def test_chrome():
     )
     print(driver.title)
     driver.close()
+
+
+def test_install(install_app):
+    print("qq")
