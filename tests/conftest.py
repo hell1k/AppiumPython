@@ -47,4 +47,4 @@ def authorization():
 
 @pytest.fixture()
 def install_app():
-    d.app_install("/home/qasquad/Загрузки/yapmap.apk")
+    d.app_install("/home/yapmap.apk")
