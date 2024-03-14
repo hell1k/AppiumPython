@@ -82,6 +82,10 @@ def test_chrome():
     driver = webdriver.Chrome(options=options)
     driver.get("https://ya.ru")
     time.sleep(1)
-    BasePage().get_screen()
+    allure.attach(
+        name="Скриншот",
+        body=driver.get_screenshot_as_png(),
+        attachment_type=allure.attachment_type.PNG,
+    )
     print(driver.title)
     driver.close()
