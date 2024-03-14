@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 import uiautomator2 as u
@@ -47,4 +49,6 @@ def authorization():
 
 @pytest.fixture()
 def install_app():
+    d.press('home')
+    time.sleep(1)
     d.app_install("/home/yapmap.apk")
