@@ -86,8 +86,8 @@ class LoginPage(BasePage):
             self.set_photo()
             new_first_name = faker.first_name()
             new_last_name = faker.last_name()
-            self.set_text(self.first_name_field, new_first_name)
-            self.set_text(self.last_name_field, new_last_name)
+            self.set_text(self.first_name_field, new_first_name, 'First name')
+            self.set_text(self.last_name_field, new_last_name, 'Last name')
             self.set_date()
             self.set_gender()
             self.swipe_up()
@@ -124,7 +124,7 @@ class LoginPage(BasePage):
     @allure.step("Выбор значения в поле Телефон")
     def set_phone(self):
         phone_number = str(random.randint(1000000000, 9999999999))
-        self.set_text(self.phone_fields, phone_number, phone_number)
+        self.set_text(self.phone_fields, phone_number, 'Phone number}')
         return phone_number
 
     @allure.step("Выбор значения в поле Фото")

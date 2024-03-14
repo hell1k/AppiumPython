@@ -47,9 +47,9 @@ class ProfilePage(BasePage):
         new_first_name = faker.first_name()
         new_last_name = faker.last_name()
         new_nickname = "nickname" + str(random.randint(0, 99999))
-        self.set_text(self.first_name_field, new_first_name)
-        self.set_text(self.last_name_field, new_last_name)
-        self.set_text(self.nickname_field, new_nickname)
+        self.set_text(self.first_name_field, new_first_name, 'First name')
+        self.set_text(self.last_name_field, new_last_name, 'Last name')
+        self.set_text(self.nickname_field, new_nickname, 'Nickname')
         self.click(self.save_btn, "кнопка Сохранить")
         assert self.get_text(self.first_name_view) == new_first_name
         assert self.get_text(self.last_name_view) == new_last_name
@@ -58,7 +58,7 @@ class ProfilePage(BasePage):
     @allure.step("Редактирование имени")
     def edit_first_name(self):
         new_first_name = faker.first_name()
-        self.set_text(self.first_name_field, new_first_name)
+        self.set_text(self.first_name_field, new_first_name, 'First name')
 
     @allure.step("Отмена редактирования")
     def canceling_changes(self):
@@ -129,13 +129,13 @@ class ProfilePage(BasePage):
     @allure.step("Редактирование роста")
     def edit_height(self, value):
         self.click(self.height, "рост")
-        self.set_text(self.height_weight_field, value)
+        self.set_text(self.height_weight_field, value, 'Height')
         self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
     @allure.step("Редактирование веса")
     def edit_weight(self, value):
         self.click(self.weight, "вес")
-        self.set_text(self.height_weight_field, value)
+        self.set_text(self.height_weight_field, value, 'Weight')
         self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
     def load_photo(self):
