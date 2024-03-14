@@ -4,7 +4,9 @@ import uiautomator2 as u
 
 from pages.login_page import LoginPage
 from pages.menu import Menu
+from pages.permission import Permission
 from pages.profile_page import ProfilePage
+from pages.welcome_page import WelcomeActivity
 
 d = u.connect("emulator-5554")
 
@@ -32,5 +34,12 @@ def setup(request):
     request.cls.menu = Menu()
     request.cls.profile = ProfilePage()
     open_app()
+    WelcomeActivity().close_tutorial()
     yield
     teardown()
+
+
+@pytest.fixture()
+def authorization():
+    LoginPage().authorization()
+    Permission().click_allow()

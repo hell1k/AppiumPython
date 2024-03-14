@@ -1,3 +1,4 @@
+import random
 import time
 
 import allure
@@ -8,15 +9,26 @@ class BasePage:
     d = u.connect("emulator-5554")
 
     def click(self, locator, element_name=None):
-        if element_name is not None:
-            with allure.step(f"Клик по элементу '{element_name}'"):
-                self.get_element(locator).click()
+        if not isinstance(locator, str):
+            if element_name is not None:
+                with allure.step(f"Клик по элементу '{element_name}'"):
+                    locator.click()
+                    self.wait_a_moment()
+                    self.get_screen()
+            else:
+                locator.click()
                 self.wait_a_moment()
                 self.get_screen()
         else:
-            self.get_element(locator).click()
-            self.wait_a_moment()
-            self.get_screen()
+            if element_name is not None:
+                with allure.step(f"Клик по элементу '{element_name}'"):
+                    self.get_element(locator).click()
+                    self.wait_a_moment()
+                    self.get_screen()
+            else:
+                self.get_element(locator).click()
+                self.wait_a_moment()
+                self.get_screen()
 
     def set_text(self, locator, text, element_name=None):
         if element_name is not None:
@@ -30,6 +42,14 @@ class BasePage:
             return self.d.xpath(locator)
         else:
             return self.d(resourceId=locator)
+
+    def get_random_element(self, locator):
+        if locator[0] == '/' and locator[1] == '/':
+            counter = random.randrange(0, len(self.d.xpath(locator)))
+            return self.d.xpath(locator)[counter]
+        else:
+            counter = random.randrange(0, len(self.d(resourceId=locator)))
+            return self.d(resourceId=locator)[counter]
 
     def get_text(self, locator):
         return self.get_element(locator).get_text()
@@ -58,6 +78,19 @@ class BasePage:
     def wait_element(self, locator, element_name=None):
         if element_name is not None:
             with allure.step(f"Ожидание элемента '{element_name}'"):
+                self.get_element(locator).wait(timeout=10)
+                # assert self.get_element(locator).exists == True, print(element_name + " отсутствует")
+        else:
+            self.get_element(locator).wait(timeout=10)
+            # assert self.get_element(locator).exists == True
+
+    def checking_exists_element(self, locator, element_name=None):
+        if element_name is not None:
+            with allure.step(f"Ожидание элемента '{element_name}'"):
                 assert self.get_element(locator).exists == True, print(element_name + " отсутствует")
         else:
             assert self.get_element(locator).exists == True
+
+    @allure.step('Press back')
+    def press_back(self):
+        self.d.press('back')
