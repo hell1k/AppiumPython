@@ -4,11 +4,12 @@ import allure
 import pytest
 import uiautomator2 as u
 
+from pages.groups_page import GroupsPage
 from pages.login_page import LoginPage
-from pages.menu import Menu
-from pages.permission import Permission
+from common.menu import Menu
+from common.permission import Permission
 from pages.profile_page import ProfilePage
-from pages.welcome_page import WelcomeActivity
+from common.welcome_page import WelcomeActivity
 
 d = u.connect("emulator-5554")
 
@@ -35,6 +36,7 @@ def setup(request):
     request.cls.login = LoginPage()
     request.cls.menu = Menu()
     request.cls.profile = ProfilePage()
+    request.cls.groups = GroupsPage()
     open_app()
     WelcomeActivity().close_tutorial()
     yield
@@ -51,4 +53,4 @@ def authorization():
 def install_app():
     d.press('home')
     time.sleep(1)
-    d.app_install("/home/yapmap.apk")
+    d.app_install("http://http://37.195.111.39/:8080/job/Test/ws/yapmap.apk")

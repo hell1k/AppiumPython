@@ -5,13 +5,11 @@ import pytest
 import uiautomator2 as u
 from selenium import webdriver
 
-from pages.base_page import BasePage
-
 d = u.connect("emulator-5554")
 
 
 @pytest.mark.usefixtures("setup")
-class TestExample:
+class TestProfile:
 
     @allure.title("Редактирование имени пользователя")
     @pytest.mark.smoke
@@ -68,28 +66,3 @@ class TestExample:
                                                      'Caucasian race/white race', 'Malayan/brown race',
                                                      'Ethiopid/black race', 'Mongolian/yellow race'))
         self.profile.checking_data_fields('Status', ('Single', 'Married', 'Divorced', 'Widowed', 'Complicated'))
-
-
-def test_chrome():
-    options = webdriver.ChromeOptions()
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--headless")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-notifications")
-    options.add_argument("--lang=en-US")
-    driver = webdriver.Chrome(options=options)
-    driver.get("https://ya.ru")
-    time.sleep(1)
-    allure.attach(
-        name="Скриншот",
-        body=driver.get_screenshot_as_png(),
-        attachment_type=allure.attachment_type.PNG,
-    )
-    print(driver.title)
-    driver.close()
-
-
-def test_install(install_app):
-    print("qq")

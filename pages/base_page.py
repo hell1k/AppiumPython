@@ -3,10 +3,13 @@ import time
 
 import allure
 import uiautomator2 as u
+from faker import Faker
+from uiautomator2 import Direction
 
 
 class BasePage:
     d = u.connect("emulator-5554")
+    faker = Faker()
 
     def click(self, locator, element_name=None):
         if not isinstance(locator, str):
@@ -43,13 +46,19 @@ class BasePage:
         else:
             return self.d(resourceId=locator)
 
+    # @allure.step("Получение рандомного элемента")
     def get_random_element(self, locator):
-        if locator[0] == '/' and locator[1] == '/':
-            counter = random.randrange(0, len(self.d.xpath(locator)))
-            return self.d.xpath(locator)[counter]
+        if isinstance(locator, str):
+            if locator[0] == '/' and locator[1] == '/':
+                counter = random.randrange(0, len(self.d.xpath(locator).all()))
+                elements_list = self.d.xpath(locator).all()
+                return elements_list[counter]
+            else:
+                counter = random.randrange(0, self.d(resourceId=locator).count)
+                return self.d(resourceId=locator)[counter]
         else:
-            counter = random.randrange(0, len(self.d(resourceId=locator)))
-            return self.d(resourceId=locator)[counter]
+            counter = random.randrange(0, locator.count)
+            return locator[counter]
 
     def get_text(self, locator):
         return self.get_element(locator).get_text()
@@ -66,23 +75,63 @@ class BasePage:
         allure.attach.file(f'./{screen}', attachment_type=allure.attachment_type.PNG)
 
     @allure.step("Свайп вверх")
-    def swipe_up(self):
-        self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2, self.d.window_size()[0] / 2,
-                     self.d.window_size()[1] / 4)
+    def swipe_up(self, count=None):
+        if count is not None:
+            for i in range(count):
+                # self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2, self.d.window_size()[0] / 2,
+                #              self.d.window_size()[1] / 4)
+                self.d.swipe_ext(Direction.FORWARD)
+        else:
+            # self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2, self.d.window_size()[0] / 2,
+            #              self.d.window_size()[1] / 4)
+            self.d.swipe_ext(Direction.FORWARD)
 
     @allure.step("Свайп вниз")
     def swipe_down(self):
         self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 4, self.d.window_size()[0] / 2,
                      self.d.window_size()[1] / 2)
 
+    # @allure.step("Ожидание элемента")
     def wait_element(self, locator, element_name=None):
         if element_name is not None:
             with allure.step(f"Ожидание элемента '{element_name}'"):
-                self.get_element(locator).wait(timeout=10)
-                # assert self.get_element(locator).exists == True, print(element_name + " отсутствует")
+                if isinstance(locator, str):
+                    if locator[0] == '/' and locator[1] == '/':
+                        assert self.get_element(locator).exists == True, print(f"Элемент {element_name} отсутствует")
+                    else:
+                        assert self.get_element(locator).wait(10) == True, print(f"Элемент {element_name} отсутствует")
+                else:
+                    assert locator.wait(10) == True, print(f"Элемент {element_name} отсутствует")
         else:
-            self.get_element(locator).wait(timeout=10)
-            # assert self.get_element(locator).exists == True
+            if isinstance(locator, str):
+                if locator[0] == '/' and locator[1] == '/':
+                    assert self.get_element(locator).exists == True
+                else:
+                    assert self.get_element(locator).wait(10) == True
+            else:
+                assert locator.wait(10) == True
+
+    # @allure.step("Ожидание отсутствия элемента")
+    def wait_hidden_element(self, locator, element_name=None):
+        if element_name is not None:
+            with allure.step(f"Ожидание отсутствия элемента '{element_name}'"):
+                if isinstance(locator, str):
+                    if locator[0] == '/' and locator[1] == '/':
+                        assert self.get_element(locator).exists == False, print(
+                            f"Элемент {element_name} присутствует на экране")
+                    else:
+                        assert self.get_element(locator).wait_gone(5) == True, print(
+                            f"Элемент {element_name} присутствует на экране")
+                else:
+                    assert locator.wait_gone(5) == True, print(f"Элемент {element_name} присутствует на экране")
+        else:
+            if isinstance(locator, str):
+                if locator[0] == '/' and locator[1] == '/':
+                    assert self.get_element(locator).exists == False
+                else:
+                    assert self.get_element(locator).wait_gone(5) == True
+            else:
+                assert locator.wait_gone(5) == True
 
     def checking_exists_element(self, locator, element_name=None):
         if element_name is not None:
@@ -94,3 +143,17 @@ class BasePage:
     @allure.step('Press back')
     def press_back(self):
         self.d.press('back')
+
+    @allure.step("Ожидание элемента с текстом '{text}'")
+    def wait_text(self, text):
+        assert self.d(textContains=text).wait(10) == True, print(f"Элемент с текстом {text} отсутствует")
+
+    @allure.step("Ожидание на экране alertTitle '{title}'")
+    def wait_alert_title(self, title):
+        assert self.d(resourceId='com.yapmap.yapmap:id/alertTitle',
+                      textContains=f'{title}').wait(10) == True, print(f"Отсутствует заголовок {title}")
+
+    @allure.step("Ожидание на экране заголовка '{title}'")
+    def wait_title_text(self, title):
+        assert self.d(resourceId='com.yapmap.yapmap:id/title_text_view',
+                      textContains=f'{title}').wait(10) == True, print(f"Отсутствует заголовок {title}")

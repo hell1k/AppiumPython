@@ -3,7 +3,7 @@ import uiautomator2 as u
 
 from pages.base_page import BasePage
 from pages.login_page import LoginPage
-from pages.menu import Menu
+from common.menu import Menu
 from pages.profile_page import ProfilePage
 
 d = u.connect("emulator-5554")

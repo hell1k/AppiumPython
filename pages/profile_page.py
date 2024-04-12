@@ -1,12 +1,10 @@
 import random
-import time
 
 import allure
 from faker import Faker
 
 from pages.base_page import BasePage
-from pages.menu import Menu
-from pages.permission import Permission
+from common.menu import Menu
 
 faker = Faker()
 
@@ -138,11 +136,6 @@ class ProfilePage(BasePage):
         self.set_text(self.height_weight_field, value, 'Weight')
         self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
-    def load_photo(self):
-        self.d(resourceId="com.yapmap.yapmap:id/photos_field_add_photo_text_view").send_keys(
-            "/home/el_erizo/Загрузки/AppiumPython/screen.png")
-        Permission().close_photo_permission()
-
     @allure.step("Редактирование даты")
     def edit_date(self):
         self.click(self.date_field, "поле Дата")
@@ -177,9 +170,7 @@ class ProfilePage(BasePage):
             self.swipe_up()
             self.check_data_name(height)
             self.check_data_name(weight)
-            self.swipe_up()
-            self.swipe_up()
-            self.swipe_up()
+            self.swipe_up(3)
             self.check_data_name(phone)
             self.check_data_name(mail)
             self.check_data_name(country)

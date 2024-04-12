@@ -7,7 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
-from pages.permission import Permission
+from common.menu import Menu
+from common.permission import Permission
 from pages.profile_page import ProfilePage
 from faker import Faker
 
@@ -15,7 +16,7 @@ faker = Faker()
 
 
 class LoginPage(BasePage):
-    menu = ProfilePage()
+    menu = Menu()
     profile = ProfilePage()
     permission = Permission()
 
@@ -29,8 +30,8 @@ class LoginPage(BasePage):
     code_second_number = '//*[@resource-id="com.yapmap.yapmap:id/second_input_layout"]/android.widget.FrameLayout[1]'
     code_third_number = '//*[@resource-id="com.yapmap.yapmap:id/third_input_layout"]/android.widget.FrameLayout[1]'
     code_fourth_number = '//*[@resource-id="com.yapmap.yapmap:id/fourth_input_layout"]/android.widget.FrameLayout[1]'
-    new_account_title = '//*[@resource-id="com.yapmap.yapmap:id/new_account_text_view"]'
-    personal_info_title = '//*[@resource-id="com.yapmap.yapmap:id/personal_info_text_view"]'
+    new_account_title = 'com.yapmap.yapmap:id/new_account_text_view'
+    personal_info_title = 'com.yapmap.yapmap:id/personal_info_text_view'
     phone_number_title = '//*[@text="Phone number"]'
     first_name_field = '//*[@resource-id="com.yapmap.yapmap:id/first_name_layout"]'
     last_name_field = '//*[@resource-id="com.yapmap.yapmap:id/last_name_layout"]'
@@ -44,18 +45,26 @@ class LoginPage(BasePage):
     continue_btn = '//*[@resource-id="com.yapmap.yapmap:id/continue_button"]'
     profile_photo = '//*[@resource-id="com.yapmap.yapmap:id/profile_photo_layout"]/android.widget.FrameLayout[1]'
     image_loader = '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[1]'
-    take_a_picture_btn = '//*[@resource-id="com.android.camera2:id/bottom_bar"]'
+    take_a_picture_btn = 'com.android.camera2:id/bottom_bar'
     take_a_picture_done_btn = '//*[@resource-id="com.android.camera2:id/done_button"]'
     country_field = '//*[@resource-id="com.yapmap.yapmap:id/country_text_view"]'
     countries_list = 'android:id/text1'
     phone_fields = '//*[@resource-id="com.yapmap.yapmap:id/phone_edit_text"]'
     next_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_next"]'
+    logout_btn = 'com.yapmap.yapmap:id/logout_button'
+    logout_alert = 'com.yapmap.yapmap:id/alertTitle'
+    confirmation_logout_btn = '//*[@resource-id="android:id/button1"]'
+    cancel_logout_btn = '//*[@resource-id="android:id/button2"]'
 
     @allure.step("Авторизация")
-    def authorization(self):
+    def authorization(self, email=None, password=None):
         self.click_sign_in()
-        self.set_text(self.email_field, 'hell1k@yandex.ru', "поле Почта")
-        self.set_text(self.password_field, '12345678Qq!', "поле Пароль")
+        if email is not None and password is not None:
+            self.set_text(self.email_field, email, "поле Почта")
+            self.set_text(self.password_field, password, "поле Пароль")
+        else:
+            self.set_text(self.email_field, 'hell1k@yandex.ru', "поле Почта")
+            self.set_text(self.password_field, '12345678Qq!', "поле Пароль")
         self.click_sign_in()
 
     @allure.step("Клик по кнопке Регистрация")
@@ -179,3 +188,12 @@ class LoginPage(BasePage):
                                                                   "//span[contains(text(), 'Your YapMapApp verification code is:')]").text))
         driver.close()
         return code_value
+
+    @allure.step("Логаут")
+    def logout(self):
+        self.menu.open_profile()
+        self.swipe_up(5)
+        self.click(self.logout_btn, "кнопка Log out")
+        self.wait_element(self.logout_alert, "logout alert")
+        self.click(self.confirmation_logout_btn, "кнопка подтверждения выхода")
+        self.wait_element(self.sign_in_btn)
