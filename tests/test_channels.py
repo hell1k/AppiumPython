@@ -1,5 +1,4 @@
 import time
-
 import allure
 import pytest
 from config import *
@@ -9,10 +8,10 @@ from pages.main_page import MainPage
 @pytest.mark.usefixtures("setup")
 class TestChannels:
 
-    @allure.title("Создание новой приватной группы")
+    @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
-    def test_name(self, authorization):
+    def test_create_new_private_channel(self, authorization):
         self.menu.open_channels()
-        self.channels.add_new_channel()
-        time.sleep(100)
+        channel_name = self.channels.add_new_channel('private')
+        self.channel.edit_group(channel_name)
 

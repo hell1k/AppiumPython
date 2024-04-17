@@ -5,6 +5,7 @@ import pytest
 import uiautomator2 as u
 
 from pages.groups_page import GroupsPage
+from pages.channels_page import ChannelsPage
 from pages.login_page import LoginPage
 from common.menu import Menu
 from common.permission import Permission
@@ -37,6 +38,7 @@ def setup(request):
     request.cls.menu = Menu()
     request.cls.profile = ProfilePage()
     request.cls.groups = GroupsPage()
+    request.cls.channels = ChannelsPage()
     open_app()
     WelcomeActivity().close_tutorial()
     yield
@@ -53,4 +55,4 @@ def authorization():
 def install_app():
     d.press('home')
     time.sleep(1)
-    d.app_install("http://http://37.195.111.39/:8080/job/Test/ws/yapmap.apk")
+    d.app_install("http://37.195.111.39/:8080/job/Test/ws/yapmap.apk")

@@ -65,6 +65,8 @@ class ChannelsPage(BasePage):
     report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
     leave_group_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
     leave_group_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
+    done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
+    create_channel_btn = '//android.widget.Button'
 
     @allure.step("Добавление нового канала")
     def add_new_channel(self, is_private=None):
@@ -78,15 +80,16 @@ class ChannelsPage(BasePage):
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.click(self.done_photo, "подтверждение созданного фото")
         self.set_text(self.description_field, text_250, 'поле Description')
-
         if is_private == 'private':
             self.swipe_up()
             self.click(self.private_checkbox, 'чекбокс Private')
 
-        self.click(self.create_group_btn, "кнопка Создать группу")
+        self.click(self.create_channel_btn, "кнопка Создать канал")
         self.wait_element(self.group_name_in_list)
         self.swipe_down()
-        self.wait_text(group_name)
-        return group_name
+        self.wait_a_second()
+        self.wait_text(channel_name)
+        return channel_name
