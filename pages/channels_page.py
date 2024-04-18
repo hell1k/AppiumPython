@@ -32,6 +32,7 @@ class ChannelsPage(BasePage):
     group_name_in_list = 'com.yapmap.yapmap:id/name_text_view'
     save_btn = 'com.yapmap.yapmap:id/action_save'
     back_btn = 'com.yapmap.yapmap:id/back'
+    back_btn = 'com.yapmap.yapmap:id/back'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
     more_options = '//*[@content-desc="More options"]'
     more_options_share = '//*[@text="Share"]'
@@ -82,7 +83,7 @@ class ChannelsPage(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.click(self.done_photo, "подтверждение созданного фото")
-        self.set_text(self.description_field, text_250, 'поле Description')
+        self.set_text(self.description_field, text_1000, 'поле Description')
         if is_private == 'private':
             self.swipe_up()
             self.click(self.private_checkbox, 'чекбокс Private')
@@ -93,3 +94,26 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.wait_text(channel_name)
         return channel_name
+
+    @allure.step("Редактирование канала '{channel_name}'")
+    def edit_channel(self, channel_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+        self.click_edit_channel()
+        new_channel_name = 'Test channel_' + str(randint(0, 999999999))
+        self.set_text(self.name_field, new_channel_name, "поле Name group")
+        self.set_text(self.description_field, text_250_2, "поле Description")
+        self.click(self.save_btn, "кнопка Save")
+        # self.click(self.back_btn, "кнопка Назад")
+        self.click(self.d(description="Back"), "кнопка Назад")
+        self.wait_element(self.group_name_in_list)
+        self.wait_text(new_channel_name)
+
+    @allure.step("Переход на экран редактирования")
+    def click_edit_channel(self):
+        self.wait_a_second()
+        self.click(self.d(description="Channel avatar"), "аватар канала")
+
+    @allure.step("Переход к экрану группы '{group_name}'")
+    def open_channel(self, channel_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+
