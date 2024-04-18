@@ -1,3 +1,4 @@
+import time
 from random import randint
 
 import allure
@@ -29,14 +30,14 @@ class ChannelsPage(BasePage):
     create_group_btn = 'com.yapmap.yapmap:id/action_create_group'
     private_checkbox = '//*[@resource-id="com.yapmap.yapmap:id/is_private_switch"]//*[@resource-id="com.yapmap.yapmap:id/container"]'
     pin_chat_checkbox = '//*[@resource-id="com.yapmap.yapmap:id/pin_chat_switch"]//*[@resource-id="com.yapmap.yapmap:id/container"]'
-    group_name_in_list = 'com.yapmap.yapmap:id/name_text_view'
+    channel_name_in_list = 'com.yapmap.yapmap:id/name_text_view'
     save_btn = 'com.yapmap.yapmap:id/action_save'
     back_btn = 'com.yapmap.yapmap:id/back'
-    back_btn = 'com.yapmap.yapmap:id/back'
+    # back_btn = 'com.yapmap.yapmap:id/back'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
     more_options = '//*[@content-desc="More options"]'
     more_options_share = '//*[@text="Share"]'
-    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my group")]'
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my channel")]'
     more_options_share_to_yapmap = '//*[@text="Share to YapMap"]'
     more_options_qr = '//*[@text="Generate QR Code"]'
     more_options_invite = '//*[@text="Invite new member"]'
@@ -105,7 +106,7 @@ class ChannelsPage(BasePage):
         self.click(self.save_btn, "кнопка Save")
         # self.click(self.back_btn, "кнопка Назад")
         self.click(self.d(description="Back"), "кнопка Назад")
-        self.wait_element(self.group_name_in_list)
+        self.wait_element(self.channel_name_in_list)
         self.wait_text(new_channel_name)
 
     @allure.step("Переход на экран редактирования")
@@ -117,3 +118,41 @@ class ChannelsPage(BasePage):
     def open_channel(self, channel_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
 
+    @allure.step("Переход в канал или создание нового")
+    def open_or_create_channel(self):
+        self.wait_element(self.channel_name_in_list)
+        count = self.d(textContains='Test channel_').count
+
+        if count > 0:
+            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "Test channel")]',
+                       'первая группа в списке')
+            time.sleep(5)
+            channel_name = self.d(textContains='Test channel_').get_text()
+        else:
+            channel_name = self.add_new_channel()
+            self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+        return channel_name
+
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+
+    @allure.step("Переход в доп опции группы '{option_name}'")
+    def open_more_options(self, option_name):
+        self.click(self.more_options, "меню группы")
+        self.click(f'//*[@text="{option_name}"]', option_name)
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options(self):
+        self.open_more_options("Share")
+        self.wait_element(self.share_text, "текст приглашения в группу")
+        self.press_back()
+        self.open_more_options("Share to YapMap")
+        self.wait_text("Select chat")
+        self.press_back()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code, 'QR Code')
+        self.press_back()
+        self.open_more_options("Invite new member")
+        self.wait_text("Invite people")
+        self.press_back()

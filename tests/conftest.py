@@ -13,6 +13,7 @@ from pages.profile_page import ProfilePage
 from common.welcome_page import WelcomeActivity
 
 d = u.connect("emulator-5554")
+# d = u.connect("TSBM9L55QWWG4LIR")
 
 
 @allure.step("Запуск приложения")
