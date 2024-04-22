@@ -12,8 +12,8 @@ class GroupsPage(BasePage):
     menu = Menu()
 
     add_new_group_btn = 'com.yapmap.yapmap:id/action_show_option_menu'
-    name_field = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/yap_input_edit_text_field_input_layout"]'
-    description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/yap_input_edit_text_field_input_layout"]'
+    name_field = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
+    description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     upload_a_picture = '//*[@resource-id="com.yapmap.yapmap:id/picture_layout"]/android.widget.FrameLayout[1]'
     image_loader = '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[1]'
     take_a_picture_btn = 'com.android.camera2:id/bottom_bar'
@@ -93,7 +93,7 @@ class GroupsPage(BasePage):
         self.click(self.save_btn, "кнопка Save")
         self.click(self.back_btn, "кнопка Назад")
         self.wait_element(self.group_name_in_list)
-        self.wait_text(group_name, f"группа {group_name}")
+        self.wait_text(new_group_name)
 
     @allure.step("Переход на экран редактирования")
     def click_edit_group(self):
@@ -132,7 +132,7 @@ class GroupsPage(BasePage):
         self.open_more_options("Share")
         self.wait_element(self.share_text, "текст приглашения в группу")
         self.press_back()
-        self.open_more_options("Share to YapMap")
+        self.open_more_options("Share to Relagram")
         self.wait_text("Select chat")
         self.press_back()
         self.open_more_options("Generate QR Code")
@@ -145,7 +145,7 @@ class GroupsPage(BasePage):
     @allure.step("Проверка кнопки Chat")
     def checking_chat_btn(self):
         self.click(self.chat_btn, "кнопка Chat")
-        self.wait_text(self.message_field, "поле для текста")
+        self.wait_element(self.message_field, "поле для текста")
 
     @allure.step("Проверка Invite people")
     def checking_invite_people_btn(self):
@@ -156,7 +156,7 @@ class GroupsPage(BasePage):
     def checking_members_on_map(self, group_name):
         self.click(self.members_on_map_btn, "кнопка Display members on map")
         self.wait_element(self.map_view, "карта с расположением членов группы")
-        self.wait_text(group_name + " members", f"заголовок '{group_name} members'")
+        self.wait_text(group_name + " members")
 
     @allure.step("Проверка Blocked members")
     def checking_blocked_members(self):
