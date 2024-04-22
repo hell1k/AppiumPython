@@ -4,6 +4,7 @@ import allure
 import pytest
 import uiautomator2 as u
 
+from pages.base_page import BasePage
 from pages.groups_page import GroupsPage
 from pages.channels_page import ChannelsPage
 from pages.login_page import LoginPage
@@ -30,6 +31,7 @@ def open_app():
 @allure.step("Закрытие приложения")
 def teardown():
     # d.app_clear("com.yapmap.yapmap")
+    BasePage().get_screen()
     d.app_stop("com.yapmap.yapmap")
 
 
