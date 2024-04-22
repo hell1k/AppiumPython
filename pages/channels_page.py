@@ -126,13 +126,15 @@ class ChannelsPage(BasePage):
         count = self.d(textContains='Test channel_').count
 
         if count > 0:
-            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "Test channel")]',
-                       'первая группа в списке')
+            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
+                'перваый канал в списке')
             time.sleep(5)
             channel_name = self.d(textContains='Test channel_').get_text()
         else:
             channel_name = self.add_new_channel()
-            self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+            self.click(
+                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{channel_name}"]',
+                channel_name)
         return channel_name
 
     @allure.step("Добавление в избранное")
@@ -146,18 +148,23 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка меню ... в шапке")
     def checking_more_options(self):
+        self.wait_a_moment()
         self.open_more_options("Share")
         self.wait_element(self.share_text)
         self.press_back()
+        self.wait_a_moment()
         self.open_more_options("Share to Relagram")
         self.wait_text("Select chat")
         self.press_back()
+        self.wait_a_moment()
         self.open_more_options("Generate QR Code")
         self.wait_element(self.qr_code)
         self.press_back()
+        self.wait_a_moment()
         self.open_more_options("Invite new member")
         self.wait_text("Invite people")
         self.press_back()
+        self.wait_a_moment()
         self.open_more_options("Pending requests")
         self.wait_text("Pending requests")
         self.press_back()
@@ -221,6 +228,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Вступление в группу '{channel_name}'")
     def join_a_channel(self, channel_name):
+        self.wait_a_second()
         self.open_channel(channel_name)
         self.click_edit_channel()
         self.swipe_up()

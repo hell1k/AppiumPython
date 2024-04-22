@@ -17,6 +17,7 @@ class Permission(BasePage):
 
     @allure.step("Permission. Close permission")
     def click_allow(self):
+        self.wait_a_second()
         try:
             self.click(self.permission_allow)
         except:
@@ -24,6 +25,7 @@ class Permission(BasePage):
 
     @allure.step("Permission. Permission allow")
     def close_photo_permission(self):
+        self.wait_a_second()
         try:
             self.click(self.photo_permission_allow)
         except:

@@ -77,7 +77,7 @@ class TestGroups:
 
     @allure.title("Очистка чата администратором")
     @pytest.mark.groups
-    def test_clear_chat(self, authorization):
+    def test_clear_chat(self, login):
         page = MainPage()
         page.menu.open_groups()
         group_name = page.groups.open_or_create_open_group()

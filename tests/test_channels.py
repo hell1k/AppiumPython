@@ -10,6 +10,7 @@ class TestChannels:
 
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
+    @pytest.mark.channels
     def test_create_new_private_channel(self, login):
         self.menu.open_channels()
         page = MainPage()
@@ -18,6 +19,7 @@ class TestChannels:
 
     @allure.title("Создание нового не приватного канала")
     @pytest.mark.smoke
+    @pytest.mark.channels
     def test_create_new_channel(self, login):
         self.menu.open_channels()
         page = MainPage()
@@ -25,6 +27,8 @@ class TestChannels:
         page.channels.edit_channel(channel_name)
 
     @allure.step("Проверка элементов канала при редактировании")
+    @pytest.mark.smoke
+    @pytest.mark.channels
     def test_checking_channels_elements(self, login):
         self.menu.open_channels()
         page = MainPage()
@@ -40,6 +44,8 @@ class TestChannels:
         page.channels.checking_blocked_members()
 
     @allure.step("Проверка пользовательских элементов канала")
+    @pytest.mark.smoke
+    @pytest.mark.channels
     def test_checking_user_items(self, login):
         self.menu.open_channels()
         page = MainPage()
@@ -56,7 +62,9 @@ class TestChannels:
         page.channels.swipe_up(3)
         page.channels.delete_and_leave(channel_name)
 
-    @allure.step("Взаимодействие с группой участником группы")
+    @allure.step("Взаимодействие с группой участником канала")
+    @pytest.mark.smoke
+    @pytest.mark.channels
     def test_channels_participant(self, login):
         page = MainPage()
         page.menu.open_channels()
@@ -71,32 +79,20 @@ class TestChannels:
         page.press_back()
         page.channels.leave_channel(channel_name)
 
-    # @allure.step("Очистка чата администратором")
-    # def test_clear_chat(self, login):
-    #     page = MainPage()
-    #     page.menu.open_channels()
-    #     channel_name = page.channels.open_or_create_channel()
-    #     page.press_back()
-    #     page.login.logout()
-    #     page.login.authorization(test_user_login, test_user_password)
-    #     page.menu.open_channels()
-    #     page.channels.join_a_channel(channel_name)
-    #     page.channels.click_chat_icon()
-    #     new_message = faker.text()
-    #     page.channels.send_message(new_message)
-    #     page.press_back()
-    #     page.press_back()
-    #     page.login.logout()
-    #     page.login.authorization()
-    #     page.menu.open_groups()
-    #     page.channels.open_group(channel_name)
-    #     page.channels.click_edit_channel()
-    #     page.swipe_up(5)
-    #     page.channels.clear_chat_history()
-    #     page.press_back()
-    #     page.login.logout()
-    #     page.login.authorization(test_user_login, test_user_password)
-    #     page.menu.open_groups()
-    #     page.channels.open_group(channel_name)
-    #     page.channels.checking_empty_chat()
+    @allure.step("Очистка чата администратором")
+    def test_clear_chat(self, login):
+        page = MainPage()
+        page.menu.open_channels()
+        channel_name = page.channels.open_or_create_channel()
+        new_message = faker.text()
+        page.channels.send_message(new_message)
+        page.channels.click_edit_channel()
+        page.swipe_up(5)
+        page.channels.clear_chat_history()
+        page.press_back()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.menu.open_channels()
+        page.channels.open_channel(channel_name)
+        page.channels.checking_empty_chat()
 
