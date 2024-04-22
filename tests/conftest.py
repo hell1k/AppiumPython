@@ -53,6 +53,7 @@ def authorization():
 @pytest.fixture()
 def login():
     LoginPage().login()
+    time.sleep(3)
     Permission().click_allow()
 
 @pytest.fixture()

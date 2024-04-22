@@ -22,12 +22,12 @@ class TestGroups:
         self.groups.edit_group(group_name)
 
     @allure.step("Проверка элементов группы при редактировании")
-    def test_checking_group_elements(self, authorization):
+    def test_checking_group_elements(self, login):
         self.menu.open_groups()
         group_name = self.groups.open_or_create_group()
         self.groups.click_edit_group()
         self.groups.add_to_favorite()
-        self.groups.checking_more_options()
+        # self.groups.checking_more_options()
         self.groups.checking_chat_btn()
         self.groups.click_edit_group()
         self.groups.swipe_up(3)

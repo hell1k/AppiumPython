@@ -46,10 +46,11 @@ class ChannelsPage(BasePage):
     message_field = 'com.yapmap.yapmap:id/input_edit_text'
     send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     message = "com.yapmap.yapmap:id/body_text_view"
+    add_members_btn = 'com.yapmap.yapmap:id/members_add_button'
     invite_people_btn = 'com.yapmap.yapmap:id/invite_people'
     members_on_map_btn = 'com.yapmap.yapmap:id/show_members_on_map_button'
     map_view = 'com.yapmap.yapmap:id/map_container_view'
-    blocked_members_btn = 'com.yapmap.yapmap:id/show_blocked_members_button'
+    blocked_members_btn = 'com.yapmap.yapmap:id/blocked_members_button'
     blocked_comments_members_btn = 'com.yapmap.yapmap:id/show_banned_members_button'
     group_card_title = 'com.yapmap.yapmap:id/title_text_view'
     add_admin_btn = 'com.yapmap.yapmap:id/edit_admins_text_view'
@@ -57,16 +58,16 @@ class ChannelsPage(BasePage):
     clear_chat_history_btn = 'com.yapmap.yapmap:id/clear_chat_history_button'
     alert_title = 'com.yapmap.yapmap:id/alertTitle'
     clear_chat_alert_clear_btn = '//*[@resource-id="android:id/button1" and @text="CLEAR"]'
-    delete_group_alert_delete_btn = '//*[@resource-id="android:id/button1" and @text="DELETE"]'
+    delete_channel_alert_delete_btn = '//*[@resource-id="android:id/button1" and @text="DELETE"]'
     alert_cancel_btn = '//*[@resource-id="android:id/button2" and @text="CANCEL"]'
     delete_and_leave_btn = 'com.yapmap.yapmap:id/delete_and_leave_button'
     join_btn = 'com.yapmap.yapmap:id/join_button'
-    join_group_congrats_ok_btn = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
-    report_group_btn = '//*[@resource-id="com.yapmap.yapmap:id/report_group_button"]'
-    leave_group_btn = '//*[@resource-id="com.yapmap.yapmap:id/leave_button"]'
+    join_channel_congrats_ok_btn = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
+    report_channel_btn = '//*[@resource-id="com.yapmap.yapmap:id/report_channel_button"]'
+    leave_channel_btn = '//*[@resource-id="com.yapmap.yapmap:id/leave_button"]'
     report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
-    leave_group_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
-    leave_group_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
+    leave_channel_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
+    leave_channel_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     create_channel_btn = '//android.widget.Button'
 
@@ -83,6 +84,7 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.wait_a_second()
         self.click(self.done_photo, "подтверждение созданного фото")
         self.set_text(self.description_field, text_1000, 'поле Description')
         if is_private == 'private':
@@ -114,7 +116,7 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.click(self.d(description="Channel avatar"), "аватар канала")
 
-    @allure.step("Переход к экрану группы '{group_name}'")
+    @allure.step("Переход к экрану группы '{channel_name}'")
     def open_channel(self, channel_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
 
@@ -145,16 +147,19 @@ class ChannelsPage(BasePage):
     @allure.step("Проверка меню ... в шапке")
     def checking_more_options(self):
         self.open_more_options("Share")
-        self.wait_element(self.share_text, "текст приглашения в группу")
+        self.wait_element(self.share_text)
         self.press_back()
-        self.open_more_options("Share to YapMap")
+        self.open_more_options("Share to Relagram")
         self.wait_text("Select chat")
         self.press_back()
         self.open_more_options("Generate QR Code")
-        self.wait_element(self.qr_code, 'QR Code')
+        self.wait_element(self.qr_code)
         self.press_back()
         self.open_more_options("Invite new member")
         self.wait_text("Invite people")
+        self.press_back()
+        self.open_more_options("Pending requests")
+        self.wait_text("Pending requests")
         self.press_back()
 
     @allure.step("Проверка Add admin")
@@ -166,3 +171,85 @@ class ChannelsPage(BasePage):
     def edit_members(self):
         self.click(self.edit_members_btn, "кнопка Edit members")
         self.wait_text("Select contacts")
+
+    @allure.step("Проверка кнопки Chat")
+    def checking_chat_btn(self):
+        self.click(self.chat_btn, "кнопка Chat")
+        self.wait_element(self.message_field, "поле для текста")
+
+    @allure.step("Проверка Add members")
+    def checking_add_members_btn(self):
+        self.wait_a_second()
+        self.click(self.add_members_btn, "кнопка Add members")
+        self.wait_text("Invite people")
+
+    @allure.step("Проверка Display members on map")
+    def checking_members_on_map(self, channel_name):
+        self.click(self.members_on_map_btn, "кнопка Display members on map")
+        self.wait_element(self.map_view, "карта с расположением членов группы")
+        self.wait_text(channel_name + " members")
+
+    @allure.step("Проверка Blocked members")
+    def checking_blocked_members(self):
+        self.click(self.blocked_members_btn, "кнопка Blocked members")
+        self.wait_text("Blocked users")
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(message)
+
+    @allure.step("Очистка чата")
+    def clear_chat_history(self):
+        self.wait_a_second()
+        self.click(self.clear_chat_history_btn, "кнопка Clear chat history")
+        self.wait_element(self.alert_title, "Clear chat alert")
+        self.click(self.clear_chat_alert_clear_btn, "кнопка Clear")
+        self.wait_element(self.message_field, "поле для текста")
+        self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Удаление группы")
+    def delete_and_leave(self, group_name):
+        self.wait_a_second()
+        self.click(self.delete_and_leave_btn, "кнопка Delete and leave")
+        self.wait_element(self.alert_title, "Delete group alert")
+        self.click(self.delete_channel_alert_delete_btn, "кнопка Delete")
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=group_name).wait_gone(10)
+
+    @allure.step("Вступление в группу '{channel_name}'")
+    def join_a_channel(self, channel_name):
+        self.open_channel(channel_name)
+        self.click_edit_channel()
+        self.swipe_up()
+        self.wait_a_second()
+        if self.get_element(self.join_btn).count > 0:
+            self.click(self.join_btn, "кнопка Join")
+            self.wait_text("Congrats! your are following this channel now!")
+            self.click(self.join_channel_congrats_ok_btn, "кнопка Ок для закрытия всплываши об успешном вступлении")
+
+    @allure.step("Проверка кнопки Report")
+    def checking_report_channel_btn(self):
+        self.wait_a_second()
+        self.click(self.report_channel_btn, "кнопка Report group")
+        self.wait_title_text("Choose a reason")
+
+    @allure.step("Выход из группы")
+    def leave_channel(self, channel_name):
+        self.click(self.leave_channel_btn, "кнопка Leave")
+        self.wait_alert_title("Leave channel?")
+        self.click(self.leave_channel_confirm_btn, "кнопка Leave")
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+        self.click_edit_channel()
+        self.swipe_up()
+        self.wait_element(self.join_btn, "кнопка Join")
+
+    @allure.step("Клик по иконке чата")
+    def click_chat_icon(self):
+        self.click(self.chat_btn, "иконка чата")
+
+    @allure.step("Проверка пустого чата")
+    def checking_empty_chat(self):
+        self.wait_hidden_element(self.message, "сообщения в чате")
