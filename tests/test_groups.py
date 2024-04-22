@@ -5,6 +5,7 @@ from pages.main_page import MainPage
 
 
 @pytest.mark.usefixtures("setup")
+@allure.feature("Группы")
 class TestGroups:
 
     @allure.title("Создание новой приватной группы")
@@ -69,7 +70,7 @@ class TestGroups:
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_groups()
         page.groups.join_a_group(group_name)
-        page.swipe_up(3)
+        page.swipe_up(4)
         page.groups.checking_report_group_btn()
         page.press_back()
         page.groups.leave_group(group_name)
