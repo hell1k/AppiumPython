@@ -99,22 +99,27 @@ class GroupsPage(BasePage):
     def click_edit_group(self):
         self.click(self.d(description="User avatar image"), "аватар пользователя")
 
-    @allure.step("Переход к экрану группы '{group_name}'")
-    def open_group(self, group_name):
-        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]', group_name)
+    @allure.step("Переход к экрану открытой группы '{group_name}'")
+    def open_an_open_group(self, group_name):
+        self.click(
+            f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
+            group_name)
 
-    @allure.step("Переход в группу или создание новой")
-    def open_or_create_group(self):
+    @allure.step("Переход в группу или создание новой открытой группы")
+    def open_or_create_open_group(self):
         self.wait_element(self.group_name_in_list)
         count = self.d(textContains='Test group_').count
 
         if count > 0:
-            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "Test group")]',
-                       'первая группа в списке')
+            self.click(
+                '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]',
+                'первая группа в списке')
             group_name = self.get_text(self.group_card_title)
         else:
             group_name = self.add_new_group()
-            self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]', group_name)
+            self.click(
+                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
+                group_name)
 
         return group_name
 
@@ -197,8 +202,8 @@ class GroupsPage(BasePage):
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=group_name).wait_gone(10)
 
     @allure.step("Вступление в группу '{group_name}'")
-    def join_a_group(self, group_name):
-        self.open_group(group_name)
+    def join_an_open_group(self, group_name):
+        self.open_an_open_group(group_name)
         self.click_edit_group()
         self.swipe_up()
 

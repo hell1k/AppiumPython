@@ -28,7 +28,7 @@ class TestGroups:
     @pytest.mark.groups
     def test_checking_group_elements(self, authorization):
         self.menu.open_groups()
-        group_name = self.groups.open_or_create_group()
+        group_name = self.groups.open_or_create_open_group()
         self.groups.click_edit_group()
         self.groups.add_to_favorite()
         self.groups.checking_more_options()
@@ -46,7 +46,7 @@ class TestGroups:
     @pytest.mark.groups
     def test_checking_user_items(self, authorization):
         self.menu.open_groups()
-        group_name = self.groups.open_or_create_group()
+        group_name = self.groups.open_or_create_open_group()
         self.groups.click_edit_group()
         self.groups.swipe_up(5)
         self.groups.add_admin()
@@ -64,12 +64,12 @@ class TestGroups:
     def test_group_participant(self, authorization):
         page = MainPage()
         page.menu.open_groups()
-        group_name = page.groups.open_or_create_group()
+        group_name = page.groups.open_or_create_open_group()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_groups()
-        page.groups.join_a_group(group_name)
+        page.groups.join_an_open_group(group_name)
         page.swipe_up(4)
         page.groups.checking_report_group_btn()
         page.press_back()
@@ -80,12 +80,12 @@ class TestGroups:
     def test_clear_chat(self, authorization):
         page = MainPage()
         page.menu.open_groups()
-        group_name = page.groups.open_or_create_group()
+        group_name = page.groups.open_or_create_open_group()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_groups()
-        page.groups.join_a_group(group_name)
+        page.groups.join_an_open_group(group_name)
         page.groups.click_chat_icon()
         new_message = faker.text()
         page.groups.send_message(new_message)
