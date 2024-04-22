@@ -23,7 +23,7 @@ class TestGroups:
         group_name = self.groups.add_new_group()
         self.groups.edit_group(group_name)
 
-    @allure.step("Проверка элементов группы при редактировании")
+    @allure.title("Проверка элементов группы при редактировании")
     @pytest.mark.groups
     def test_checking_group_elements(self, authorization):
         self.menu.open_groups()
@@ -41,7 +41,7 @@ class TestGroups:
         self.groups.press_back()
         self.groups.checking_blocked_members()
 
-    @allure.step("Проверка пользовательских элементов группы")
+    @allure.title("Проверка пользовательских элементов группы")
     @pytest.mark.groups
     def test_checking_user_items(self, authorization):
         self.menu.open_groups()
@@ -58,7 +58,7 @@ class TestGroups:
         self.groups.swipe_up(5)
         self.groups.delete_and_leave(group_name)
 
-    @allure.step("Взаимодействие с группой участником группы")
+    @allure.title("Взаимодействие с группой участником группы")
     @pytest.mark.groups
     def test_group_participant(self, authorization):
         page = MainPage()
@@ -74,7 +74,7 @@ class TestGroups:
         page.press_back()
         page.groups.leave_group(group_name)
 
-    @allure.step("Очистка чата администратором")
+    @allure.title("Очистка чата администратором")
     @pytest.mark.groups
     def test_clear_chat(self, authorization):
         page = MainPage()
