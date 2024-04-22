@@ -94,7 +94,7 @@ class TestGroups:
         page.login.logout()
         page.login.authorization()
         page.menu.open_groups()
-        page.groups.open_group(group_name)
+        page.groups.open_an_open_group(group_name)
         page.groups.click_edit_group()
         page.swipe_up(5)
         page.groups.clear_chat_history()
@@ -102,6 +102,6 @@ class TestGroups:
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_groups()
-        page.groups.open_group(group_name)
+        page.groups.open_an_open_group(group_name)
         page.groups.checking_empty_chat()
 
