@@ -26,11 +26,21 @@ text_1000 = 'Social media platforms have become ubiquitous in modern society, tr
             'empowerment, activism, and social change. It facilitates the rapid dissemination of information, amplifies' \
             'marginalized voices, and fosters community-building on a global scale. As we navigate the complexities of' \
             'social media, it is imperative to strike a balance between harnessing its potential for connection and' \
-            'creativity while mitigating its negative impacts on mental health and society.'
+            'creativity while mitigating its negative impacts on mental health and society. MORE THEN 1000 SYMBOLS'
 
-text_250_2 = 'zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba' \
-             ' zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba ' \
-             'zyxwvutsrqponmlkjihgfedcba zyxwvutsrqponmlkjihgfedcba'
+text_1000_2 = 'A textbook is an informative manual or book on a specific subject, systematically designed to provide' \
+                'comprehensive knowledge primarily for educational and instructional purposes.' \
+                'Textbooks fit squarely within the category of informational texts. They aim to disseminate a reliable,' \
+                'expansive pool of knowledge on a given topic, systematically dissecting its every aspect. This focus' \
+                'on detail-oriented, comprehensive coverage sets them apart from other types of text materials.' \
+                'Unlike narrative or argumentative texts, textbooks generally lack a personal perspective or bias.' \
+                'Instead, they prioritize factual, thorough, and well-organized information. A textbook’s primary' \
+                'purpose is to aid in teaching or learning, making them a fixture in academic settings.' \
+                'Real-Life Textbook Example: An example of a prominent textbook is “Gray’s Anatomy”, the go-to' \
+                'reference for human anatomy and physiology. Its reputation stems from extensive, medically accurate' \
+                'content organized for optimal understanding, complete with diagrams, images, and depth explanations.'\
+                'This textbook provides vital support for students and professionals in the medical field. 1000 symbols.'\
+                'More then 1000 symbols.'
 
 test_user_login = 'test86764255@mailforspam.com'
 test_user_password = 'Qq12345678!'

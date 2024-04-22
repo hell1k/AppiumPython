@@ -13,7 +13,6 @@ from pages.profile_page import ProfilePage
 from common.welcome_page import WelcomeActivity
 
 d = u.connect("emulator-5554")
-# d = u.connect("TSBM9L55QWWG4LIR")
 
 
 @allure.step("Запуск приложения")
@@ -51,6 +50,10 @@ def authorization():
     LoginPage().authorization()
     Permission().click_allow()
 
+@pytest.fixture()
+def login():
+    LoginPage().login()
+    Permission().click_allow()
 
 @pytest.fixture()
 def install_app():

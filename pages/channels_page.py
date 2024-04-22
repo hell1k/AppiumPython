@@ -17,13 +17,13 @@ class ChannelsPage(BasePage):
     search_field = "com.yapmap.yapmap:id/search_src_text"
     create_btn = "com.yapmap.yapmap:id/action_create"
     upload_a_picture = "com.yapmap.yapmap:id/photos_field_add_photo_text_view"
-    name_field = "com.yapmap.yapmap:id/yap_input_edit_text_field_edit_text"
-    channel_description = "com.yapmap.yapmap:id/yap_input_edit_text_field_edit_text"
+    name_field = "com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"
+    channel_description = "com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"
     private_switch = '//*[@resource-id="com.yapmap.yapmap:id/is_private_switch"]'
     notification_switch = '//*[@resource-id="com.yapmap.yapmap:id/notifications_on_switch"]'
 
     add_new_group_btn = 'com.yapmap.yapmap:id/action_show_option_menu'
-    description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/yap_input_edit_text_field_input_layout"]'
+    description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     image_loader = '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[1]'
     take_a_picture_btn = 'com.android.camera2:id/bottom_bar'
     take_a_picture_done_btn = '//*[@resource-id="com.android.camera2:id/done_button"]'
@@ -102,7 +102,7 @@ class ChannelsPage(BasePage):
         self.click_edit_channel()
         new_channel_name = 'Test channel_' + str(randint(0, 999999999))
         self.set_text(self.name_field, new_channel_name, "поле Name group")
-        self.set_text(self.description_field, text_250_2, "поле Description")
+        self.set_text(self.description_field, text_1000_2, "поле Description")
         self.click(self.save_btn, "кнопка Save")
         # self.click(self.back_btn, "кнопка Назад")
         self.click(self.d(description="Back"), "кнопка Назад")

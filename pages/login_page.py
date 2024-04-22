@@ -67,6 +67,17 @@ class LoginPage(BasePage):
             self.set_text(self.password_field, '12345678Qq!', "поле Пароль")
         self.click_sign_in()
 
+    @allure.step("Авторизация")
+    def login(self, email=None, password=None):
+        self.click_sign_in()
+        if email is not None and password is not None:
+            self.set_text(self.email_field, email, "поле Почта")
+            self.set_text(self.password_field, password, "поле Пароль")
+        else:
+            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "поле Почта")
+            self.set_text(self.password_field, 'Qwerty1!', "поле Пароль")
+        self.click_sign_in()
+
     @allure.step("Клик по кнопке Регистрация")
     def click_sign_up(self):
         self.click(self.sign_up_btn, 'sign up')
