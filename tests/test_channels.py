@@ -43,6 +43,24 @@ class TestChannels:
         # page.press_back()
         page.channels.checking_blocked_members()
 
+    @allure.step("Проверка элементов приватного канала при редактировании")
+    @pytest.mark.smoke
+    @pytest.mark.channels
+    def test_private_channels_checking_elements(self, login):
+        self.menu.open_channels()
+        page = MainPage()
+        channel_name = page.channels.open_or_create_private_channel()
+        page.channels.click_edit_channel()
+        page.channels.add_to_favorite()
+        page.channels.checking_more_options()
+        page.channels.checking_more_options_private()
+        page.swipe_up(3)
+        page.channels.checking_add_members_btn()
+        page.press_back()
+        # page.channels.checking_members_on_map(channel_name)
+        # page.press_back()
+        page.channels.checking_blocked_members()
+
     @allure.step("Проверка пользовательских элементов канала")
     @pytest.mark.smoke
     @pytest.mark.channels

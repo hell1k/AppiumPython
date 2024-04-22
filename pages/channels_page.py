@@ -137,6 +137,23 @@ class ChannelsPage(BasePage):
                 channel_name)
         return channel_name
 
+    @allure.step("Переход в приватный канал или создание нового")
+    def open_or_create_private_channel(self):
+        self.wait_element(self.channel_name_in_list)
+        count = self.d(textContains='Test channel_').count
+
+        if count > 0:
+            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
+                'перваый канал в списке')
+            time.sleep(5)
+            channel_name = self.d(textContains='Test channel_').get_text()
+        else:
+            channel_name = self.add_new_channel('private')
+            self.click(
+                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{channel_name}"]',
+                channel_name)
+        return channel_name
+
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
@@ -164,6 +181,8 @@ class ChannelsPage(BasePage):
         self.open_more_options("Invite new member")
         self.wait_text("Invite people")
         self.press_back()
+
+    def checking_more_options_private(self):
         self.wait_a_moment()
         self.open_more_options("Pending requests")
         self.wait_text("Pending requests")
