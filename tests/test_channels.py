@@ -11,7 +11,7 @@ class TestChannels:
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_create_new_private_channel(self, login):
+    def test_channels_create_new_private(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel('private')
@@ -20,7 +20,7 @@ class TestChannels:
     @allure.title("Создание нового не приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_create_new_channel(self, login):
+    def test_channels_create_new(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel()
@@ -29,7 +29,7 @@ class TestChannels:
     @allure.step("Проверка элементов канала при редактировании")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_checking_channels_elements(self, login):
+    def test_channels_checking_elements(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
@@ -46,7 +46,7 @@ class TestChannels:
     @allure.step("Проверка пользовательских элементов канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_checking_user_items(self, login):
+    def test_hannels_checking_user_items(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
@@ -80,7 +80,9 @@ class TestChannels:
         page.channels.leave_channel(channel_name)
 
     @allure.step("Очистка чата администратором")
-    def test_clear_chat(self, login):
+    @pytest.mark.smoke
+    @pytest.mark.channels
+    def test_channels_clear_chat(self, login):
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.open_or_create_channel()
