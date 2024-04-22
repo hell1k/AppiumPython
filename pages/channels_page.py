@@ -90,7 +90,7 @@ class ChannelsPage(BasePage):
             self.click(self.private_checkbox, 'чекбокс Private')
 
         self.click(self.create_channel_btn, "кнопка Создать канал")
-        self.wait_element(self.group_name_in_list)
+        self.wait_element(self.channel_name_in_list)
         self.swipe_down()
         self.wait_a_second()
         self.wait_text(channel_name)
@@ -156,3 +156,13 @@ class ChannelsPage(BasePage):
         self.open_more_options("Invite new member")
         self.wait_text("Invite people")
         self.press_back()
+
+    @allure.step("Проверка Add admin")
+    def add_admin(self):
+        self.click(self.add_admin_btn, "кнопка Add admin")
+        self.wait_text("Channel Administrators")
+
+    @allure.step("Проверка Edit members")
+    def edit_members(self):
+        self.click(self.edit_members_btn, "кнопка Edit members")
+        self.wait_text("Select contacts")

@@ -93,7 +93,7 @@ class GroupsPage(BasePage):
         self.click(self.save_btn, "кнопка Save")
         self.click(self.back_btn, "кнопка Назад")
         self.wait_element(self.group_name_in_list)
-        self.wait_text(group_name, f"группа {group_name}")
+        self.wait_text(new_group_name)
 
     @allure.step("Переход на экран редактирования")
     def click_edit_group(self):
@@ -130,7 +130,7 @@ class GroupsPage(BasePage):
     @allure.step("Проверка меню ... в шапке")
     def checking_more_options(self):
         self.open_more_options("Share")
-        self.wait_element(self.share_text, "текст приглашения в группу")
+        self.wait_element(self.share_text)
         self.press_back()
         self.open_more_options("Share to YapMap")
         self.wait_text("Select chat")
