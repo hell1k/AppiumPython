@@ -9,6 +9,7 @@ d = u.connect("emulator-5554")
 
 
 @pytest.mark.usefixtures("setup")
+@allure.feature("Регистрация / Авторизация / Профиль")
 class TestProfile:
 
     @allure.title("Редактирование имени пользователя")

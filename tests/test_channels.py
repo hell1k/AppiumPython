@@ -12,7 +12,7 @@ class TestChannels:
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_create_new_private(self, login):
+    def test_channels_create_new_private(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel('private')
@@ -21,7 +21,7 @@ class TestChannels:
     @allure.title("Создание нового не приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_create_new(self, login):
+    def test_channels_create_new(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel()
@@ -30,7 +30,7 @@ class TestChannels:
     @allure.title("Проверка элементов канала при редактировании")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_checking_elements(self, login):
+    def test_channels_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
@@ -47,7 +47,7 @@ class TestChannels:
     @allure.title("Проверка элементов приватного канала при редактировании")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_private_checking_elements(self, login):
+    def test_channels_private_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_private_channel()
@@ -65,7 +65,7 @@ class TestChannels:
     @allure.title("Проверка пользовательских элементов канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_checking_user_items(self, login):
+    def test_channels_checking_user_items(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
@@ -84,7 +84,7 @@ class TestChannels:
     @allure.title("Взаимодействие с группой участником канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_participant(self, login):
+    def test_channels_participant(self, authorization):
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.open_or_create_channel()
@@ -101,7 +101,7 @@ class TestChannels:
     @allure.title("Очистка чата администратором")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_clear_chat(self, login):
+    def test_channels_clear_chat(self, authorization):
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.open_or_create_channel()
