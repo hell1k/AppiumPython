@@ -49,7 +49,7 @@ class TestChannels:
     def test_channels_private_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
-        channel_name = page.channels.open_or_create_channel()
+        channel_name = page.channels.open_or_create_private_channel()
         page.channels.click_edit_channel()
         page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()
@@ -91,7 +91,7 @@ class TestChannels:
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
         page.channels.join_a_channel(channel_name)
-        page.swipe_to_element(page.channels.report_channel_btn)
+        page.swipe_to_element(page.channels.leave_channel_btn)
         page.channels.checking_report_channel_btn()
         page.press_back()
         page.channels.leave_channel(channel_name)
