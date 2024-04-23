@@ -262,11 +262,12 @@ class ChannelsPage(BasePage):
     @allure.step("Проверка кнопки Report")
     def checking_report_channel_btn(self):
         self.wait_a_second()
-        self.click(self.report_channel_btn, "кнопка Report group")
+        self.click(self.report_channel_btn, "кнопка Report channel")
         self.wait_title_text("Choose a reason")
 
     @allure.step("Выход из группы")
     def leave_channel(self, channel_name):
+        self.wait_a_second()
         self.click(self.leave_channel_btn, "кнопка Leave")
         self.wait_alert_title("Leave channel?")
         self.click(self.leave_channel_confirm_btn, "кнопка Leave")
