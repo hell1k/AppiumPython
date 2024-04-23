@@ -12,7 +12,7 @@ class TestChannels:
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_create_new_private(self, login):
+    def test_channels_create_new_private(self, authorization):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel('private')
@@ -33,7 +33,9 @@ class TestChannels:
     def test_channels_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
+        channel_name = page.channels.open_or_create_channel()
         page.channels.click_edit_channel()
+        page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()
         page.channels.checking_more_options()
         page.swipe_to_element(page.channels.add_members_btn)
@@ -47,7 +49,9 @@ class TestChannels:
     def test_channels_private_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
+        channel_name = page.channels.open_or_create_channel()
         page.channels.click_edit_channel()
+        page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()
         page.channels.checking_more_options()
         page.channels.checking_more_options_private()

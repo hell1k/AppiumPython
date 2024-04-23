@@ -76,11 +76,8 @@ class ChannelsPage(BasePage):
     def add_new_channel(self, is_private=None):
         channel_name = 'Test channel_' + str(randint(0, 999999999))
         self.click(self.add_new_channel_btn, "добавить новый канал")
-        self.set_text(self.name_field, channel_name_120, "поле Channel Name")
-        self.get_text(self.limit_channel_name) == '120/120'
         self.set_text(self.name_field, channel_name, "поле Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
-        self.get_text(self.limit_channel_name) == '22/120'
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
@@ -284,3 +281,10 @@ class ChannelsPage(BasePage):
     @allure.step("Проверка пустого чата")
     def checking_empty_chat(self):
         self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Проверка лимита поля Название канала")
+    def checking_channel_name_limit(self, channel_name):
+        self.set_text(self.name_field, channel_name_120, "Name channel")
+        self.wait_element(self.limit_channel_name, "лимит 120/120")
+        self.set_text(self.name_field, channel_name, "Name channel")
+
