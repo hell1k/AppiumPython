@@ -13,9 +13,9 @@ class ProfilePage(BasePage):
     menu = Menu()
 
     edit_profile_icon = "com.yapmap.yapmap:id/edit_view"
-    first_name_field = '//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]'
-    last_name_field = '//*[@resource-id="com.yapmap.yapmap:id/last_name_field"]'
-    nickname_field = '//*[@resource-id="com.yapmap.yapmap:id/nickname_field"]'
+    first_name_field = '//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
+    last_name_field = '//*[@resource-id="com.yapmap.yapmap:id/last_name_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
+    nickname_field = '//*[@resource-id="com.yapmap.yapmap:id/nickname_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     save_btn = "com.yapmap.yapmap:id/action_show_option_menu"
     first_name_view = "com.yapmap.yapmap:id/first_name_text_view"
     last_name_view = "com.yapmap.yapmap:id/last_name_text_view"
@@ -28,7 +28,7 @@ class ProfilePage(BasePage):
     date_field = '//*[@resource-id="com.yapmap.yapmap:id/dob_field"]'
     date_ok = '//*[@resource-id="android:id/button1"]'
     date_cancel = '//*[@resource-id="android:id/button2"]'
-    back_btn = '//*[@content-desc="Back"]'
+    back_btn = '//*[@resource-id="com.yapmap.yapmap:id/toolbar"]//android.widget.ImageButton'
     unsaved_changes_notification = '//*[@resource-id="com.yapmap.yapmap:id/title_text_view" and @text="Unsaved changes"]'
     cancel_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_button" and @text="CANCEL"]'
     no_changes_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_accented_button" and @text="NO"]'
@@ -38,6 +38,9 @@ class ProfilePage(BasePage):
     status_orientation_view = '//*[@resource-id="com.yapmap.yapmap:id/status_orientation_text_view"]'
     first_name_error_length = '//*[@text="First Name must be no more than 50 characters"]'
     last_name_error_length = '//*[@text="Last Name must be no more than 50 characters"]'
+    first_name_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
+    last_name_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/last_name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
+    nickname_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/nickname_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
 
     @allure.step("Редактирование данных профиля: Имя, Фамилия, Ник")
     def edit_profile_fields(self):
@@ -179,20 +182,28 @@ class ProfilePage(BasePage):
     def checking_data_fields(self, field_name, field_list):
         self.open_profile_data(field_name)
         for i in range(len(field_list)):
-            if len(field_list) > 10 and i > 0 and i % 4 == 0:
-                self.swipe_up()
-                self.wait_a_second()
-            self.checking_exists_element(self.get_profile_data_title(field_list[i]), field_list[i])
+            self.swipe_to_element(self.get_profile_data_title(field_list[i]))
+        # for i in range(len(field_list)):
+        #     if len(field_list) > 10 and (i > 0 and i % 8 == 0):
+        #         self.swipe_up()
+        #         self.wait_a_second()
+        #     self.wait_element(self.get_profile_data_title(field_list[i]), field_list[i])
         self.press_back()
 
     @allure.step("Проверка длины поля First name")
     def checking_first_name_length(self):
         self.set_text(self.first_name_field, faker.text(), 'long text...')
         self.wait_a_second()
-        self.checking_exists_element(self.first_name_error_length, "ошибка длины поля First name")
+        self.wait_element(self.first_name_limit_fields, "лимит 20/20")
 
     @allure.step("Проверка длины поля Last name")
     def checking_last_name_length(self):
         self.set_text(self.last_name_field, faker.text(), 'long text...')
         self.wait_a_second()
-        self.checking_exists_element(self.last_name_error_length, "ошибка длины поля Last name")
+        self.wait_element(self.last_name_limit_fields, "лимит 20/20")
+
+    @allure.step("Проверка длины поля Nickname")
+    def checking_nickname_length(self):
+        self.set_text(self.nickname_field, faker.text(), 'long text...')
+        self.wait_a_second()
+        self.wait_element(self.nickname_limit_fields, "лимит 20/20")

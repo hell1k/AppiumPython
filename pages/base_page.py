@@ -91,6 +91,16 @@ class BasePage:
         self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 4, self.d.window_size()[0] / 2,
                      self.d.window_size()[1] / 2)
 
+    # @allure.step("Свайп к элементу")
+    def swipe_to_element(self, locator):
+        for i in range(10):
+            if self.get_elements_amount(locator) == 0:
+                self.swipe_up()
+                self.wait_a_moment()
+            else:
+                self.wait_element(locator)
+                break
+
     # @allure.step("Ожидание элемента")
     def wait_element(self, locator, element_name=None):
         if element_name is not None:
@@ -157,3 +167,10 @@ class BasePage:
     def wait_title_text(self, title):
         assert self.d(resourceId='com.yapmap.yapmap:id/title_text_view',
                       textContains=f'{title}').wait(10) == True, print(f"Отсутствует заголовок {title}")
+
+    # @allure.step("Получение количества элементов")
+    def get_elements_amount(self, locator):
+        if locator[0] == '/' and locator[1] == '/':
+            return len(self.get_element(locator).all())
+        else:
+            return self.get_element(locator).count

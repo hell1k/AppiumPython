@@ -53,6 +53,7 @@ class TestProfile:
         self.profile.click_edit_profile()
         self.profile.checking_first_name_length()
         self.profile.checking_last_name_length()
+        self.profile.checking_nickname_length()
         self.profile.checking_data_fields('Gender', ('Male', 'Female'))
         self.profile.checking_data_fields('Status', ('Single', 'Married', 'Divorced', 'Widowed', 'Complicated'))
         self.profile.swipe_up()
