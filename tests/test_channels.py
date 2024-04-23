@@ -6,6 +6,7 @@ from pages.main_page import MainPage
 
 
 @pytest.mark.usefixtures("setup")
+@allure.feature("Канал")
 class TestChannels:
 
     @allure.title("Создание нового приватного канала")
@@ -26,7 +27,7 @@ class TestChannels:
         channel_name = page.channels.add_new_channel()
         page.channels.edit_channel(channel_name)
 
-    @allure.step("Проверка элементов канала при редактировании")
+    @allure.title("Проверка элементов канала при редактировании")
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_checking_elements(self, login):
@@ -43,10 +44,10 @@ class TestChannels:
         # page.press_back()
         page.channels.checking_blocked_members()
 
-    @allure.step("Проверка элементов приватного канала при редактировании")
+    @allure.title("Проверка элементов приватного канала при редактировании")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_private_channels_checking_elements(self, login):
+    def test_channels_private_checking_elements(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_private_channel()
@@ -61,10 +62,10 @@ class TestChannels:
         # page.press_back()
         page.channels.checking_blocked_members()
 
-    @allure.step("Проверка пользовательских элементов канала")
+    @allure.title("Проверка пользовательских элементов канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_hannels_checking_user_items(self, login):
+    def test_channels_checking_user_items(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
@@ -80,7 +81,7 @@ class TestChannels:
         page.channels.swipe_up(3)
         page.channels.delete_and_leave(channel_name)
 
-    @allure.step("Взаимодействие с группой участником канала")
+    @allure.title("Взаимодействие с группой участником канала")
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_participant(self, login):
@@ -97,7 +98,7 @@ class TestChannels:
         page.press_back()
         page.channels.leave_channel(channel_name)
 
-    @allure.step("Очистка чата администратором")
+    @allure.title("Очистка чата администратором")
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_clear_chat(self, login):
