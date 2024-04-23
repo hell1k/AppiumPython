@@ -31,6 +31,7 @@ class TestGroups:
         self.menu.open_groups()
         group_name = self.groups.open_or_create_open_group()
         self.groups.click_edit_group()
+        self.groups.checking_group_name_limit(group_name)
         self.groups.add_to_favorite()
         self.groups.checking_more_options()
         self.groups.checking_chat_btn()

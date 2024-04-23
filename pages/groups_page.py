@@ -57,6 +57,7 @@ class GroupsPage(BasePage):
     report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
     leave_group_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
     leave_group_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
+    name_field_limit = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="120/120"]'
 
     @allure.step("Добавление новой группы")
     def add_new_group(self, is_private=None):
@@ -108,7 +109,7 @@ class GroupsPage(BasePage):
     @allure.step("Переход в группу или создание новой открытой группы")
     def open_or_create_open_group(self):
         self.wait_element(self.group_name_in_list)
-        count = self.d(textContains='Test group_').count
+        count = len(self.d.xpath('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]').all())
 
         if count > 0:
             self.click(
@@ -234,3 +235,9 @@ class GroupsPage(BasePage):
     @allure.step("Проверка пустого чата")
     def checking_empty_chat(self):
         self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Проверка лимита поля Название группы")
+    def checking_group_name_limit(self, group_name):
+        self.set_text(self.name_field, text_250, "Name group")
+        self.wait_element(self.name_field_limit, "лимит 120/120")
+        self.set_text(self.name_field, group_name, "Name group")
