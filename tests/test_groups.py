@@ -27,7 +27,7 @@ class TestGroups:
     @allure.title("Проверка элементов группы при редактировании")
     @pytest.mark.smoke
     @pytest.mark.groups
-    def test_checking_group_elements(self, authorization):
+    def test_checking_group_elements(self, login):
         self.menu.open_groups()
         group_name = self.groups.open_or_create_open_group()
         self.groups.click_edit_group()
