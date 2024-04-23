@@ -12,7 +12,7 @@ class TestChannels:
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_create_new_private(self, authorization):
+    def test_channels_create_new_private(self, login):
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel('private')

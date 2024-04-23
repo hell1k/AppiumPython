@@ -70,13 +70,17 @@ class ChannelsPage(BasePage):
     leave_channel_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     create_channel_btn = '//android.widget.Button'
+    limit_channel_name = "com.yapmap.yapmap:id/limit_text_view"
 
     @allure.step("Добавление нового канала")
     def add_new_channel(self, is_private=None):
         channel_name = 'Test channel_' + str(randint(0, 999999999))
         self.click(self.add_new_channel_btn, "добавить новый канал")
+        self.set_text(self.name_field, channel_name_120, "поле Channel Name")
+        self.get_text(self.limit_channel_name) == '120/120'
         self.set_text(self.name_field, channel_name, "поле Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
+        self.get_text(self.limit_channel_name) == '22/120'
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
