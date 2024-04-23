@@ -218,6 +218,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка Blocked members")
     def checking_blocked_members(self):
+        self.wait_a_moment()
         self.click(self.blocked_members_btn, "кнопка Blocked members")
         self.wait_text("Blocked users")
 
