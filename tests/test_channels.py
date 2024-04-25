@@ -33,7 +33,8 @@ class TestChannels:
     def test_channels_checking_elements(self, authorization):
         self.menu.open_channels()
         page = MainPage()
-        channel_name = page.channels.open_or_create_channel()
+        channel_name = page.channels.add_new_channel()
+        page.channels.open_channel(channel_name)
         page.channels.click_edit_channel()
         page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()
@@ -66,7 +67,8 @@ class TestChannels:
     def test_channels_checking_user_items(self, authorization):
         self.menu.open_channels()
         page = MainPage()
-        channel_name = page.channels.open_or_create_channel()
+        channel_name = page.channels.add_new_channel()
+        page.channels.open_channel(channel_name)
         page.channels.click_edit_channel()
         page.channels.add_admin()
         page.channels.press_back()
@@ -84,8 +86,8 @@ class TestChannels:
     def test_channels_participant(self, authorization):
         page = MainPage()
         page.menu.open_channels()
-        channel_name = page.channels.open_or_create_channel()
-        page.press_back()
+        channel_name = page.channels.add_new_channel()
+        # page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
@@ -101,7 +103,8 @@ class TestChannels:
     def test_channels_clear_chat(self, authorization):
         page = MainPage()
         page.menu.open_channels()
-        channel_name = page.channels.open_or_create_channel()
+        channel_name = page.channels.add_new_channel()
+        page.channels.open_channel(channel_name)
         new_message = faker.text()
         page.channels.send_message(new_message)
         page.channels.click_edit_channel()

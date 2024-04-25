@@ -68,7 +68,7 @@ class TestGroups:
     def test_group_participant(self, authorization):
         page = MainPage()
         page.menu.open_groups()
-        group_name = page.groups.open_or_create_open_group()
+        group_name = page.groups.add_new_group()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
@@ -85,7 +85,7 @@ class TestGroups:
     def test_clear_chat(self, authorization):
         page = MainPage()
         page.menu.open_groups()
-        group_name = page.groups.open_or_create_open_group()
+        group_name = page.groups.add_new_group()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
