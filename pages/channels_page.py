@@ -274,7 +274,7 @@ class ChannelsPage(BasePage):
         self.click(self.leave_channel_confirm_btn, "кнопка Leave")
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.click_edit_channel()
-        self.swipe_up()
+        self.swipe_to_element(self.join_btn)
         self.wait_element(self.join_btn, "кнопка Join")
 
     @allure.step("Клик по иконке чата")
