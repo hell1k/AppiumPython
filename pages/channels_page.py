@@ -252,9 +252,10 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.open_channel(channel_name)
         self.click_edit_channel()
-        self.swipe_up()
+        self.swipe_to_element(self.join_btn)
         self.wait_a_second()
         if self.get_element(self.join_btn).count > 0:
+            self.wait_a_second()
             self.click(self.join_btn, "кнопка Join")
             self.wait_text("Congrats! your are following this channel now!")
             self.click(self.join_channel_congrats_ok_btn, "кнопка Ок для закрытия всплываши об успешном вступлении")
