@@ -48,6 +48,7 @@ class TestProfile:
 
     @allure.title("Проверка данных в полях профиля")
     @pytest.mark.smoke
+    @pytest.mark.profile
     def test_profile_data_fields(self, authorization):
         self.menu.open_profile()
         self.profile.click_edit_profile()
@@ -68,3 +69,17 @@ class TestProfile:
                                                      'Caucasian race/white race', 'Malayan/brown race',
                                                      'Ethiopid/black race', 'Mongolian/yellow race'))
         self.profile.checking_data_fields('Status', ('Single', 'Married', 'Divorced', 'Widowed', 'Complicated'))
+
+    @allure.title("Проверка элементов экрана Профиль")
+    @pytest.mark.smoke
+    @pytest.mark.profile
+    def test_profile_elements(self, login):
+        self.menu.open_profile()
+        self.profile.checking_profile_elements()
+
+    @allure.title("Проверка отдельных элементов экрана Профиль")
+    @pytest.mark.smoke
+    @pytest.mark.profile
+    def test_profile_other_elements(self, login):
+        self.menu.open_profile()
+        self.profile.checking_profile_other_elements()

@@ -1,6 +1,7 @@
 import random
 
 import allure
+import pytest
 from faker import Faker
 
 from pages.base_page import BasePage
@@ -41,6 +42,26 @@ class ProfilePage(BasePage):
     first_name_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/first_name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
     last_name_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/last_name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
     nickname_limit_fields = '//*[@resource-id="com.yapmap.yapmap:id/nickname_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="20/20"]'
+    group_btn_in_profile = '//*[@resource-id="com.yapmap.yapmap:id/my_groups_view" and "@text="Groups"]'
+    events_btn_in_profile = '//*[@text="Events"]'
+    business_btn_in_profile = '//*[@text="Business"]'
+    social_networks_btn_in_profile = '//*[@text="Social networks"]'
+    purchase_history_btn_in_profile = '//*[@text="Purchase history"]'
+    dating_networks_btn_in_profile = '//*[@text="Dating"]'
+    market_btn_in_profile = '//*[@text="Market"]'
+    pending_requests_btn_in_profile = '//*[@text="Pending requests"]'
+    favorites_btn_in_profile = '//*[@text="Favorites"]'
+    ads_manager_btn_in_profile = '//*[@text="Ads manager"]'
+    wish_list_btn_in_profile = '//*[@text="Wish list"]'
+    channels_btn_in_profile = '//*[@text="Channels"]'
+    jobs_btn_in_profile = '//*[@text="Jobs"]'
+    pets_btn_in_profile = '//*[@text="Pets"]'
+    places_to_visit_btn_in_profile = '//*[@text="Places to Visit"]'
+    blocked_users_btn_in_profile = '//*[@text="Blocked users"]'
+    settings_btn_in_profile = '//*[@text="Settings"]'
+    about_btn_in_profile = '//*[@text="About"]'
+    report_a_bug_btn_in_profile = '//*[@text="Report a bug"]'
+    back_btn_2 = '//*[@resource-id="com.yapmap.yapmap:id/back"]/..'
 
     @allure.step("Редактирование данных профиля: Имя, Фамилия, Ник")
     def edit_profile_fields(self):
@@ -207,3 +228,32 @@ class ProfilePage(BasePage):
         self.set_text(self.nickname_field, faker.text(), 'long text...')
         self.wait_a_second()
         self.wait_element(self.nickname_limit_fields, "лимит 20/20")
+
+    @allure.step("Проверка переходов в разделы из Профиля")
+    def checking_profile_elements(self):
+        elements = ['Events', 'Business', 'Social networks', 'Purchase history', 'Dating', 'Market',
+                    'Favorites', 'Wish list', 'Jobs', 'Pets', 'Places to Visit',
+                    'Blocked users', 'Settings', 'About']
+        for element in elements:
+            self.swipe_to_element(f'//*[@text="{element}"]')
+            self.click(f'//*[@text="{element}"]')
+            self.wait_text(element)
+            self.wait_a_second()
+            self.click_back()
+            self.wait_a_second()
+
+    @allure.step("Проверка переходов в разделы из Профиля")
+    def checking_profile_other_elements(self):
+        self.swipe_to_element(self.group_btn_in_profile)
+        self.click(self.group_btn_in_profile)
+        self.wait_text('Groups')
+        self.click_back()
+        self.swipe_to_element(self.pending_requests_btn_in_profile)
+        self.click(self.pending_requests_btn_in_profile)
+        self.click(self.back_btn_2)
+        self.wait_a_second()
+        self.swipe_to_element(self.channels_btn_in_profile)
+        self.click(self.channels_btn_in_profile)
+        self.wait_text('Channels')
+        self.click_back()
+        self.wait_a_second()
