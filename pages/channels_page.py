@@ -191,6 +191,8 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка Add admin")
     def add_admin(self):
+        self.swipe_to_element(self.add_admin_btn)
+        self.wait_a_second()
         self.click(self.add_admin_btn, "кнопка Add admin")
         self.wait_text("Channel Administrators")
 
@@ -275,6 +277,7 @@ class ChannelsPage(BasePage):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.click_edit_channel()
         self.swipe_to_element(self.join_btn)
+        self.wait_a_second()
         self.wait_element(self.join_btn, "кнопка Join")
 
     @allure.step("Клик по иконке чата")

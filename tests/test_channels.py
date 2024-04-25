@@ -68,7 +68,6 @@ class TestChannels:
         page = MainPage()
         channel_name = page.channels.open_or_create_channel()
         page.channels.click_edit_channel()
-        page.channels.swipe_up(5)
         page.channels.add_admin()
         page.channels.press_back()
         page.channels.edit_members()
