@@ -13,6 +13,7 @@ class TestChannels:
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_create_new_private(self, authorization):
+
         self.menu.open_channels()
         page = MainPage()
         channel_name = page.channels.add_new_channel('private')
@@ -117,3 +118,19 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         page.channels.checking_empty_chat()
 
+    @allure.title("Очистка чата администратором")
+    @pytest.mark.smoke
+    @pytest.mark.channels
+    def test_channels_comment(self, login):
+        page = MainPage()
+        page.menu.open_channels()
+        channel_name = page.channels.add_new_channel()
+        page.channels.open_channel(channel_name)
+        new_message = faker.text()
+        page.channels.send_message(new_message)
+        page.press_back()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.menu.open_channels()
+        page.channels.open_channel(channel_name)
+        # page.channels.checking_empty_chat()
