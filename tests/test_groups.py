@@ -29,7 +29,8 @@ class TestGroups:
     @pytest.mark.groups
     def test_checking_group_elements(self, authorization):
         self.menu.open_groups()
-        group_name = self.groups.open_or_create_open_group()
+        group_name = self.groups.add_new_group()
+        self.groups.open_an_open_group(group_name)
         self.groups.click_edit_group()
         self.groups.checking_group_name_limit(group_name)
         self.groups.add_to_favorite()
@@ -49,7 +50,8 @@ class TestGroups:
     @pytest.mark.groups
     def test_checking_user_items(self, authorization):
         self.menu.open_groups()
-        group_name = self.groups.open_or_create_open_group()
+        group_name = self.groups.add_new_group()
+        self.groups.open_an_open_group(group_name)
         self.groups.click_edit_group()
         self.groups.swipe_up(5)
         self.groups.add_admin()

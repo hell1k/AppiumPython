@@ -118,7 +118,7 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         page.channels.checking_empty_chat()
 
-    @allure.title("Очистка чата администратором")
+    @allure.title("Проверка комментария к сообщению в канале")
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_comment(self, login):
@@ -128,9 +128,12 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         new_message = faker.text()
         page.channels.send_message(new_message)
+        page.channels.checking_channel_comment()
+        page.press_back()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
         page.channels.open_channel(channel_name)
+        page.channels.checking_channel_comment()
         # page.channels.checking_empty_chat()

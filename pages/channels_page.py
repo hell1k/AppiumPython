@@ -52,7 +52,7 @@ class ChannelsPage(BasePage):
     map_view = 'com.yapmap.yapmap:id/map_container_view'
     blocked_members_btn = 'com.yapmap.yapmap:id/blocked_members_button'
     blocked_comments_members_btn = 'com.yapmap.yapmap:id/show_banned_members_button'
-    group_card_title = 'com.yapmap.yapmap:id/title_text_view'
+    channel_bottom_sheet_title = 'com.yapmap.yapmap:id/title_text_view'
     add_admin_btn = 'com.yapmap.yapmap:id/edit_admins_text_view'
     edit_members_btn = 'com.yapmap.yapmap:id/edit_members_text_view'
     clear_chat_history_btn = 'com.yapmap.yapmap:id/clear_chat_history_button'
@@ -71,6 +71,10 @@ class ChannelsPage(BasePage):
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     create_channel_btn = '//android.widget.Button'
     limit_channel_name = "com.yapmap.yapmap:id/limit_text_view"
+
+    comment_button = "com.yapmap.yapmap:id/comment_button"
+    x_btn_bottom_sheets = '//*[@content-desc="Close"]'
+
 
     @allure.step("Добавление нового канала")
     def add_new_channel(self, is_private=None):
@@ -117,7 +121,7 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.click(self.d(description="Channel avatar"), "аватар канала")
 
-    @allure.step("Переход к экрану группы '{channel_name}'")
+    @allure.step("Переход к экрану канала '{channel_name}'")
     def open_channel(self, channel_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
 
@@ -227,6 +231,7 @@ class ChannelsPage(BasePage):
     @allure.step("Отправка в чат сообщения '{message}'")
     def send_message(self, message):
         self.set_text(self.message_field, message, "сообщение")
+        self.wait_a_second()
         self.click(self.send_message_btn, "кнопка отправки сообщения")
         self.wait_a_second()
         self.wait_a_second()
@@ -293,4 +298,22 @@ class ChannelsPage(BasePage):
         self.set_text(self.name_field, channel_name_120, "Name channel")
         self.wait_element(self.limit_channel_name, "лимит 120/120")
         self.set_text(self.name_field, channel_name, "Name channel")
+
+    @allure.step("Проверка комментария к сообщению в канале")
+    def checking_channel_comment(self):
+        self.wait_element(self.comment_button)
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_element(self.channel_bottom_sheet_title)
+        assert self.get_text(self.channel_bottom_sheet_title) == 'Comments'
+        new_message = faker.text()
+        self.send_message(new_message)
+        self.wait_text('Discussion started')
+        self.click(self.x_btn_bottom_sheets)
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_text(new_message)
+
+
+
+
+
 
