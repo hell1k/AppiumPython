@@ -204,6 +204,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка Edit members")
     def edit_members(self):
+        self.swipe_to_element(self.edit_members_btn)
         self.click(self.edit_members_btn, "кнопка Edit members")
         self.wait_text("Select contacts")
 
