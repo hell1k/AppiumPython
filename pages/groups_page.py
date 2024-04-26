@@ -58,6 +58,7 @@ class GroupsPage(BasePage):
     leave_group_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
     leave_group_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
     name_field_limit = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="120/120"]'
+    popup_yes = '//*[@text="YES"]'
 
     @allure.step("Добавление новой группы")
     def add_new_group(self, is_private=None):
@@ -177,11 +178,13 @@ class GroupsPage(BasePage):
 
     @allure.step("Проверка Add admin")
     def add_admin(self):
+        self.swipe_to_element(self.add_admin_btn)
         self.click(self.add_admin_btn, "кнопка Add admin")
         self.wait_text("Group administrators")
 
     @allure.step("Проверка Edit members")
     def edit_members(self):
+        self.swipe_to_element(self.edit_members_btn)
         self.click(self.edit_members_btn, "кнопка Edit members")
         self.wait_text("Select contacts")
 
@@ -195,6 +198,8 @@ class GroupsPage(BasePage):
 
     @allure.step("Очистка чата")
     def clear_chat_history(self):
+        self.swipe_to_element(self.clear_chat_history_btn)
+        self.wait_a_second()
         self.click(self.clear_chat_history_btn, "кнопка Clear chat history")
         self.wait_element(self.alert_title, "Clear chat alert")
         self.click(self.clear_chat_alert_clear_btn, "кнопка Clear")
@@ -203,6 +208,7 @@ class GroupsPage(BasePage):
 
     @allure.step("Удаление группы")
     def delete_and_leave(self, group_name):
+        self.swipe_to_element(self.delete_and_leave_btn)
         self.click(self.delete_and_leave_btn, "кнопка Delete and leave")
         self.wait_element(self.alert_title, "Delete group alert")
         self.click(self.delete_group_alert_delete_btn, "кнопка Delete")
@@ -221,6 +227,7 @@ class GroupsPage(BasePage):
 
     @allure.step("Проверка кнопки Report")
     def checking_report_group_btn(self):
+        self.swipe_to_element(self.report_group_btn)
         self.click(self.report_group_btn, "кнопка Report group")
         self.wait_title_text("Choose a reason")
 
@@ -247,3 +254,9 @@ class GroupsPage(BasePage):
         self.set_text(self.name_field, text_250, "Name group")
         self.wait_element(self.name_field_limit, "лимит 120/120")
         self.set_text(self.name_field, group_name, "Name group")
+
+    @allure.step("Сохранить изменения (pop up)")
+    def click_yes_popup(self):
+        self.wait_text('Unsaved changes')
+        self.click('//*[@text="YES"]')
+        self.wait_a_second()

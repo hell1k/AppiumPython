@@ -33,7 +33,6 @@ class ChannelsPage(BasePage):
     channel_name_in_list = 'com.yapmap.yapmap:id/name_text_view'
     save_btn = 'com.yapmap.yapmap:id/action_save'
     back_btn = 'com.yapmap.yapmap:id/back'
-    # back_btn = 'com.yapmap.yapmap:id/back'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
     more_options = '//*[@content-desc="More options"]'
     more_options_share = '//*[@text="Share"]'
@@ -71,10 +70,12 @@ class ChannelsPage(BasePage):
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     create_channel_btn = '//android.widget.Button'
     limit_channel_name = "com.yapmap.yapmap:id/limit_text_view"
-
+    'com.yapmap.yapmap:id/picture_view'
     comment_button = "com.yapmap.yapmap:id/comment_button"
     x_btn_bottom_sheets = '//*[@content-desc="Close"]'
 
+    def click_back_btn(self):
+        self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Добавление нового канала")
     def add_new_channel(self, is_private=None):
@@ -111,7 +112,6 @@ class ChannelsPage(BasePage):
         self.set_text(self.name_field, new_channel_name, "поле Name group")
         self.set_text(self.description_field, text_1000_2, "поле Description")
         self.click(self.save_btn, "кнопка Save")
-        # self.click(self.back_btn, "кнопка Назад")
         self.click(self.d(description="Back"), "кнопка Назад")
         self.wait_element(self.channel_name_in_list)
         self.wait_text(new_channel_name)
@@ -131,7 +131,8 @@ class ChannelsPage(BasePage):
         count = self.d(textContains='Test channel_').count
 
         if count > 0:
-            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
+            self.click(
+                '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
                 'перваый канал в списке')
             time.sleep(5)
             channel_name = self.d(textContains='Test channel_').get_text()
@@ -148,7 +149,8 @@ class ChannelsPage(BasePage):
         count = self.d(textContains='Test channel_').count
 
         if count > 0:
-            self.click('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
+            self.click(
+                '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
                 'перваый канал в списке')
             time.sleep(5)
             channel_name = self.d(textContains='Test channel_').get_text()
@@ -258,6 +260,9 @@ class ChannelsPage(BasePage):
     def join_a_channel(self, channel_name):
         self.wait_a_second()
         self.open_channel(channel_name)
+        self.join_channel()
+
+    def join_channel(self):
         self.click_edit_channel()
         self.swipe_to_element(self.join_btn)
         self.wait_a_second()
@@ -315,8 +320,6 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка комментария к сообщению в канале")
     def checking_channel_comment_member(self, comment):
-        # self.wait_element(self.comment_button)
-
         self.wait_a_second()
         self.click(self.comment_button, 'кнопка Comment')
         self.wait_element(self.channel_bottom_sheet_title)
@@ -324,17 +327,8 @@ class ChannelsPage(BasePage):
         self.wait_text(comment)
         self.wait_hidden_element(self.message_field)
         self.click(self.x_btn_bottom_sheets)
-        self.click(self.edit_channel)
-        self.swipe_to_element(self.join_btn)
-        self.click(self.join_btn)
-        self.click(self.join_channel_congrats_ok_btn)
-        self.click(self.back_btn)
-        self.wait_text(comment)
+        self.join_channel()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.click_back_btn()
         self.checking_channel_comment()
-
-
-
-
-
-
-

@@ -203,7 +203,7 @@ class LoginPage(BasePage):
     @allure.step("Логаут")
     def logout(self):
         self.menu.open_profile()
-        self.swipe_up(6)
+        self.swipe_to_element(self.logout_btn)
         self.wait_a_second()
         self.click(self.logout_btn, "кнопка Log out")
         self.wait_element(self.logout_alert, "logout alert")

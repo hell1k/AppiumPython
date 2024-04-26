@@ -89,7 +89,6 @@ class TestChannels:
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.add_new_channel()
-        # page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
@@ -122,7 +121,7 @@ class TestChannels:
     @allure.title("Проверка комментария к сообщению в канале")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_channels_comment(self, login):
+    def test_channels_comment(self, authorization):
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.add_new_channel()
@@ -137,4 +136,4 @@ class TestChannels:
         page.menu.open_channels()
         page.channels.open_channel(channel_name)
         page.channels.checking_channel_comment_member(comment)
-        print('yra')
+
