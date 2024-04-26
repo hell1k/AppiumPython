@@ -73,13 +73,13 @@ class TestProfile:
     @allure.title("Проверка элементов экрана Профиль")
     @pytest.mark.smoke
     @pytest.mark.profile
-    def test_profile_elements(self, login):
+    def test_profile_elements(self, authorization):
         self.menu.open_profile()
         self.profile.checking_profile_elements()
 
     @allure.title("Проверка отдельных элементов экрана Профиль")
     @pytest.mark.smoke
     @pytest.mark.profile
-    def test_profile_other_elements(self, login):
+    def test_profile_other_elements(self, authorization):
         self.menu.open_profile()
         self.profile.checking_profile_other_elements()
