@@ -332,3 +332,9 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.click_back_btn()
         self.checking_channel_comment()
+
+    @allure.step("Сохранить изменения (pop up)")
+    def click_yes_popup(self):
+        self.wait_text('Unsaved changes')
+        self.click('//*[@text="YES"]')
+        self.wait_a_second()
