@@ -12,6 +12,7 @@ class TestChannels:
     @allure.title("Создание нового приватного канала")
     @pytest.mark.smoke
     @pytest.mark.channels
+    @pytest.mark.demo
     def test_channels_create_new_private(self, authorization):
 
         self.menu.open_channels()
@@ -128,12 +129,12 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         new_message = faker.text()
         page.channels.send_message(new_message)
-        page.channels.checking_channel_comment()
+        comment = page.channels.checking_channel_comment()
         page.press_back()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
         page.channels.open_channel(channel_name)
-        page.channels.checking_channel_comment()
-        # page.channels.checking_empty_chat()
+        page.channels.checking_channel_comment_member(comment)
+        print('yra')

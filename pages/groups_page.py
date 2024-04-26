@@ -87,11 +87,13 @@ class GroupsPage(BasePage):
     @allure.step("Редактирование группы '{group_name}'")
     def edit_group(self, group_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]', group_name)
+        self.wait_a_second()
         self.click_edit_group()
         new_group_name = 'Test group_' + str(randint(0, 999999999))
         self.set_text(self.name_field, new_group_name, "поле Name group")
         self.set_text(self.description_field, text_250_2, "поле Description")
         self.click(self.save_btn, "кнопка Save")
+        self.wait_a_second()
         self.click(self.back_btn, "кнопка Назад")
         self.wait_element(self.group_name_in_list)
         self.wait_text(new_group_name)

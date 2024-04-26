@@ -304,13 +304,34 @@ class ChannelsPage(BasePage):
         self.wait_element(self.comment_button)
         self.click(self.comment_button, 'кнопка Comment')
         self.wait_element(self.channel_bottom_sheet_title)
-        assert self.get_text(self.channel_bottom_sheet_title) == 'Comments'
-        new_message = faker.text()
-        self.send_message(new_message)
+        self.wait_text('Comments')
+        comment = faker.text()
+        self.send_message(comment)
         self.wait_text('Discussion started')
         self.click(self.x_btn_bottom_sheets)
         self.click(self.comment_button, 'кнопка Comment')
-        self.wait_text(new_message)
+        self.wait_text(comment)
+        return comment
+
+    @allure.step("Проверка комментария к сообщению в канале")
+    def checking_channel_comment_member(self, comment):
+        # self.wait_element(self.comment_button)
+
+        self.wait_a_second()
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_element(self.channel_bottom_sheet_title)
+        self.wait_text('1 Comments')
+        self.wait_text(comment)
+        self.wait_hidden_element(self.message_field)
+        self.click(self.x_btn_bottom_sheets)
+        self.click(self.edit_channel)
+        self.swipe_to_element(self.join_btn)
+        self.click(self.join_btn)
+        self.click(self.join_channel_congrats_ok_btn)
+        self.click(self.back_btn)
+        self.wait_text(comment)
+        self.checking_channel_comment()
+
 
 
 

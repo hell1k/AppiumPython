@@ -1,6 +1,6 @@
 import random
 import time
-
+from tests.config import *
 import allure
 import uiautomator2 as u
 from faker import Faker
@@ -8,7 +8,7 @@ from uiautomator2 import Direction
 
 
 class BasePage:
-    d = u.connect("emulator-5554")
+    d = u.connect(device_id)
     faker = Faker()
 
     def click(self, locator, element_name=None):

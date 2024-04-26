@@ -1,12 +1,12 @@
 import pytest
 import uiautomator2 as u
-
+from tests.config import *
 from pages.base_page import BasePage
 from pages.login_page import LoginPage
 from common.menu import Menu
 from pages.profile_page import ProfilePage
 
-d = u.connect("emulator-5554")
+d = u.connect(device_id)
 
 
 def open_app():

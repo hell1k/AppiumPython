@@ -1,5 +1,5 @@
 import time
-
+from tests.config import *
 import allure
 import pytest
 import uiautomator2 as u
@@ -13,7 +13,7 @@ from common.permission import Permission
 from pages.profile_page import ProfilePage
 from common.welcome_page import WelcomeActivity
 
-d = u.connect("emulator-5554")
+d = u.connect(device_id)
 
 
 @allure.step("Запуск приложения")
