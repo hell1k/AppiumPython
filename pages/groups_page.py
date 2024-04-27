@@ -233,6 +233,7 @@ class GroupsPage(BasePage):
 
     @allure.step("Выход из группы")
     def leave_group(self, group_name):
+        self.swipe_to_element(self.leave_group_btn)
         self.click(self.leave_group_btn, "кнопка Leave")
         self.wait_alert_title("Leave group?")
         self.click(self.leave_group_confirm_btn, "кнопка Leave")
