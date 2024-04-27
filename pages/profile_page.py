@@ -257,3 +257,10 @@ class ProfilePage(BasePage):
         self.wait_text('Channels')
         self.click_back()
         self.wait_a_second()
+
+    @allure.step("Открытие раздела Events из Профиля")
+    def open_events(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.events_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.events_btn_in_profile)
