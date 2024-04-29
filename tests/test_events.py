@@ -15,5 +15,15 @@ class TestEvents:
     def test_events_create_new_private(self, login):
         page = MainPage()
         page.profile.open_events()
-        page.events.add_new_event('private')
+        event_name = page.events.add_new_event('private')
+        page.events.edit_event(event_name)
+
+    @allure.title("Создание нового не приватного события")
+    @pytest.mark.smoke
+    @pytest.mark.events
+    def test_events_create_new_private(self, login):
+        page = MainPage()
+        page.profile.open_events()
+        event_name = page.events.add_new_event()
+        page.events.edit_event(event_name)
 

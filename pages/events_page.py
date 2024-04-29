@@ -61,6 +61,7 @@ class EventsPage(BasePage):
         self.click(self.get_random_element(self.types), "рандомный тип")
         self.wait_a_moment()
 
+    @allure.step("Создание нового эвента")
     def add_new_event(self, is_private=None):
         event_name = 'Test event_' + str(randint(0, 999999999))
         self.click(self.add_new_event_btn, "добавить новый Event")
@@ -129,3 +130,18 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.wait_text(event_name)
         return event_name
+
+    @allure.step("Редактирование эвента '{event_name}'")
+    def edit_event(self, event_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
+        new_event_name = 'Test event_' + str(randint(0, 999999999))
+        self.set_text(self.name_field, new_event_name, "поле Name event")
+        self.set_text(self.description_field, text_250_2, "поле Description")
+        self.swipe_to_element(self.type_selection)
+        self.select_random_type()
+        self.swipe_to_element(self.live_event_check_box)
+        self.click(self.live_event_check_box)
+        self.click(self.save_btn, "кнопка Save")
+        self.wait_element(self.event_name_in_list)
+        self.wait_text(new_event_name)
+
