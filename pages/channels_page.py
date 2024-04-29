@@ -37,7 +37,7 @@ class ChannelsPage(BasePage):
     more_options = '//*[@content-desc="More options"]'
     more_options_share = '//*[@text="Share"]'
     share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my channel")]'
-    more_options_share_to_yapmap = '//*[@text="Share to YapMap"]'
+    more_options_share_to_yapmap = '//*[@text="Share to Relagram"]'
     more_options_qr = '//*[@text="Generate QR Code"]'
     more_options_invite = '//*[@text="Invite new member"]'
     qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
@@ -45,7 +45,7 @@ class ChannelsPage(BasePage):
     message_field = 'com.yapmap.yapmap:id/input_edit_text'
     send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     message = "com.yapmap.yapmap:id/body_text_view"
-    add_members_btn = 'com.yapmap.yapmap:id/members_add_button'
+    # add_members_btn = 'com.yapmap.yapmap:id/members_add_button'
     invite_people_btn = 'com.yapmap.yapmap:id/invite_people'
     members_on_map_btn = 'com.yapmap.yapmap:id/show_members_on_map_button'
     map_view = 'com.yapmap.yapmap:id/map_container_view'
@@ -216,7 +216,7 @@ class ChannelsPage(BasePage):
     @allure.step("Проверка Add members")
     def checking_add_members_btn(self):
         self.wait_a_second()
-        self.click(self.add_members_btn, "кнопка Add members")
+        self.click(self.add_members_btn, "кнопка Invite people")
         self.wait_text("Invite people")
 
     @allure.step("Проверка Display members on map")
@@ -301,7 +301,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка лимита поля Название канала")
     def checking_channel_name_limit(self, channel_name):
-        self.set_text(self.name_field, channel_name_120, "Name channel")
+        self.set_text(self.name_field, name_120, "Name channel")
         self.wait_element(self.limit_channel_name, "лимит 120/120")
         self.set_text(self.name_field, channel_name, "Name channel")
 

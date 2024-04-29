@@ -47,7 +47,7 @@ text_1000_2 = 'A textbook is an informative manual or book on a specific subject
               'This textbook provides vital support for students and professionals in the medical field. 1000 symbols.' \
               'More then 1000 symbols.'
 
-channel_name_120 = 'Channel_name_120_sybmols_jRJDKNd89kLB2K8pE5waql80WXVKVQeS3QCi1U7n9OPwrKi1KAWz4zyg8TYeuzh1d8Hzlv66LXhP4CZl4ziRWy8H7e5gFkXDvUgL'
+name_120 = 'Name_120_sybmols_jRJDKNd89kLB2K8pE5waql80WXVKVQeS3QCi1U7n9OPwrKi1KAWz4zyg8TYeuzh1d8Hzlv66LXhP4CZl4ziRWy8H7e5gFkXDvUgL_1234567'
 
 test_user_login = 'test86764255@mailforspam.com'
 test_user_password = 'Qq12345678!'

@@ -50,6 +50,20 @@ class EventsPage(BasePage):
     notification_checkbox = '//*[@text="Notifications"]/..'
     show_it_to_others_checkbox = '//*[@text="Show it to others"]/..'
     show_me_to_this_community = '//*[@text="Show me to this community"]/..'
+    add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    more_options = '//*[@content-desc="More options"]'
+    more_options_share = '//*[@text="Share"]'
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join to my event")]'
+    more_options_share_to_relagram = '//*[@text="Share to Relagram"]'
+    more_options_qr = '//*[@text="Generate QR Code"]'
+    more_options_invite = '//*[@text="Invite new member"]'
+    qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
+    limit_name = "com.yapmap.yapmap:id/limit_text_view"
+    alert_title = 'com.yapmap.yapmap:id/alertTitle'
+    delete_channel_alert_delete_btn = '//*[@resource-id="android:id/button1" and @text="DELETE"]'
+    alert_cancel_btn = '//*[@resource-id="android:id/button2" and @text="CANCEL"]'
+    delete_and_leave_btn = 'com.yapmap.yapmap:id/delete_and_leave_button'
+    edit_members_btn = 'com.yapmap.yapmap:id/edit_members_text_view'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -145,3 +159,60 @@ class EventsPage(BasePage):
         self.wait_element(self.event_name_in_list)
         self.wait_text(new_event_name)
 
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+
+    @allure.step("Переход в доп опции группы '{option_name}'")
+    def open_more_options(self, option_name):
+        self.click(self.more_options, "меню группы")
+        self.click(f'//*[@text="{option_name}"]', option_name)
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options(self):
+        self.wait_a_moment()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Share to Relagram")
+        self.wait_text("Select chat")
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Invite new member")
+        self.wait_text("Invite people")
+        self.press_back()
+
+    def checking_more_options_private(self):
+        self.wait_a_moment()
+        self.open_more_options("Pending requests")
+        self.wait_text("Pending requests")
+        self.press_back()
+
+    @allure.step("Переход к экрану оюытия '{event_name}'")
+    def open_event(self, event_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
+
+    @allure.step("Проверка лимита поля Название канала")
+    def checking_event_name_limit(self, event_name):
+        self.set_text(self.name_field, name_120, "Name event")
+        self.wait_element(self.limit_name, "лимит 120/120")
+        self.set_text(self.name_field, event_name, "Name event")
+
+    @allure.step("Проверка Edit members")
+    def edit_members(self):
+        self.swipe_to_element(self.edit_members_btn)
+        self.click(self.edit_members_btn, "кнопка Edit members")
+        self.wait_text("Select contacts")
+
+    @allure.step("Удаление события")
+    def delete_and_leave(self, event_name):
+        self.wait_a_second()
+        self.click(self.delete_and_leave_btn, "кнопка Delete and leave")
+        self.wait_element(self.alert_title, "Delete group alert")
+        self.click(self.delete_channel_alert_delete_btn, "кнопка Delete")
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=event_name).wait_gone(10)
