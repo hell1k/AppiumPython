@@ -71,12 +71,21 @@ class EventsPage(BasePage):
     report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
     leave_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
     leave_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
+    chat_btn = 'com.yapmap.yapmap:id/open_chat_image_view'
+    message_field = 'com.yapmap.yapmap:id/input_edit_text'
+    message = "com.yapmap.yapmap:id/body_text_view"
+    send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
+    clear_chat_history_btn = 'com.yapmap.yapmap:id/clear_chat_history_button'
+    clear_chat_alert_clear_btn = '//*[@resource-id="android:id/button1" and @text="CLEAR"]'
+    bottom_sheet_title = 'com.yapmap.yapmap:id/title_text_view'
+    comment_button = "com.yapmap.yapmap:id/comment_button"
+    x_btn_bottom_sheets = '//*[@content-desc="Close"]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Переход на экран редактирования")
-    def click_edit_event(self):
+    def click_edit(self):
         self.click(self.d(description="User avatar image"), "аватар события")
 
     def click_join_event(self):
@@ -89,11 +98,8 @@ class EventsPage(BasePage):
         self.join_event()
 
     def join_event(self):
-        # self.click_edit_event()
-        # self.swipe_to_element(self.join_btn)
         self.wait_a_second()
         if self.get_element(self.join_btn).count > 0:
-            # self.wait_a_second()
             self.click(self.join_btn, "кнопка Join")
             self.wait_text("Congrats! your are following this event now!")
             self.click(self.join_congrats_ok_btn, "кнопка Ок для закрытия всплывашки об успешном вступлении")
@@ -267,6 +273,62 @@ class EventsPage(BasePage):
         self.wait_alert_title("Leave event?")
         self.click(self.leave_confirm_btn, "кнопка Leave")
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
-        self.click_edit_event()
+        self.click_edit()
         self.swipe_up()
         self.wait_element(self.join_btn, "кнопка Join")
+
+    @allure.step("Проверка кнопки Chat")
+    def checking_chat_btn(self):
+        self.click(self.chat_btn, "кнопка Chat")
+        self.wait_element(self.message_field, "поле для текста")
+
+    @allure.step("Проверка пустого чата")
+    def checking_empty_chat(self):
+        self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(message)
+
+    @allure.step("Очистка чата")
+    def clear_chat_history(self):
+        self.swipe_to_element(self.clear_chat_history_btn)
+        self.wait_a_second()
+        self.click(self.clear_chat_history_btn, "кнопка Clear chat history")
+        self.wait_element(self.alert_title, "Clear chat alert")
+        self.click(self.clear_chat_alert_clear_btn, "кнопка Clear")
+        self.wait_element(self.message_field, "поле для текста")
+        self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Проверка комментария к сообщению в событии")
+    def checking_comment(self):
+        self.wait_element(self.comment_button)
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_element(self.bottom_sheet_title)
+        self.wait_text('Comments')
+        comment = faker.text()
+        self.send_message(comment)
+        self.wait_text('Discussion started')
+        self.click(self.x_btn_bottom_sheets)
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_text(comment)
+        return comment
+    @allure.step("Проверка комментария к сообщению в событии")
+    def checking_comment_member(self, comment):
+        self.wait_a_second()
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_element(self.bottom_sheet_title)
+        self.wait_text('1 Comments')
+        self.wait_text(comment)
+        self.wait_hidden_element(self.message_field)
+        self.click(self.x_btn_bottom_sheets)
+        self.join_event()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.click_back_btn()
+        self.checking_comment()
+

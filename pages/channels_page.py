@@ -70,7 +70,6 @@ class ChannelsPage(BasePage):
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     create_channel_btn = '//android.widget.Button'
     limit_channel_name = "com.yapmap.yapmap:id/limit_text_view"
-    'com.yapmap.yapmap:id/picture_view'
     comment_button = "com.yapmap.yapmap:id/comment_button"
     x_btn_bottom_sheets = '//*[@content-desc="Close"]'
 
