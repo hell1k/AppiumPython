@@ -12,7 +12,7 @@ class TestEvents:
     @allure.title("Создание нового приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_events_create_new_private(self, login):
+    def test_create_new_private_event(self, login):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event('private')
@@ -21,7 +21,7 @@ class TestEvents:
     @allure.title("Создание нового не приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_events_create_new_private(self, login):
+    def test_create_new_event(self, login):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()
@@ -30,7 +30,7 @@ class TestEvents:
     @allure.title("Проверка элементов приватного события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_events_private_checking_elements(self, login):
+    def test_private_event_checking_elements(self, login):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event('private')
@@ -46,7 +46,7 @@ class TestEvents:
     @allure.title("Проверка элементов события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_events_checking_elements(self, login):
+    def test_event_checking_elements(self, login):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()
