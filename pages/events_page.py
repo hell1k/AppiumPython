@@ -64,9 +64,39 @@ class EventsPage(BasePage):
     alert_cancel_btn = '//*[@resource-id="android:id/button2" and @text="CANCEL"]'
     delete_and_leave_btn = 'com.yapmap.yapmap:id/delete_and_leave_button'
     edit_members_btn = 'com.yapmap.yapmap:id/edit_members_text_view'
+    join_btn = 'com.yapmap.yapmap:id/join_button'
+    join_congrats_ok_btn = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
+    report_btn = '//*[@resource-id="com.yapmap.yapmap:id/report_event_button"]'
+    leave_btn = '//*[@resource-id="com.yapmap.yapmap:id/leave_button"]'
+    report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
+    leave_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
+    leave_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
+
+    @allure.step("Переход на экран редактирования")
+    def click_edit_event(self):
+        self.click(self.d(description="User avatar image"), "аватар события")
+
+    def click_join_event(self):
+        self.click(self.join_btn, 'кнопка Join')
+
+    @allure.step("Вступление в событие '{event_name}'")
+    def join_a_event(self, event_name):
+        self.wait_a_second()
+        self.open_event(event_name)
+        self.join_event()
+
+    def join_event(self):
+        # self.click_edit_event()
+        # self.swipe_to_element(self.join_btn)
+        self.wait_a_second()
+        if self.get_element(self.join_btn).count > 0:
+            # self.wait_a_second()
+            self.click(self.join_btn, "кнопка Join")
+            self.wait_text("Congrats! your are following this event now!")
+            self.click(self.join_congrats_ok_btn, "кнопка Ок для закрытия всплывашки об успешном вступлении")
 
     @allure.step("Выбор случайного типа")
     def select_random_type(self):
@@ -183,9 +213,10 @@ class EventsPage(BasePage):
         self.wait_element(self.qr_code)
         self.press_back()
         self.wait_a_moment()
-        self.open_more_options("Invite new member")
-        self.wait_text("Invite people")
-        self.press_back()
+        self.open_more_options("Join")
+        self.wait_text("Congrats! your are following this event now!")
+        self.click(self.join_congrats_ok_btn, "кнопка Ок для закрытия всплывашки об успешном вступлении")
+
 
     def checking_more_options_private(self):
         self.wait_a_moment()
@@ -193,8 +224,13 @@ class EventsPage(BasePage):
         self.wait_text("Pending requests")
         self.press_back()
 
-    @allure.step("Переход к экрану оюытия '{event_name}'")
+    @allure.step("Переход к экрану события '{event_name}'")
     def open_event(self, event_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
+
+    @allure.step("Переход пользователя к событию '{event_name}'")
+    def user_open_event(self, event_name):
+        # self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=event_name).wait_gone(10)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
     @allure.step("Проверка лимита поля Название канала")
@@ -216,3 +252,21 @@ class EventsPage(BasePage):
         self.wait_element(self.alert_title, "Delete group alert")
         self.click(self.delete_channel_alert_delete_btn, "кнопка Delete")
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=event_name).wait_gone(10)
+
+    @allure.step("Проверка кнопки Report")
+    def checking_report_btn(self):
+        self.swipe_to_element(self.report_btn)
+        self.click(self.report_btn, "кнопка Report event")
+        self.wait_title_text("Choose a reason")
+        self.press_back()
+
+    @allure.step("Выход из события")
+    def checking_leave_btn(self, event_name):
+        self.swipe_to_element(self.leave_btn)
+        self.click(self.leave_btn, "кнопка Leave")
+        self.wait_alert_title("Leave event?")
+        self.click(self.leave_confirm_btn, "кнопка Leave")
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
+        self.click_edit_event()
+        self.swipe_up()
+        self.wait_element(self.join_btn, "кнопка Join")
