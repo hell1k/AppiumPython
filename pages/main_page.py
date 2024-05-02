@@ -1,4 +1,5 @@
 from pages.base_page import BasePage
+from pages.business_page import BusinessPage
 from pages.groups_page import GroupsPage
 from pages.channels_page import ChannelsPage
 from pages.login_page import LoginPage
@@ -14,6 +15,7 @@ class MainPage(BasePage):
     groups = GroupsPage()
     channels = ChannelsPage()
     events = EventsPage()
+    business = BusinessPage()
 
 
 

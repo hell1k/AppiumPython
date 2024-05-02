@@ -109,21 +109,28 @@ class GroupsPage(BasePage):
             f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
             group_name)
 
-    @allure.step("Переход в группу или создание новой открытой группы")
+    @allure.step("Создание новой открытой группы и переход в нее")
     def open_or_create_open_group(self):
         self.wait_element(self.group_name_in_list)
-        count = len(self.d.xpath('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]').all())
+        # count = len(self.d.xpath('//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]').all())
+        #
+        # if count > 0:
+        #     self.click(
+        #         '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]',
+        #         'первая группа в списке')
+        #     group_name = self.get_text(self.group_card_title)
+        # else:
+        #     group_name = self.add_new_group()
+        #     self.click(
+        #         f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
+        #         group_name)
+        #
+        # return group_name
 
-        if count > 0:
-            self.click(
-                '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test group")]',
-                'первая группа в списке')
-            group_name = self.get_text(self.group_card_title)
-        else:
-            group_name = self.add_new_group()
-            self.click(
-                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
-                group_name)
+        group_name = self.add_new_group()
+        self.click(
+            f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
+            group_name)
 
         return group_name
 

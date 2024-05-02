@@ -264,3 +264,13 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.events_btn_in_profile)
         self.wait_a_second()
         self.click(self.events_btn_in_profile)
+
+    @allure.step("Открытие раздела Business из Профиля")
+    def open_business(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.business_btn_in_profile)
+        self.click_business()
+
+    @allure.step("Клик по кнопке Business")
+    def click_business(self):
+        self.click(self.business_btn_in_profile, "кнопка Business")

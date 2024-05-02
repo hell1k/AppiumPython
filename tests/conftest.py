@@ -42,7 +42,7 @@ def setup(request):
     request.cls.groups = GroupsPage()
     request.cls.channels = ChannelsPage()
     open_app()
-    WelcomeActivity().close_tutorial()
+    # WelcomeActivity().close_tutorial()
     yield
     teardown()
 
