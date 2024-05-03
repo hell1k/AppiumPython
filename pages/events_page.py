@@ -106,7 +106,7 @@ class EventsPage(BasePage):
 
     @allure.step("Выбор случайного типа")
     def select_random_type(self):
-        self.click(self.type_selection)
+        self.click(self.type_selection, 'type selection')
         self.wait_element(self.types)
         self.click(self.get_random_element(self.types), "рандомный тип")
         self.wait_a_moment()
@@ -128,42 +128,11 @@ class EventsPage(BasePage):
         self.set_text(self.description_field, text_250, 'поле Description')
 
         self.select_random_type()
-
-        self.swipe_to_element(self.add_photos_btn)
-        self.click(self.add_photos_btn)
-        self.click(self.first_photo)
-        # self.click(self.second_photo)
-        self.click(self.done_photo)
-
-        self.click(self.date_start)
-        self.click(self.calendar_next_btn)
-        random_date = random.randrange(1, 28)
-        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
-        self.click(self.calendar_ok, "кнопка Ок")
-
-        self.swipe_to_element(self.date_end)
-        self.click(self.date_end)
-        self.click(self.calendar_next_btn)
-        random_date = random.randrange(1, 28)
-        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
-        self.click(self.calendar_ok, "кнопка Ок")
-
-        self.click(self.online_event_check_box)
-
-
-        self.swipe_to_element(self.address_select_btn)
-        self.click(self.address_select_btn)
-        self.wait_text('Choose location')
-        self.set_text(self.type_address_field, 'Novosibirsk')
-        self.click(self.address_popup)
-        self.click(self.map_plus_btn)
-        self.wait_text('New event')
-
-        self.swipe_to_element(self.number_of_members_field)
-        random_number = str(random.randrange(5, 1000))
-        self.click(self.number_of_members_field)
-        self.wait_a_moment()
-        self.set_text(self.number_of_members_field, random_number)
+        self.add_photo()
+        self.set_dates()
+        self.click(self.online_event_check_box, 'чекбокс онлайн эвент')
+        self.set_address()
+        self.set_number_of_members()
 
         if is_private == 'private':
             self.swipe_to_element(self.private_text)
@@ -180,6 +149,47 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.wait_text(event_name)
         return event_name
+
+    @allure.step("Добавить фото")
+    def add_photo(self):
+        self.swipe_to_element(self.add_photos_btn)
+        self.click(self.add_photos_btn)
+        self.click(self.first_photo)
+        # self.click(self.second_photo)
+        self.click(self.done_photo)
+
+    @allure.step("Установить дату начала и конца")
+    def set_dates(self):
+        self.swipe_to_element(self.date_start)
+        self.click(self.date_start)
+        self.click(self.calendar_next_btn)
+        random_date = random.randrange(1, 28)
+        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
+        self.click(self.calendar_ok, "кнопка Ок")
+        self.swipe_to_element(self.date_end)
+        self.click(self.date_end)
+        self.click(self.calendar_next_btn)
+        random_date = random.randrange(1, 28)
+        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
+        self.click(self.calendar_ok, "кнопка Ок")
+
+    @allure.step("Выбрать адрес")
+    def set_address(self):
+        self.swipe_to_element(self.address_select_btn)
+        self.click(self.address_select_btn)
+        self.wait_text('Choose location')
+        self.set_text(self.type_address_field, 'Novosibirsk')
+        self.click(self.address_popup)
+        self.click(self.map_plus_btn)
+        self.wait_text('New event')
+
+    @allure.step("Установить количество участников")
+    def set_number_of_members(self):
+        self.swipe_to_element(self.number_of_members_field)
+        random_number = str(random.randrange(5, 1000))
+        self.click(self.number_of_members_field, 'number_of_members_field')
+        self.wait_a_moment()
+        self.set_text(self.number_of_members_field, random_number)
 
     @allure.step("Редактирование эвента '{event_name}'")
     def edit_event(self, event_name):
@@ -222,7 +232,6 @@ class EventsPage(BasePage):
         self.open_more_options("Join")
         self.wait_text("Congrats! your are following this event now!")
         self.click(self.join_congrats_ok_btn, "кнопка Ок для закрытия всплывашки об успешном вступлении")
-
 
     def checking_more_options_private(self):
         self.wait_a_moment()
@@ -317,6 +326,7 @@ class EventsPage(BasePage):
         self.click(self.comment_button, 'кнопка Comment')
         self.wait_text(comment)
         return comment
+
     @allure.step("Проверка комментария к сообщению в событии")
     def checking_comment_member(self, comment):
         self.wait_a_second()
@@ -331,4 +341,3 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.click_back_btn()
         self.checking_comment()
-
