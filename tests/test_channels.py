@@ -40,7 +40,7 @@ class TestChannels:
         page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()
         page.channels.checking_more_options()
-        page.swipe_to_element(page.channels.add_members_btn)
+
         page.channels.checking_add_members_btn()
         page.press_back()
         page.channels.checking_blocked_members()

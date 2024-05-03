@@ -45,7 +45,7 @@ class ChannelsPage(BasePage):
     message_field = 'com.yapmap.yapmap:id/input_edit_text'
     send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     message = "com.yapmap.yapmap:id/body_text_view"
-    # add_members_btn = 'com.yapmap.yapmap:id/members_add_button'
+    add_members_btn = 'com.yapmap.yapmap:id/members_add_button'
     invite_people_btn = 'com.yapmap.yapmap:id/invite_people'
     members_on_map_btn = 'com.yapmap.yapmap:id/show_members_on_map_button'
     map_view = 'com.yapmap.yapmap:id/map_container_view'
@@ -214,6 +214,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Проверка Add members")
     def checking_add_members_btn(self):
+        self.swipe_to_element(self.add_members_btn)
         self.wait_a_second()
         self.click(self.add_members_btn, "кнопка Invite people")
         self.wait_text("Invite people")
