@@ -48,15 +48,22 @@ def setup(request):
 
 
 @pytest.fixture()
-def authorization():
-    LoginPage().authorization()
+def authorization(request):
+    if request.node.get_closest_marker('login_marker') is not None:
+        username = request.node.get_closest_marker('login_marker').args[0]
+        LoginPage().authorization(email=username, password=test_user_password)
+    else:
+        LoginPage().authorization()
+
     Permission().click_allow()
+
 
 @pytest.fixture()
 def login():
     LoginPage().login()
     time.sleep(3)
     Permission().click_allow()
+
 
 @pytest.fixture()
 def install_app():
