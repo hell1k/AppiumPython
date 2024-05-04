@@ -51,3 +51,5 @@ name_120 = 'Name_120_sybmols_jRJDKNd89kLB2K8pE5waql80WXVKVQeS3QCi1U7n9OPwrKi1KAW
 
 test_user_login = 'test86764255@mailforspam.com'
 test_user_password = 'Qq12345678!'
+
+

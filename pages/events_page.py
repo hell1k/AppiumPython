@@ -248,7 +248,9 @@ class EventsPage(BasePage):
 
     @allure.step("Переход пользователя к событию '{event_name}'")
     def user_open_event(self, event_name):
-        self.wait_text(event_name)
+        self.swipe_to_element("com.yapmap.yapmap:id/recycler_view")
+        self.wait_a_second()
+        # self.wait_text(event_name)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
     @allure.step("Проверка лимита поля Название канала")
@@ -265,6 +267,7 @@ class EventsPage(BasePage):
 
     @allure.step("Удаление события")
     def delete_and_leave(self, event_name):
+        self.swipe_to_element(self.delete_and_leave_btn)
         self.wait_a_second()
         self.click(self.delete_and_leave_btn, "кнопка Delete and leave")
         self.wait_element(self.alert_title, "Delete group alert")
