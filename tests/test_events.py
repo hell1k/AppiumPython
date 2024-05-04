@@ -72,6 +72,7 @@ class TestEvents:
         page.events.click_edit()
         page.events.add_to_favorite()
         page.events.checking_more_options()
+        page.events.checking_more_options_join()
         page.events.checking_leave_btn(event_name)
         page.events.join_event()
         page.events.checking_report_btn()
