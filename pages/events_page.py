@@ -230,6 +230,9 @@ class EventsPage(BasePage):
         self.open_more_options("Generate QR Code")
         self.wait_element(self.qr_code)
         self.press_back()
+
+    @allure.step("Проверка пункта меню join в шапке")
+    def checking_more_options_join(self):
         self.wait_a_moment()
         self.open_more_options("Join")
         self.wait_text("Congrats! your are following this event now!")
@@ -247,7 +250,7 @@ class EventsPage(BasePage):
 
     @allure.step("Переход пользователя к событию '{event_name}'")
     def user_open_event(self, event_name):
-        # self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=event_name).wait_gone(10)
+        self.wait_text(event_name)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
     @allure.step("Проверка лимита поля Название канала")
