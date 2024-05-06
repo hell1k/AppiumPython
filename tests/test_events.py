@@ -12,7 +12,7 @@ class TestEvents:
     @allure.title("Создание нового приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_create_new_private_event(self, login):
+    def test_create_new_private_event(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event('private')
@@ -21,7 +21,7 @@ class TestEvents:
     @allure.title("Создание нового не приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_create_new_event(self, login):
+    def test_create_new_event(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()
@@ -30,7 +30,7 @@ class TestEvents:
     @allure.title("Проверка элементов приватного события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_private_event_checking_elements(self, login):
+    def test_private_event_checking_elements(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event('private')
@@ -46,7 +46,7 @@ class TestEvents:
     @allure.title("Проверка элементов события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_event_checking_elements(self, login):
+    def test_event_checking_elements(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()
@@ -61,13 +61,14 @@ class TestEvents:
     @allure.title("Взаимодействие с событием участника")
     @pytest.mark.smoke
     @pytest.mark.events
-    def test_events_other_user(self, login):
+    def test_events_other_user(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
+        page.events.open_bottom_sheet()
         page.events.user_open_event(event_name)
         page.events.click_edit()
         page.events.add_to_favorite()
@@ -81,7 +82,7 @@ class TestEvents:
     @allure.title("Очистка чата администратором")
     @pytest.mark.smoke
     @pytest.mark.channels
-    def test_event_clear_chat(self, login):
+    def test_event_clear_chat(self, authorization):
         page = MainPage()
         page.profile.open_events()
         event_name = page.events.add_new_event()

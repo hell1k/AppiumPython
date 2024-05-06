@@ -80,6 +80,8 @@ class EventsPage(BasePage):
     bottom_sheet_title = 'com.yapmap.yapmap:id/title_text_view'
     comment_button = "com.yapmap.yapmap:id/comment_button"
     x_btn_bottom_sheets = '//*[@content-desc="Close"]'
+    dragging_view = "com.yapmap.yapmap:id/dragging_view"
+    shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -347,3 +349,11 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.click_back_btn()
         self.checking_comment()
+
+    @allure.step("Открываем свайпом боттом шит со списком эвентов")
+    def open_bottom_sheet(self):
+        center = self.get_element(self.shevron).center()
+        fx, fy = center
+        ty = self.d.window_size()[1]*0.1
+        tx = self.d.window_size()[0]/2
+        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
