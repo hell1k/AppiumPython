@@ -81,7 +81,7 @@ class TestEvents:
 
     @allure.title("Очистка чата администратором")
     @pytest.mark.smoke
-    @pytest.mark.channels
+    @pytest.mark.events
     def test_event_clear_chat(self, authorization):
         page = MainPage()
         page.profile.open_events()
