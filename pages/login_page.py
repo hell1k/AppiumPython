@@ -196,7 +196,7 @@ class LoginPage(BasePage):
         driver = webdriver.Firefox(options=options)
         driver.get(f"https://www.mailforspam.com/mail/{user_name}/1")
         code_value = int(re.sub('[^0-9]', "", driver.find_element(By.XPATH,
-                                                                  "//span[contains(text(), 'Your YapMapApp verification code is:')]").text))
+                                                                  "//span[contains(text(), 'Your Relagram verification code is:')]").text))
         driver.close()
         return code_value
 
