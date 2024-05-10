@@ -80,6 +80,8 @@ class EventsPage(BasePage):
     bottom_sheet_title = 'com.yapmap.yapmap:id/title_text_view'
     comment_button = "com.yapmap.yapmap:id/comment_button"
     x_btn_bottom_sheets = '//*[@content-desc="Close"]'
+    dragging_view = "com.yapmap.yapmap:id/dragging_view"
+    shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -153,22 +155,21 @@ class EventsPage(BasePage):
     @allure.step("Добавить фото")
     def add_photo(self):
         self.swipe_to_element(self.add_photos_btn)
-        self.click(self.add_photos_btn)
-        self.click(self.first_photo)
-        # self.click(self.second_photo)
-        self.click(self.done_photo)
+        self.click(self.add_photos_btn, 'кнопка Add photos')
+        self.click(self.first_photo, 'первое фото в галерее')
+        self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Установить дату начала и конца")
     def set_dates(self):
         self.swipe_to_element(self.date_start)
-        self.click(self.date_start)
-        self.click(self.calendar_next_btn)
+        self.click(self.date_start, 'Date start')
+        self.click(self.calendar_next_btn, 'кнопка > на календаре')
         random_date = random.randrange(1, 28)
         self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.calendar_ok, "кнопка Ок")
         self.swipe_to_element(self.date_end)
-        self.click(self.date_end)
-        self.click(self.calendar_next_btn)
+        self.click(self.date_end, 'Date end')
+        self.click(self.calendar_next_btn, 'кнопка > на календаре')
         random_date = random.randrange(1, 28)
         self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.calendar_ok, "кнопка Ок")
@@ -176,11 +177,11 @@ class EventsPage(BasePage):
     @allure.step("Выбрать адрес")
     def set_address(self):
         self.swipe_to_element(self.address_select_btn)
-        self.click(self.address_select_btn)
+        self.click(self.address_select_btn, 'кнопка Address')
         self.wait_text('Choose location')
         self.set_text(self.type_address_field, 'Novosibirsk')
-        self.click(self.address_popup)
-        self.click(self.map_plus_btn)
+        self.click(self.address_popup, 'всплывашка с адресом')
+        self.click(self.map_plus_btn, 'кнопка + на карте')
         self.wait_text('New event')
 
     @allure.step("Установить количество участников")
@@ -200,7 +201,7 @@ class EventsPage(BasePage):
         self.swipe_to_element(self.type_selection)
         self.select_random_type()
         self.swipe_to_element(self.live_event_check_box)
-        self.click(self.live_event_check_box)
+        self.click(self.live_event_check_box, 'чекбокс Live event')
         self.click(self.save_btn, "кнопка Save")
         self.wait_element(self.event_name_in_list)
         self.wait_text(new_event_name)
@@ -328,7 +329,7 @@ class EventsPage(BasePage):
         comment = faker.text()
         self.send_message(comment)
         self.wait_text('Discussion started')
-        self.click(self.x_btn_bottom_sheets)
+        self.click(self.x_btn_bottom_sheets, 'кнопка Х на боттом шите')
         self.click(self.comment_button, 'кнопка Comment')
         self.wait_text(comment)
         return comment
@@ -347,3 +348,11 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.click_back_btn()
         self.checking_comment()
+
+    @allure.step("Открываем свайпом боттом шит со списком эвентов")
+    def open_bottom_sheet(self):
+        center = self.get_element(self.shevron).center()
+        fx, fy = center
+        ty = self.d.window_size()[1]*0.1
+        tx = self.d.window_size()[0]/2
+        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
