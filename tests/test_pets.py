@@ -12,7 +12,7 @@ class TestPets:
     @pytest.mark.smoke
     @pytest.mark.pets
     # @pytest.mark.login_marker("relagram.auto+pets@yandex.ru")
-    def test_add_new_pet(self, login):
+    def test_add_new_pet(self, authorization):
         page = MainPage()
         page.profile.open_pets()
         page.pets.add_new_pet()

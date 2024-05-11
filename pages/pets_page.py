@@ -50,17 +50,17 @@ class PetsPage(BasePage):
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
 
     post_button = "com.yapmap.yapmap:id/post_button"
+    name_in_list = 'com.yapmap.yapmap:id/name_text_view'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Создание нового питомца")
     def add_new_pet(self):
-        self.wait_text('Open for friendship')
-        pet_name = 'Test pets_' + str(randint(0, 999999999))
-        self.click(self.add_a_pet_btn, "добавить нового питомца")
 
-        self.get_text(self.title_text)
+        pet_name = 'Test pets_' + str(randint(0, 999999999))
+        self.click(self.create_btn, "добавить нового питомца")
+
         self.click(self.pop_up_ok_btn, 'кнопка ОК')
 
         self.add_photo()
@@ -100,7 +100,8 @@ class PetsPage(BasePage):
         assert self.get_text(self.title_text) == 'Kennel'
         self.get_element(self.cancel_button)
         self.get_element(self.done_button)
-        self.set_text(self.edit_text_view, 'DOG KENNEL COLUMBUS OHIO')
+        kennel_name = 'DOG KENNEL COLUMBUS OHIO'
+        self.set_text(self.edit_text_view, kennel_name)
         self.click(self.done_button, 'кнопка Done')
 
         self.swipe_to_element(self.open_for_mating_switch)
@@ -116,6 +117,15 @@ class PetsPage(BasePage):
         self.swipe_to_element(self.post_button)
         self.get_element(self.cancel_button)
         self.click(self.post_button, 'кнопка Post')
+        # self.wait_text('You pet has been accepted')
+        # self.get_screen()
+        # self.wait_text('Others can see it in a few minutes. We wish you a successful sale.')
+        self.wait_element(self.name_in_list)
+        self.swipe_down()
+        self.wait_text(pet_name)
+        self.wait_text(kennel_name)
+
+        return pet_name
 
     @allure.step("Добавить фото")
     def add_photo(self):
