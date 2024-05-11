@@ -17,3 +17,17 @@ class TestPets:
         page.profile.open_pets()
         page.pets.add_new_pet()
 
+    @allure.title("Редактирование питомца")
+    @pytest.mark.smoke
+    @pytest.mark.pets
+    # @pytest.mark.login_marker("relagram.auto+pets@yandex.ru")
+    def test_edit_pet(self, authorization):
+        page = MainPage()
+        page.profile.open_pets()
+        pet_name = page.pets.add_new_pet()
+        page.pets.open_pet(pet_name)
+        page.pets.checking_more_options()
+        page.pets.add_to_favorite()
+        page.pets.edit_pet()
+
+

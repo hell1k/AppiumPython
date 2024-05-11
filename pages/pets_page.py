@@ -52,12 +52,17 @@ class PetsPage(BasePage):
     post_button = "com.yapmap.yapmap:id/post_button"
     name_in_list = 'com.yapmap.yapmap:id/name_text_view'
 
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the pet")]'
+    qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
+
+    more_options = 'com.yapmap.yapmap:id/action_show_option_menu'
+    add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Создание нового питомца")
     def add_new_pet(self):
-
         pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.click(self.create_btn, "добавить нового питомца")
 
@@ -112,7 +117,7 @@ class PetsPage(BasePage):
         self.set_address()
 
         self.swipe_to_element(self.add_photos_btn)
-        self.add_photo()
+        self.add_photo_without_permissions()
 
         self.swipe_to_element(self.post_button)
         self.get_element(self.cancel_button)
@@ -140,17 +145,128 @@ class PetsPage(BasePage):
         self.wait_a_second()
         self.click(self.done_photo)
 
+    @allure.step("Добавить фото")
+    def add_photo_without_permissions(self):
+        self.click(self.add_photos_btn)
+        self.click(self.image_loader, "добавление нового фото")
+        self.wait_element(self.take_a_picture_btn)
+        self.wait_a_second()
+        self.click(self.take_a_picture_btn, "создание нового фото")
+        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.wait_a_second()
+        self.click(self.done_photo)
+
     @allure.step("Выбор случайного типа")
     def select_random_type(self):
         self.wait_element(self.types)
         self.click(self.get_random_element(self.types), "рандомный тип")
-        self.wait_a_moment()
+        self.wait_a_second()
 
     @allure.step("Выбрать адрес")
-    def set_address(self):
+    def set_address(self, city_name='Novosibirsk'):
         self.wait_text('Choose location')
-        self.set_text(self.type_address_field, 'Novosibirsk')
+        self.set_text(self.type_address_field, city_name)
         self.click(self.address_popup)
         self.click(self.map_plus_btn)
         self.wait_text('New Pet')
 
+    def open_pet(self, pet_name):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{pet_name}"]', pet_name)
+
+    def edit_pet(self):
+        self.click(self.more_options)
+        self.click('//*[@text="Edit"]')
+        new_pet_name = 'Test pets_' + str(randint(0, 999999999))
+        self.set_text(self.name_field, new_pet_name, "поле Name")
+        self.set_text(self.description_field, text_250_2, "поле Description")
+
+        self.add_photo_without_permissions()
+
+        self.swipe_to_element(self.animal_type)
+        self.click(self.animal_type, 'Animal type')
+        self.wait_text('Animal type')
+        self.select_random_type()
+
+        self.swipe_to_element(self.sex)
+        self.click(self.sex, 'Sex')
+        self.wait_text('Sex')
+        self.select_random_type()
+
+        self.swipe_to_element(self.date_of_birth)
+        self.click(self.date_of_birth, 'Date of Birth')
+        self.click(self.calendar_prev, 'кнопка назад на календаре')
+        self.click(self.calendar_prev, 'кнопка назад на календаре')
+        random_date = random.randrange(1, 28)
+        self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
+        self.click(self.calendar_ok, 'кнопка OK на календаре')
+
+        self.swipe_to_element(self.pedigree)
+        self.click(self.pedigree, 'Pedigree')
+        self.wait_text('Pedigree')
+        self.select_random_type()
+
+        self.swipe_to_element(self.color)
+        self.click(self.color, 'Color')
+        self.wait_text('Color')
+        self.select_random_type()
+
+        self.swipe_to_element(self.kennel)
+        self.click(self.kennel, 'Kennel')
+        assert self.get_text(self.title_text) == 'Kennel'
+        self.get_element(self.cancel_button)
+        self.get_element(self.done_button)
+        kennel_name = 'CATS KENNEL COLUMBUS OHIO'
+        self.set_text(self.edit_text_view, kennel_name)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.open_for_mating_switch)
+        self.click(self.open_for_mating_switch, 'Open for mating switch')
+
+        self.swipe_to_element(self.add_photos_btn)
+        self.add_photo_without_permissions()
+
+        self.swipe_to_element(self.post_button)
+        self.get_element(self.cancel_button)
+        self.click(self.post_button, 'кнопка Post')
+        self.wait_text(new_pet_name)
+        self.click_back_btn()
+        self.wait_element(self.name_in_list)
+        self.swipe_down()
+        self.wait_text(new_pet_name)
+        self.wait_text(kennel_name)
+
+        return new_pet_name
+
+    @allure.step("Переход в доп опции '{option_name}'")
+    def open_more_options(self, option_name):
+        self.click(self.more_options, "меню группы")
+        self.click(f'//*[@text="{option_name}"]', option_name)
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options(self):
+        self.wait_a_moment()
+        self.open_more_options("Edit")
+        self.wait_text('Editing')
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Delete")
+        self.wait_text('Delete pet')
+        self.wait_text('Are you sure want to delete the pet? This action cannot be undone')
+        self.wait_element(self.cancel_button)
+        self.wait_element(self.pop_up_ok_btn)
+        self.click(self.cancel_button)
+        self.wait_a_moment()
+        self.open_more_options("Cancel")
+        self.wait_hidden_element(self.cancel_button)
+
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
