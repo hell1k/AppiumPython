@@ -60,10 +60,10 @@ class LoginPage(BasePage):
     def authorization(self, email=None, password=None):
         self.click_sign_in()
         if email is not None and password is not None:
-            self.set_text(self.email_field, email, "поле Почта")
-            self.set_text(self.password_field, password, "поле Пароль")
+            self.set_text(self.email_field, email, "Почта")
+            self.set_text(self.password_field, password, "Пароль")
         else:
-            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "поле Почта")
+            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "Почта")
             self.set_text(self.password_field, 'Qq12345678!', "поле Пароль")
         self.click_sign_in()
 
@@ -71,11 +71,11 @@ class LoginPage(BasePage):
     def login(self, email=None, password=None):
         self.click_sign_in()
         if email is not None and password is not None:
-            self.set_text(self.email_field, email, "поле Почта")
-            self.set_text(self.password_field, password, "поле Пароль")
+            self.set_text(self.email_field, email, "Почта")
+            self.set_text(self.password_field, password, "Пароль")
         else:
-            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "поле Почта")
-            self.set_text(self.password_field, 'Qwerty1!', "поле Пароль")
+            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "Почта")
+            self.set_text(self.password_field, 'Qwerty1!', "Пароль")
         self.click_sign_in()
 
     @allure.step("Клик по кнопке Регистрация")
@@ -92,9 +92,9 @@ class LoginPage(BasePage):
         with allure.step("1 step"):
             user_name = "test" + str(random.randint(0, 99999999))
             mail = user_name + "@mailforspam.com"
-            self.set_text(self.email_field, mail, "поле Email")
-            self.set_text(self.password_field, "Qq12345678!", "поле Password")
-            self.set_text(self.confirm_password_field, "Qq12345678!", "поле Confirm password")
+            self.set_text(self.email_field, mail, "Email")
+            self.set_text(self.password_field, "Qq12345678!", "Password")
+            self.set_text(self.confirm_password_field, "Qq12345678!", "Confirm password")
             self.click(self.terms_switch, "Terms of use")
             self.click_sign_up()
             self.wait_a_second()

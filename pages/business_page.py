@@ -38,6 +38,7 @@ class BusinessPage(BasePage):
     save_btn = 'com.yapmap.yapmap:id/action_save'
     description_in_business_list = 'com.yapmap.yapmap:id/description_text_view'
     create_business_btn = 'com.yapmap.yapmap:id/create_business_button'
+    back_btn = '//*[@content-desc="Back"]'
 
     @allure.step("Добавление новой записи Business")
     def add_new_business(self):
@@ -63,7 +64,7 @@ class BusinessPage(BasePage):
     def add_new_business_with_full_fields(self):
         self.click_new_business_btn()
         self.upload_new_photo()
-        self.set_text(self.business_name_field, text_250_2, "поле Business name")
+        self.set_text(self.business_name_field, text_250_2, "Business name")
         self.set_business_type()
         self.set_description(text_250)
         self.swipe_up()
@@ -96,7 +97,7 @@ class BusinessPage(BasePage):
     @allure.step("Добавление названия")
     def set_name(self):
         business_name = 'Test business_' + str(random.randint(0, 999999999))
-        self.set_text(self.business_name_field, business_name, "поле Business name")
+        self.set_text(self.business_name_field, business_name, "Business name")
         return business_name
 
     @allure.step("Добавление Business type")
@@ -107,7 +108,7 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление Description")
     def set_description(self, description):
-        self.set_text(self.description, description, "поле Description")
+        self.set_text(self.description, description, "Description")
 
     @allure.step("Добавление нового фото")
     def add_new_photo(self):
@@ -194,3 +195,12 @@ class BusinessPage(BasePage):
     def clear_business(self):
         if self.get_elements_amount(self.business_item) > 0:
             self.delete_business()
+
+    @allure.step("Проверка наличия записи и создание новой, если не найдено ни одной")
+    def check_business_item_availability(self):
+        if self.get_elements_amount(self.business_item) == 0:
+            self.add_new_business()
+
+    @allure.step("Клик по кнопке Назад")
+    def click_back_btn(self):
+        self.click(self.back_btn, "кнопка Назад")

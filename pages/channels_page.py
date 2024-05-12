@@ -80,7 +80,7 @@ class ChannelsPage(BasePage):
     def add_new_channel(self, is_private=None):
         channel_name = 'Test channel_' + str(randint(0, 999999999))
         self.click(self.add_new_channel_btn, "добавить новый канал")
-        self.set_text(self.name_field, channel_name, "поле Channel Name")
+        self.set_text(self.name_field, channel_name, "Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
@@ -91,7 +91,7 @@ class ChannelsPage(BasePage):
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
         self.click(self.done_photo, "подтверждение созданного фото")
-        self.set_text(self.description_field, text_1000, 'поле Description')
+        self.set_text(self.description_field, text_1000, 'Description')
         if is_private == 'private':
             self.swipe_up()
             self.click(self.private_checkbox, 'чекбокс Private')
@@ -108,8 +108,8 @@ class ChannelsPage(BasePage):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.click_edit_channel()
         new_channel_name = 'Test channel_' + str(randint(0, 999999999))
-        self.set_text(self.name_field, new_channel_name, "поле Name group")
-        self.set_text(self.description_field, text_1000_2, "поле Description")
+        self.set_text(self.name_field, new_channel_name, "Name group")
+        self.set_text(self.description_field, text_1000_2, "Description")
         self.click(self.save_btn, "кнопка Save")
         self.click(self.d(description="Back"), "кнопка Назад")
         self.wait_element(self.channel_name_in_list)
