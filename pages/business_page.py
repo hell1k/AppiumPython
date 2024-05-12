@@ -6,7 +6,7 @@ from faker import Faker
 from common.permission import Permission
 from pages.base_page import BasePage
 from common.menu import Menu
-from tests.config import text_250
+from tests.config import text_250, text_250_2
 
 faker = Faker()
 
@@ -36,6 +36,8 @@ class BusinessPage(BasePage):
     business_item = 'com.yapmap.yapmap:id/name_text_view'
     delete_btn = 'com.yapmap.yapmap:id/delete_button'
     save_btn = 'com.yapmap.yapmap:id/action_save'
+    description_in_business_list = 'com.yapmap.yapmap:id/description_text_view'
+    create_business_btn = 'com.yapmap.yapmap:id/create_business_button'
 
     @allure.step("Добавление новой записи Business")
     def add_new_business(self):
@@ -56,6 +58,25 @@ class BusinessPage(BasePage):
         self.click(self.ok_btn, "кнопка OK")
         self.click(self.ok_btn, "кнопка OK")
         return business_name
+
+    @allure.step("Добавление новой записи Business с максимальным заполнением полей")
+    def add_new_business_with_full_fields(self):
+        self.click_new_business_btn()
+        self.upload_new_photo()
+        self.set_text(self.business_name_field, text_250_2, "поле Business name")
+        self.set_business_type()
+        self.set_description(text_250)
+        self.swipe_up()
+        self.add_new_photo()
+        self.swipe_up()
+        self.select_address()
+        self.set_phone()
+        self.set_site()
+        self.swipe_up()
+        self.click_show_it_to_other()
+        self.click_create_btn()
+        self.click(self.ok_btn, "кнопка OK")
+        self.click(self.ok_btn, "кнопка OK")
 
     @allure.step("Клик по кнопке Create")
     def click_create_btn(self):
@@ -127,18 +148,30 @@ class BusinessPage(BasePage):
 
     @allure.step("Переход в '{business_name}'")
     def open_business(self, business_name):
-        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{business_name}"]',
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "{business_name}")]',
                    business_name)
 
     @allure.step("Удаление '{business_name}'")
-    def delete_business(self, business_name):
-        self.open_business(business_name)
-        self.swipe_to_element(self.delete_btn)
-        self.click(self.delete_btn, "кнопка Delete")
-        self.wait_title_text("Confirm action")
-        self.click(self.ok_btn, "кнопка Ok")
-        self.wait_hidden_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{business_name}"]',
-                                 business_name)
+    def delete_business(self, business_name=None):
+        if business_name is not None:
+            self.open_business(business_name)
+            self.swipe_to_element(self.delete_btn)
+            self.click(self.delete_btn, "кнопка Delete")
+            self.wait_title_text("Confirm action")
+            self.click(self.ok_btn, "кнопка Ok")
+            self.wait_hidden_element(
+                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "{business_name}")]',
+                business_name)
+        else:
+            self.click(self.business_item, "первая запись Business")
+            self.swipe_to_element(self.delete_btn)
+            self.click(self.delete_btn, "кнопка Delete")
+            self.wait_title_text("Confirm action")
+            self.click(self.ok_btn, "кнопка Ok")
+
+    @allure.step("Ожидание экрана Business без записей")
+    def checking_empty_business_page(self):
+        self.wait_element(self.create_business_btn, "кнопка Start now")
 
     @allure.step("Редактирование '{business_name}'")
     def edit_business(self, business_name):
@@ -156,3 +189,8 @@ class BusinessPage(BasePage):
     @allure.step("Клик по кнопке Save")
     def click_save_btn(self):
         self.click(self.save_btn, "кнопка Save")
+
+    @allure.step("Очистка экрана Business")
+    def clear_business(self):
+        if self.get_elements_amount(self.business_item) > 0:
+            self.delete_business()
