@@ -349,10 +349,4 @@ class EventsPage(BasePage):
         self.click_back_btn()
         self.checking_comment()
 
-    @allure.step("Открываем свайпом боттом шит со списком эвентов")
-    def open_bottom_sheet(self):
-        center = self.get_element(self.shevron).center()
-        fx, fy = center
-        ty = self.d.window_size()[1]*0.1
-        tx = self.d.window_size()[0]/2
-        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+

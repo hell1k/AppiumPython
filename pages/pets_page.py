@@ -58,6 +58,8 @@ class PetsPage(BasePage):
     more_options = 'com.yapmap.yapmap:id/action_show_option_menu'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
 
+    pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
+
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
@@ -237,6 +239,14 @@ class PetsPage(BasePage):
 
         return new_pet_name
 
+    def delete_pet(self, pet_name):
+        self.click(self.more_options)
+        self.click('//*[@text="Delete"]')
+        self.click(self.pop_up_ok_btn)
+        self.swipe_down()
+        self.wait_a_second()
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=pet_name).wait_gone(10)
+
     @allure.step("Переход в доп опции '{option_name}'")
     def open_more_options(self, option_name):
         self.click(self.more_options, "меню группы")
@@ -270,3 +280,7 @@ class PetsPage(BasePage):
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+
+
+
+
