@@ -6,6 +6,7 @@ from pages.login_page import LoginPage
 from common.menu import Menu
 from pages.profile_page import ProfilePage
 from pages.events_page import EventsPage
+from pages.pets_page import PetsPage
 
 
 class MainPage(BasePage):
@@ -16,6 +17,7 @@ class MainPage(BasePage):
     channels = ChannelsPage()
     events = EventsPage()
     business = BusinessPage()
+    pets = PetsPage()
 
 
 

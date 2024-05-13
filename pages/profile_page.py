@@ -265,6 +265,13 @@ class ProfilePage(BasePage):
         self.wait_a_second()
         self.click(self.events_btn_in_profile)
 
+    @allure.step("Открытие раздела Pets из Профиля")
+    def open_pets(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.pets_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.pets_btn_in_profile)
+
     @allure.step("Открытие раздела Business из Профиля")
     def open_business(self):
         self.menu.open_profile()

@@ -50,14 +50,14 @@ class BasePage:
     def get_random_element(self, locator):
         if isinstance(locator, str):
             if locator[0] == '/' and locator[1] == '/':
-                counter = random.randrange(0, len(self.d.xpath(locator).all()))
+                counter = random.randrange(0, len(self.d.xpath(locator).all()) - 1)
                 elements_list = self.d.xpath(locator).all()
                 return elements_list[counter]
             else:
-                counter = random.randrange(0, self.d(resourceId=locator).count)
+                counter = random.randrange(0, self.d(resourceId=locator).count - 1)
                 return self.d(resourceId=locator)[counter]
         else:
-            counter = random.randrange(0, locator.count)
+            counter = random.randrange(0, locator.count - 1)
             return locator[counter]
 
     def get_text(self, locator):
@@ -96,7 +96,7 @@ class BasePage:
         for i in range(10):
             if self.get_elements_amount(locator) == 0:
                 self.swipe_up()
-                self.wait_a_moment()
+                self.wait_a_second()
             else:
                 self.wait_element(locator)
                 break
