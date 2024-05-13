@@ -21,6 +21,9 @@ class MainPage(BasePage):
     business = BusinessPage()
     pets = PetsPage()
 
+    pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
+    shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
+
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
         center = self.get_element(self.shevron).center()
