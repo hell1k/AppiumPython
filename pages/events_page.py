@@ -117,7 +117,7 @@ class EventsPage(BasePage):
     def add_new_event(self, is_private=None):
         event_name = 'Test event_' + str(randint(0, 999999999))
         self.click(self.add_new_event_btn, "добавить новый Event")
-        self.set_text(self.name_field, event_name, "поле Channel Name")
+        self.set_text(self.name_field, event_name, "Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
@@ -127,7 +127,7 @@ class EventsPage(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
-        self.set_text(self.description_field, text_250, 'поле Description')
+        self.set_text(self.description_field, text_250, 'Description')
 
         self.select_random_type()
         self.add_photo()
@@ -196,8 +196,8 @@ class EventsPage(BasePage):
     def edit_event(self, event_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
         new_event_name = 'Test event_' + str(randint(0, 999999999))
-        self.set_text(self.name_field, new_event_name, "поле Name event")
-        self.set_text(self.description_field, text_250_2, "поле Description")
+        self.set_text(self.name_field, new_event_name, "Name event")
+        self.set_text(self.description_field, text_250_2, "Description")
         self.swipe_to_element(self.type_selection)
         self.select_random_type()
         self.swipe_to_element(self.live_event_check_box)

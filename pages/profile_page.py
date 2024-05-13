@@ -258,12 +258,23 @@ class ProfilePage(BasePage):
         self.click_back()
         self.wait_a_second()
 
-    @allure.step("Открытие раздела Events из Профиля")
+    @allure.step("Переход в раздел Events из Профиля")
     def open_events(self):
         self.menu.open_profile()
         self.swipe_to_element(self.events_btn_in_profile)
         self.wait_a_second()
         self.click(self.events_btn_in_profile)
+
+    @allure.step("Переход в раздел Business из Профиля")
+    def open_business(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.business_btn_in_profile)
+        self.click_business()
+
+    @allure.step("Клик по кнопке Business")
+    def click_business(self):
+        self.swipe_to_element(self.business_btn_in_profile)
+        self.click(self.business_btn_in_profile, "кнопка Business")
 
     @allure.step("Открытие раздела Pets из Профиля")
     def open_pets(self):
@@ -272,12 +283,13 @@ class ProfilePage(BasePage):
         self.wait_a_second()
         self.click(self.pets_btn_in_profile)
 
-    @allure.step("Открытие раздела Business из Профиля")
-    def open_business(self):
-        self.menu.open_profile()
-        self.swipe_to_element(self.business_btn_in_profile)
-        self.click_business()
+    @allure.step("Клик по кнопке Jobs")
+    def click_jobs(self):
+        self.swipe_to_element(self.jobs_btn_in_profile)
+        self.click(self.jobs_btn_in_profile, "кнопка Jobs")
 
-    @allure.step("Клик по кнопке Business")
-    def click_business(self):
-        self.click(self.business_btn_in_profile, "кнопка Business")
+    @allure.step("Переход в раздел Jobs из Профиля")
+    def open_jobs(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.jobs_btn_in_profile)
+        self.click_jobs()

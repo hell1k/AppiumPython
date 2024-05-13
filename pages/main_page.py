@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from pages.business_page import BusinessPage
 from pages.groups_page import GroupsPage
 from pages.channels_page import ChannelsPage
+from pages.jobs_page import JobsPage
 from pages.login_page import LoginPage
 from common.menu import Menu
 from pages.profile_page import ProfilePage
@@ -18,6 +19,7 @@ class MainPage(BasePage):
     events = EventsPage()
     business = BusinessPage()
     pets = PetsPage()
+    jobs = JobsPage()
 
 
 
