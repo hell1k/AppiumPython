@@ -174,18 +174,16 @@ class PetsPage(BasePage):
     def edit_pet(self):
         self.click(self.more_options)
         self.click('//*[@text="Edit"]')
+        self.add_photo_without_permissions()
         new_pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, new_pet_name, "поле Name")
         self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_250_2, "поле Description")
-        self.swipe_to_element(self.add_photos_btn)
-        self.add_photo_without_permissions()
-
         self.swipe_to_element(self.animal_type)
         self.click(self.animal_type, 'Animal type')
         self.wait_text('Animal type')
         self.select_random_type()
-
+        self.wait_a_second()
         self.swipe_to_element(self.sex)
         self.click(self.sex, 'Sex')
         self.wait_text('Sex')
@@ -338,6 +336,7 @@ class PetsPage(BasePage):
         self.send_message(message)
         self.wait_text(message)
         self.click_back_btn()
+        self.wait_a_second()
         self.wait_a_second()
         self.click_back_btn()
         return message
