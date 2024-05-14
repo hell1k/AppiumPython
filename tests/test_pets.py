@@ -38,7 +38,7 @@ class TestPets:
         page.pets.open_pet(new_pet_name)
         page.pets.delete_pet(new_pet_name)
 
-    @allure.title("Взаимодействие другого пользователя ")
+    @allure.title("Взаимодействие другого пользователя с питомцем")
     @pytest.mark.smoke
     @pytest.mark.pets
     # @pytest.mark.login_marker("relagram.auto+pets@yandex.ru")
@@ -78,10 +78,10 @@ class TestPets:
         page.login.logout()
         # Проверяем что пользователь 1 увидит сообщение пользователя 2
         page.login.authorization()
-        # Путь проверки - 'Профиль - Чат - Pets - I own - name_pet'
+        # Путь проверки - 'Профиль - Чат - Pets - I own - name_pet - user_pet_name'
         page.menu.open_chats()
         page.chats.check_pets_message(pet_name, user_pet_name, message)
-        # Путь проверки - 'Фильтр - name_pet'
+        # Путь проверки - 'Фильтр - name_pet - user_pet_name'
         # page.select_pets_filter()
         # page.open_bottom_sheet()
         # page.pets.open_pet(pet_name)

@@ -27,6 +27,8 @@ class MainPage(BasePage):
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
+    horizontal_scroll_filters = '//android.widget.HorizontalScrollView'
+    dating_filter = "com.yapmap.yapmap:id/dating_filter_text_view"
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
@@ -38,6 +40,23 @@ class MainPage(BasePage):
 
     @allure.step("Выбрать фильтр Pets")
     def select_pets_filter(self):
+        self.swipe_horizontal_to_element(self.pets_filter)
         self.click(self.pets_filter)
+
+    def swipe_horizontal_filters(self):
+        fx, fy = self.get_element(self.horizontal_scroll_filters).center()
+        tx, ty = self.get_element(self.dating_filter).center()
+        self.swipe_coordinate(fx, fy, tx, ty)
+
+    def swipe_horizontal_to_element(self, locator):
+        for i in range(3):
+            if self.get_elements_amount(locator) == 0:
+                self.swipe_horizontal_filters()
+                self.wait_a_second()
+            else:
+                self.wait_element(locator)
+                break
+
+
 
 
