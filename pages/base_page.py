@@ -11,6 +11,8 @@ class BasePage:
     d = u.connect(device_id)
     faker = Faker()
 
+
+
     def click(self, locator, element_name=None):
         if not isinstance(locator, str):
             if element_name is not None:
@@ -101,6 +103,9 @@ class BasePage:
                 self.wait_element(locator)
                 break
 
+    def swipe_coordinate(self, fx, fy, tx, ty):
+        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+
     # @allure.step("Ожидание элемента")
     def wait_element(self, locator, element_name=None):
         if element_name is not None:
@@ -174,3 +179,7 @@ class BasePage:
             return len(self.get_element(locator).all())
         else:
             return self.get_element(locator).count
+
+
+
+

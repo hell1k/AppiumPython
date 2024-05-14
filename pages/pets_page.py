@@ -28,8 +28,6 @@ class PetsPage(BasePage):
     second_photo = '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[3]'
     done_photo = '//*[@resource-id="com.yapmap.yapmap:id/action_done"]'
     types = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout'
-
-    # animal_type = '//*[@resource-id=com.yapmap.yapmap:id/animal_type_field]//*[@resource-id=com.yapmap.yapmap:id/click_view]'
     animal_type = '//*[@resource-id="com.yapmap.yapmap:id/animal_type_field"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
     sex = '//*[@resource-id="com.yapmap.yapmap:id/sex_field"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
     date_of_birth = '//*[@resource-id="com.yapmap.yapmap:id/date_of_birth_field"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
@@ -38,37 +36,37 @@ class PetsPage(BasePage):
     kennel = '//*[@resource-id="com.yapmap.yapmap:id/kennel_field"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
     open_for_mating_switch = '//*[@resource-id="com.yapmap.yapmap:id/open_for_mating_switch"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
     location = '//*[@resource-id="com.yapmap.yapmap:id/location_field"]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]'
-
     calendar_prev = "android:id/prev"
     calendar_ok = "android:id/button1"
     cancel_button = "com.yapmap.yapmap:id/cancel_button"
     done_button = "com.yapmap.yapmap:id/done_button"
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
-
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
     address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
-
     post_button = "com.yapmap.yapmap:id/post_button"
     name_in_list = 'com.yapmap.yapmap:id/name_text_view'
-
     share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the pet")]'
     qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
-
     more_options = 'com.yapmap.yapmap:id/action_show_option_menu'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    send_message_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
+
+    message_field = 'com.yapmap.yapmap:id/input_edit_text'
+    message = "com.yapmap.yapmap:id/body_text_view"
+    send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Создание нового питомца")
-    def add_new_pet(self):
-        pet_name = 'Test pets_' + str(randint(0, 999999999))
+    def add_new_pet_btn(self):
         self.click(self.create_btn, "добавить нового питомца")
 
-        self.click(self.pop_up_ok_btn, 'кнопка ОК')
-
+    @allure.step("Создание нового питомца")
+    def add_new_pet(self):
         self.add_photo()
+        pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, pet_name, "поле Name")
         self.set_text(self.description_field, text_250, 'поле Description')
 
@@ -125,12 +123,12 @@ class PetsPage(BasePage):
         # self.wait_text('You pet has been accepted')
         # self.get_screen()
         # self.wait_text('Others can see it in a few minutes. We wish you a successful sale.')
+        return pet_name
+
+    def check_pet_in_list(self, pet_name):
         self.wait_element(self.name_in_list)
         self.swipe_down()
         self.wait_text(pet_name)
-        self.wait_text(kennel_name)
-
-        return pet_name
 
     @allure.step("Добавить фото")
     def add_photo(self):
@@ -178,6 +176,7 @@ class PetsPage(BasePage):
         self.click('//*[@text="Edit"]')
         new_pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, new_pet_name, "поле Name")
+        self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_250_2, "поле Description")
 
         self.add_photo_without_permissions()
@@ -237,6 +236,14 @@ class PetsPage(BasePage):
 
         return new_pet_name
 
+    def delete_pet(self, pet_name):
+        self.click(self.more_options)
+        self.click('//*[@text="Delete"]')
+        self.click(self.pop_up_ok_btn)
+        self.swipe_down()
+        self.wait_a_second()
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=pet_name).wait_gone(10)
+
     @allure.step("Переход в доп опции '{option_name}'")
     def open_more_options(self, option_name):
         self.click(self.more_options, "меню группы")
@@ -270,3 +277,68 @@ class PetsPage(BasePage):
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options_user(self):
+        self.wait_a_moment()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Message")
+        self.wait_text('Pets')
+        self.wait_text('On behalf of which pet there will be communication?')
+        self.press_back()
+        self.open_more_options("Complain")
+        self.wait_text('Choose a reason')
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Cancel")
+        self.wait_hidden_element(self.cancel_button)
+
+    def click_send_message(self):
+        self.swipe_to_element(self.send_message_btn)
+        self.click(self.send_message_btn)
+        self.wait_text('Pets')
+        self.wait_text('On behalf of which pet there will be communication?')
+
+    def user_dont_have_pets_msg_check(self):
+        self.wait_text("You don't have any Pets here yet")
+        self.wait_text(
+            "You can't use the Pets feature because you don't have any Pets added to your profile yet. Do you wish to create?")
+
+    def click_cancel(self):
+        self.click(self.cancel_button)
+
+    def click_ok(self):
+        self.click(self.pop_up_ok_btn)
+
+    def pets_check_msg(self):
+        self.wait_text(
+            'Pets is a public platform and can be seen by anyone on Relagram. See our Terms and Condition to avoid listing violations. Violators will be banned from using Relagram forever')
+
+    @allure.step("Проверка пустого чата")
+    def checking_empty_chat(self):
+        self.wait_hidden_element(self.message, "сообщения в чате")
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_chat_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(message)
+
+    def test_chat(self):
+        message = faker.text()
+        self.send_message(message)
+        self.wait_text(message)
+        self.click_back_btn()
+        self.wait_a_second()
+        self.click_back_btn()
+        return message
+
