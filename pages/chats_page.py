@@ -26,6 +26,7 @@ class ChatsPage(BasePage):
         self.click(self.pets_tab, 'вкладка Pets')
 
     def check_pets_message(self, pet_name, user_pet_name, message):
+        self.wait_text('People')
         self.click_pets_tab()
         self.click(self.i_own)
         self.click(f'//*[@text="{pet_name}"]', pet_name)
