@@ -68,8 +68,8 @@ class PetsPage(BasePage):
         self.add_photo()
         pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, pet_name, "поле Name")
+        self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_250, 'поле Description')
-
         self.swipe_to_element(self.animal_type)
         self.click(self.animal_type, 'Animal type')
         self.wait_text('Animal type')

@@ -40,6 +40,7 @@ class MainPage(BasePage):
 
     @allure.step("Выбрать фильтр Pets")
     def select_pets_filter(self):
+        self.wait_text('Search')
         self.swipe_horizontal_to_element(self.pets_filter)
         self.click(self.pets_filter)
 
