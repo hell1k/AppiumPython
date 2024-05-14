@@ -78,10 +78,15 @@ class TestPets:
         page.login.logout()
         # Проверяем что пользователь 1 увидит сообщение пользователя 2
         page.login.authorization()
-        page.select_pets_filter()
-        page.open_bottom_sheet()
-        page.pets.open_pet(pet_name)
-        print('Переход профиль - чат - Pets - I own - name_pet')
+        # Путь проверки - 'Профиль - Чат - Pets - I own - name_pet'
+        page.menu.open_chats()
+        page.chats.check_pets_message(pet_name, user_pet_name, message)
+        # Путь проверки - 'Фильтр - name_pet'
+        # page.select_pets_filter()
+        # page.open_bottom_sheet()
+        # page.pets.open_pet(pet_name)
+
+
 
 
 

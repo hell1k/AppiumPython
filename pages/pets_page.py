@@ -176,6 +176,7 @@ class PetsPage(BasePage):
         self.click('//*[@text="Edit"]')
         new_pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, new_pet_name, "поле Name")
+        self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_250_2, "поле Description")
 
         self.add_photo_without_permissions()

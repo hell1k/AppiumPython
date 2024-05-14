@@ -7,6 +7,7 @@ class Menu(BasePage):
     profile_icon = '//*[@text="Profile"]'
     groups_icon = '//*[@resource-id="com.yapmap.yapmap:id/groups_button"]'
     channels_icon = '//*[@resource-id="com.yapmap.yapmap:id/channels_button"]'
+    chats_icon = '//*[@resource-id="com.yapmap.yapmap:id/chat_button"]'
 
     @allure.step("Переход в профиль")
     def open_profile(self):
@@ -19,3 +20,7 @@ class Menu(BasePage):
     @allure.step("Переход в раздел Channels")
     def open_channels(self):
         self.click(self.channels_icon, 'Channels')
+
+    @allure.step("Переход в раздел Chats")
+    def open_chats(self):
+        self.click(self.chats_icon, 'Chats')

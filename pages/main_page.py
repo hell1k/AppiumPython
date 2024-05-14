@@ -9,6 +9,7 @@ from common.menu import Menu
 from pages.profile_page import ProfilePage
 from pages.events_page import EventsPage
 from pages.pets_page import PetsPage
+from pages.chats_page import ChatsPage
 
 
 class MainPage(BasePage):
@@ -20,6 +21,7 @@ class MainPage(BasePage):
     events = EventsPage()
     business = BusinessPage()
     pets = PetsPage()
+    chats = ChatsPage()
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
@@ -35,4 +37,5 @@ class MainPage(BasePage):
     @allure.step("Выбрать фильтр Pets")
     def select_pets_filter(self):
         self.click(self.pets_filter)
+
 
