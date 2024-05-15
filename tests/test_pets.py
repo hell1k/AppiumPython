@@ -17,6 +17,7 @@ class TestPets:
         page.profile.open_pets()
         page.pets.add_new_pet_btn()
         page.pets.click_ok()
+        page.pets.add_photo()
         pet_name = page.pets.add_new_pet()
         page.pets.check_pet_in_list(pet_name)
 
@@ -29,6 +30,7 @@ class TestPets:
         page.profile.open_pets()
         page.pets.add_new_pet_btn()
         page.pets.click_ok()
+        page.pets.add_photo()
         pet_name = page.pets.add_new_pet()
         page.pets.check_pet_in_list(pet_name)
         page.pets.open_pet(pet_name)
@@ -48,6 +50,7 @@ class TestPets:
         page.profile.open_pets()
         page.pets.add_new_pet_btn()
         page.pets.click_ok()
+        page.pets.add_photo()
         pet_name = page.pets.add_new_pet()
         page.press_back()
         page.pets.check_pet_in_list(pet_name)
@@ -63,6 +66,7 @@ class TestPets:
         page.pets.click_ok()
         page.pets.pets_check_msg()
         page.pets.click_ok()
+        page.pets.add_photo_without_permissions()
         user_pet_name = page.pets.add_new_pet()
         # Открываем пользователем 2 питомца пользователя 1
         page.select_pets_filter()

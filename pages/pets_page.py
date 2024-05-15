@@ -51,7 +51,6 @@ class PetsPage(BasePage):
     more_options = 'com.yapmap.yapmap:id/action_show_option_menu'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
     send_message_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
-
     message_field = 'com.yapmap.yapmap:id/input_edit_text'
     message = "com.yapmap.yapmap:id/body_text_view"
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
@@ -66,7 +65,6 @@ class PetsPage(BasePage):
 
     @allure.step("Создание нового питомца")
     def add_new_pet(self):
-        self.add_photo()
         pet_name = 'Test pets_' + str(randint(0, 999999999))
         self.set_text(self.name_field, pet_name, "поле Name")
         self.swipe_to_element(self.description_field)
@@ -75,12 +73,10 @@ class PetsPage(BasePage):
         self.click(self.animal_type, 'Animal type')
         self.wait_text('Animal type')
         self.select_random_type()
-
         self.swipe_to_element(self.sex)
         self.click(self.sex, 'Sex')
         self.wait_text('Sex')
         self.select_random_type()
-
         self.swipe_to_element(self.date_of_birth)
         self.click(self.date_of_birth, 'Date of Birth')
         self.click(self.calendar_prev, 'кнопка назад на календаре')
@@ -88,17 +84,14 @@ class PetsPage(BasePage):
         random_date = random.randrange(1, 28)
         self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.calendar_ok, 'кнопка OK на календаре')
-
         self.swipe_to_element(self.pedigree)
         self.click(self.pedigree, 'Pedigree')
         self.wait_text('Pedigree')
         self.select_random_type()
-
         self.swipe_to_element(self.color)
         self.click(self.color, 'Color')
         self.wait_text('Color')
         self.select_random_type()
-
         self.swipe_to_element(self.kennel)
         self.click(self.kennel, 'Kennel')
         assert self.get_text(self.title_text) == 'Kennel'
@@ -107,17 +100,13 @@ class PetsPage(BasePage):
         kennel_name = 'DOG KENNEL COLUMBUS OHIO'
         self.set_text(self.edit_text_view, kennel_name)
         self.click(self.done_button, 'кнопка Done')
-
         self.swipe_to_element(self.open_for_mating_switch)
         self.click(self.open_for_mating_switch, 'Open for mating switch')
-
         self.swipe_to_element(self.location)
         self.click(self.location, 'Location')
         self.set_address()
-
         self.swipe_to_element(self.add_photos_btn)
         self.add_photo_without_permissions()
-
         self.swipe_to_element(self.post_button)
         self.get_element(self.cancel_button)
         self.click(self.post_button, 'кнопка Post')
@@ -133,7 +122,7 @@ class PetsPage(BasePage):
 
     @allure.step("Добавить фото")
     def add_photo(self):
-        self.click(self.add_photos_btn)
+        self.click(self.add_photos_btn, 'кнопка Add photos')
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
@@ -142,38 +131,39 @@ class PetsPage(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
-        self.click(self.done_photo)
+        self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Добавить фото")
     def add_photo_without_permissions(self):
-        self.click(self.add_photos_btn)
+        self.click(self.add_photos_btn, 'кнопка Add photos')
         self.click(self.image_loader, "добавление нового фото")
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
-        self.click(self.done_photo)
+        self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Выбор случайного типа")
     def select_random_type(self):
         self.wait_element(self.types)
-        self.click(self.get_random_element(self.types), "рандомный тип")
+        element = self.get_random_element(self.types)
+        self.click(element, f"{element.text}")
         self.wait_a_second()
 
     @allure.step("Выбрать адрес")
     def set_address(self, city_name='Novosibirsk'):
         self.wait_text('Choose location')
         self.set_text(self.type_address_field, city_name)
-        self.click(self.address_popup)
-        self.click(self.map_plus_btn)
+        self.click(self.address_popup, 'адрес из всплывашки')
+        self.click(self.map_plus_btn, 'кнопка + на карте')
         self.wait_text('New Pet')
 
     def open_pet(self, pet_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{pet_name}"]', pet_name)
 
     def edit_pet(self):
-        self.click(self.more_options)
+        self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
         self.add_photo_without_permissions()
         new_pet_name = 'Test pets_' + str(randint(0, 999999999))
@@ -236,9 +226,9 @@ class PetsPage(BasePage):
         return new_pet_name
 
     def delete_pet(self, pet_name):
-        self.click(self.more_options)
+        self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Delete"]')
-        self.click(self.pop_up_ok_btn)
+        self.click(self.pop_up_ok_btn, 'кнопка ОК на popup')
         self.swipe_down()
         self.wait_a_second()
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=pet_name).wait_gone(10)
@@ -299,23 +289,26 @@ class PetsPage(BasePage):
         self.open_more_options("Cancel")
         self.wait_hidden_element(self.cancel_button)
 
+    @allure.step("Перейти в чат")
     def click_send_message(self):
         self.swipe_to_element(self.send_message_btn)
-        self.click(self.send_message_btn)
+        self.click(self.send_message_btn, 'нажать кнопку Send message')
         self.wait_text('Pets')
         self.wait_text('On behalf of which pet there will be communication?')
 
+    @allure.step("Проверка сообщения You don't have any Pets here yet")
     def user_dont_have_pets_msg_check(self):
         self.wait_text("You don't have any Pets here yet")
         self.wait_text(
             "You can't use the Pets feature because you don't have any Pets added to your profile yet. Do you wish to create?")
 
     def click_cancel(self):
-        self.click(self.cancel_button)
+        self.click(self.cancel_button, 'кнопка Cancel')
 
     def click_ok(self):
-        self.click(self.pop_up_ok_btn)
+        self.click(self.pop_up_ok_btn, 'кнопка OK')
 
+    @allure.step("Проверка сообщения Pets is a public platform and can ...")
     def pets_check_msg(self):
         self.wait_text(
             'Pets is a public platform and can be seen by anyone on Relagram. See our Terms and Condition to avoid listing violations. Violators will be banned from using Relagram forever')
@@ -332,11 +325,12 @@ class PetsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
+    @allure.step("Проверяем чат")
     def test_chat(self):
         message = faker.text()
         self.send_message(message)
         self.wait_text(message)
-        self.click(self.back_btn_2)
+        self.click(self.back_btn_2, 'кнопка <-')
         self.wait_a_second()
         self.click_back_btn()
         self.wait_a_second()
