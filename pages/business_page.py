@@ -41,6 +41,10 @@ class BusinessPage(BasePage):
     description_in_business_list = 'com.yapmap.yapmap:id/description_text_view'
     create_business_btn = 'com.yapmap.yapmap:id/create_business_button'
     back_btn = '//*[@content-desc="Back"]'
+    add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    more_options = '//*[@content-desc="More options"]'
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my business")]'
+    qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
 
     @allure.step("Добавление новой записи Business")
     def add_new_business(self):
@@ -188,10 +192,22 @@ class BusinessPage(BasePage):
     @allure.step("Редактирование '{business_name}'")
     def edit_business(self, business_name):
         self.open_business(business_name)
+        self.add_to_favorite()
+        self.open_more_options('Share')
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
         new_business_name = self.set_name()
         self.set_business_type()
         self.set_description(text_250)
         self.set_phone()
+        self.swipe_up()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.set_site()
         self.click_save_btn()
         self.wait_text(new_business_name)
         return new_business_name
@@ -213,3 +229,13 @@ class BusinessPage(BasePage):
     @allure.step("Клик по кнопке Назад")
     def click_back_btn(self):
         self.click(self.back_btn, "кнопка Назад")
+
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+
+    @allure.step("Переход в доп опции группы '{option_name}'")
+    def open_more_options(self, option_name):
+        self.click(self.more_options, "меню группы")
+        self.click(f'//*[@text="{option_name}"]', option_name)
+
