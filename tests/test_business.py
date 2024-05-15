@@ -13,6 +13,7 @@ class TestBusiness:
     def test_create_new_business(self, authorization):
         page = MainPage()
         page.profile.open_business()
+        page.business.clear_business()
         business_name = page.business.add_new_business()
         page.wait_text(business_name)
         new_business_name = page.business.edit_business(business_name)
@@ -29,3 +30,4 @@ class TestBusiness:
         assert page.get_text(page.business.description_in_business_list) in text_250
         page.business.delete_business(page.get_text(page.business.business_item))
         page.business.checking_empty_business_page()
+
