@@ -5,7 +5,7 @@ from pages.main_page import MainPage
 
 
 @pytest.mark.usefixtures("setup")
-@allure.feature("Events")
+@allure.feature("Pets")
 class TestPets:
 
     @allure.title("Добавление нового питомца")
