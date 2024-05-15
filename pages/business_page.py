@@ -30,6 +30,8 @@ class BusinessPage(BasePage):
     address_apply_btn = 'com.yapmap.yapmap:id/floating_action_button'
     phone_field = '//*[@resource-id="com.yapmap.yapmap:id/phone_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     site_field = '//*[@resource-id="com.yapmap.yapmap:id/site_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
+    # phone_field = '//*[@resource-id="com.yapmap.yapmap:id/phone_field"]/*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
+    # site_field = '//*[@text="Site"]'
     show_it_to_other_switch_btn = '//*[@resource-id="com.yapmap.yapmap:id/show_it_to_others_switch"]//*[@resource-id="com.yapmap.yapmap:id/container"]'
     create_new_business_btn = 'com.yapmap.yapmap:id/action_show_option_menu'
     ok_btn = 'com.yapmap.yapmap:id/ok_button'
@@ -47,16 +49,18 @@ class BusinessPage(BasePage):
         business_name = self.set_name()
         self.set_business_type()
         self.set_description("Some description")
-        self.swipe_up()
         self.add_new_photo()
-        self.swipe_up()
         self.select_address()
         self.set_phone()
-        self.set_site()
         self.swipe_up()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.set_site()
         self.click_show_it_to_other()
         self.click_create_btn()
+        self.wait_a_second()
         self.click(self.ok_btn, "кнопка OK")
+        self.wait_a_second()
         self.click(self.ok_btn, "кнопка OK")
         return business_name
 
@@ -67,13 +71,13 @@ class BusinessPage(BasePage):
         self.set_text(self.business_name_field, text_250_2, "Business name")
         self.set_business_type()
         self.set_description(text_250)
-        self.swipe_up()
         self.add_new_photo()
-        self.swipe_up()
         self.select_address()
         self.set_phone()
-        self.set_site()
         self.swipe_up()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.set_site()
         self.click_show_it_to_other()
         self.click_create_btn()
         self.click(self.ok_btn, "кнопка OK")
@@ -86,6 +90,7 @@ class BusinessPage(BasePage):
 
     @allure.step("Клик по переключателю Show it to other")
     def click_show_it_to_other(self):
+        self.swipe_to_element(self.show_it_to_other_switch_btn)
         self.click(self.show_it_to_other_switch_btn, "Show it to other")
         self.wait_a_second()
 
@@ -108,10 +113,12 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление Description")
     def set_description(self, description):
+        self.swipe_to_element(self.description)
         self.set_text(self.description, description, "Description")
 
     @allure.step("Добавление нового фото")
     def add_new_photo(self):
+        self.swipe_to_element(self.add_photo_btn)
         self.click(self.add_photo_btn, "add photos")
         self.click(self.image_loader, "добавление нового фото")
         self.wait_element(self.take_a_picture_btn)
@@ -133,6 +140,7 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление адреса")
     def select_address(self):
+        self.swipe_to_element(self.add_address_btn)
         self.click(self.add_address_btn, "add address")
         location_coordinate = self.get_element(self.address_location).center()
         self.d.click(location_coordinate[0], location_coordinate[1])
@@ -140,12 +148,15 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление телефона")
     def set_phone(self):
+        self.swipe_to_element(self.phone_field)
         phone_number = str(random.randint(10000000, 9999999999))
         self.set_text(self.phone_field, phone_number, "phone")
 
     @allure.step("Добавление сайта")
     def set_site(self):
-        self.set_text(self.site_field, "https://test.com", "site")
+        self.swipe_to_element(self.site_field)
+        rnd = str(random.randint(10, 99))
+        self.set_text(self.site_field, f"https://test{rnd}.com", "site")
 
     @allure.step("Переход в '{business_name}'")
     def open_business(self, business_name):
@@ -180,8 +191,6 @@ class BusinessPage(BasePage):
         new_business_name = self.set_name()
         self.set_business_type()
         self.set_description(text_250)
-        self.swipe_up()
-        self.swipe_up()
         self.set_phone()
         self.click_save_btn()
         self.wait_text(new_business_name)
