@@ -239,3 +239,9 @@ class BusinessPage(BasePage):
         self.click(self.more_options, "меню группы")
         self.click(f'//*[@text="{option_name}"]', option_name)
 
+    def user_open_business(self, business_name):
+        business = self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=business_name)
+        element = self.get_element(business)
+        self.swipe_to_element(element)
+        self.click(element)
+

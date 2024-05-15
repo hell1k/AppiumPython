@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from pages.main_page import MainPage
-from tests.config import text_250_2, text_250
+from tests.config import *
 
 
 @pytest.mark.usefixtures("setup")
@@ -30,4 +30,19 @@ class TestBusiness:
         assert page.get_text(page.business.description_in_business_list) in text_250
         page.business.delete_business(page.get_text(page.business.business_item))
         page.business.checking_empty_business_page()
+
+    @allure.title("Взаимодействие пользователя")
+    @pytest.mark.smoke
+    def test_create_new_business(self, authorization):
+        page = MainPage()
+        page.profile.open_business()
+        page.business.clear_business()
+        business_name = page.business.add_new_business()
+        page.wait_text(business_name)
+        page.business.click_back_btn()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.select_local_deals_filter()
+        page.open_bottom_sheet()
+        page.business.user_open_business(business_name)
 
