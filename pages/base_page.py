@@ -11,8 +11,6 @@ class BasePage:
     d = u.connect(device_id)
     faker = Faker()
 
-
-
     def click(self, locator, element_name=None):
         if not isinstance(locator, str):
             if element_name is not None:
@@ -179,7 +177,4 @@ class BasePage:
             return len(self.get_element(locator).all())
         else:
             return self.get_element(locator).count
-
-
-
 

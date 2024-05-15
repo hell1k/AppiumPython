@@ -55,6 +55,7 @@ class PetsPage(BasePage):
     message_field = 'com.yapmap.yapmap:id/input_edit_text'
     message = "com.yapmap.yapmap:id/body_text_view"
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
+    back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -335,9 +336,9 @@ class PetsPage(BasePage):
         message = faker.text()
         self.send_message(message)
         self.wait_text(message)
+        self.click(self.back_btn_2)
+        self.wait_a_second()
         self.click_back_btn()
         self.wait_a_second()
-        self.wait_a_second()
-        self.click_back_btn()
         return message
 

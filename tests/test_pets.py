@@ -74,7 +74,6 @@ class TestPets:
         page.pets.click_send_message()
         page.pets.open_pet(user_pet_name)
         message = page.pets.test_chat()
-        page.pets.click_back_btn()
         page.login.logout()
         # Проверяем что пользователь 1 увидит сообщение пользователя 2
         page.login.authorization()
