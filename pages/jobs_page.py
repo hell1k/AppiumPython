@@ -7,7 +7,7 @@ from faker import Faker
 from common.menu import Menu
 from common.permission import Permission
 from pages.base_page import BasePage
-from tests.config import text_250
+from tests.config import *
 
 
 class JobsPage(BasePage):
@@ -48,7 +48,8 @@ class JobsPage(BasePage):
     done_button = "com.yapmap.yapmap:id/done_button"
     pop_up_ok_btn = "com.yapmap.yapmap:id/ok_button"
     share_text = "android:id/content_preview_text"
-
+    selected_shevron = "com.yapmap.yapmap:id/selected_image_view"
+    selected_job_type = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout//*[@resource-id="com.yapmap.yapmap:id/selected_image_view"]'
 
     @allure.step("Клик по кнопке создания новой Jobs")
     def click_create_new_jobs(self):
@@ -63,8 +64,9 @@ class JobsPage(BasePage):
         self.set_position_name()
         position_name = self.get_text(self.position_name_value)
         self.select_profession_type()
-        self.set_duties_description()
-        self.set_skills()
+        self.set_text(self.duties_description, text_1000, "Duties description")
+        self.swipe_to_element(self.skills_field)
+        self.set_text(self.skills_field, text_1000_2, "Skills")
         self.upload_new_photo()
         self.select_job_type()
         self.select_hours_per_week()
@@ -90,6 +92,30 @@ class JobsPage(BasePage):
         self.swipe_down()
         self.wait_a_second()
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name).wait_gone(10)
+
+    @allure.step("Редактирование Jobs")
+    def edit_job(self, position_name):
+        self.click(self.more_options, 'кнопка ... в верхнем правом углу')
+        self.click('//*[@text="Edit"]', 'кнопка Edit')
+        self.wait_text(f'Editing {position_name}')
+        self.set_position_name()
+        position_name = self.get_text(self.position_name_value)
+        self.select_profession_type()
+        self.set_text(self.duties_description, text_1000_2, "Duties description")
+        self.swipe_to_element(self.skills_field)
+        self.set_text(self.skills_field, text_1000, "Skills")
+        self.upload_new_photo_without_permission()
+        self.edit_job_type()
+        self.select_hours_per_week()
+        self.select_salary_per()
+        self.select_salary_amount()
+        self.select_currency()
+        self.click_commission_switch()
+        self.wait_a_second()
+        self.click_remotely_switch()
+        self.swipe_to_element(self.post_btn)
+        self.click_post_btn()
+        return position_name
 
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
@@ -172,11 +198,30 @@ class JobsPage(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
 
+    @allure.step("Добавление нового фото")
+    def upload_new_photo_without_permission(self):
+        self.swipe_to_element(self.add_photo_btn)
+        self.click(self.add_photo_btn, 'add photo')
+        self.click(self.image_loader, "добавление нового фото")
+        self.wait_element(self.take_a_picture_btn)
+        self.wait_a_second()
+        self.click(self.take_a_picture_btn, "создание нового фото")
+        self.click(self.take_a_picture_done_btn, "выбрать фото")
+
     @allure.step("Выбор Job type")
     def select_job_type(self):
         self.swipe_to_element(self.job_type)
         self.click(self.job_type, "поле Job type")
         self.wait_element(self.values_list)
+        self.click(self.get_random_element(self.values_list), "рандомный Job type")
+        self.click(self.apply_btn, "кнопка Apply")
+
+    @allure.step("Выбор Job type")
+    def edit_job_type(self):
+        self.swipe_to_element(self.job_type)
+        self.click(self.job_type, "поле Job type")
+        self.wait_element(self.values_list)
+        self.click(self.selected_job_type)
         self.click(self.get_random_element(self.values_list), "рандомный Job type")
         self.click(self.apply_btn, "кнопка Apply")
 
@@ -198,6 +243,7 @@ class JobsPage(BasePage):
     def select_salary_amount(self):
         self.swipe_to_element(self.salary_amount)
         self.click(self.salary_amount, "поле Salary amount")
+        self.d.send_keys('', clear=True)
         self.set_text(self.salary_amount_field, str(random.randint(1000, 10000)), "Salary amount")
         self.click(self.salary_amount_done, "кнопка Done")
 
@@ -207,4 +253,3 @@ class JobsPage(BasePage):
         self.click(self.currency, "поле Currency")
         self.wait_element(self.values_list)
         self.click(self.get_random_element(self.values_list), "рандомный Currency")
-
