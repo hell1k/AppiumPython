@@ -14,9 +14,11 @@ class ChatsPage(BasePage):
 
     people_tab = '//*[@text="People"]'
     pets_tab = '//*[@text="Pets"]'
+    business_tab = '//*[@text="Businesses"]'
     tab_layout = '//*[@resource-id="com.yapmap.yapmap:id/tab_layout"]'
     i_own = '//*[@resource-id="com.yapmap.yapmap:id/owner_layout"]'
     i_am_interested = '//*[@resource-id="com.yapmap.yapmap:id/member_layout"]'
+    business_chats = '//*[@resource-id="com.yapmap.yapmap:id/business_chats_recycler_view"]/android.widget.LinearLayout'
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -24,6 +26,12 @@ class ChatsPage(BasePage):
     def click_pets_tab(self):
         self.swipe_to_element_in_tab(self.pets_tab)
         self.click(self.pets_tab, 'вкладка Pets')
+
+    def click_business_tab(self):
+        self.wait_a_second()
+        self.wait_a_second()
+        self.swipe_to_element_in_tab(self.business_tab)
+        self.click(self.business_tab, 'вкладка Pets')
 
     def check_pets_message(self, pet_name, user_pet_name, message):
         self.wait_text('People')
@@ -49,7 +57,14 @@ class ChatsPage(BasePage):
                 self.wait_element(locator)
                 break
 
-
+    def check_business_message(self, business_name, new_message):
+        self.wait_text('People')
+        self.click_business_tab()
+        self.click(self.i_own)
+        self.click(self.business_chats)
+        self.wait_text(business_name)
+        self.wait_a_second()
+        self.wait_text(new_message)
 
 
 
