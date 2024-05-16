@@ -45,6 +45,10 @@ class BusinessPage(BasePage):
     more_options = '//*[@content-desc="More options"]'
     share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my business")]'
     qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
+    message_field = 'com.yapmap.yapmap:id/input_edit_text'
+    message = "com.yapmap.yapmap:id/body_text_view"
+    send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
+    back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
 
     @allure.step("Добавление новой записи Business")
     def add_new_business(self):
@@ -192,14 +196,7 @@ class BusinessPage(BasePage):
     @allure.step("Редактирование '{business_name}'")
     def edit_business(self, business_name):
         self.open_business(business_name)
-        self.add_to_favorite()
-        self.open_more_options('Share')
-        self.wait_element(self.share_text)
-        self.press_back()
-        self.wait_a_moment()
-        self.open_more_options("Generate QR Code")
-        self.wait_element(self.qr_code)
-        self.press_back()
+        self.check_more_options()
         new_business_name = self.set_name()
         self.set_business_type()
         self.set_description(text_250)
@@ -211,6 +208,17 @@ class BusinessPage(BasePage):
         self.click_save_btn()
         self.wait_text(new_business_name)
         return new_business_name
+
+    def check_more_options(self):
+        self.add_to_favorite()
+        self.wait_a_second()
+        self.open_more_options('Share')
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
 
     @allure.step("Клик по кнопке Save")
     def click_save_btn(self):
@@ -232,7 +240,9 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
+        self.wait_a_second()
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+        self.wait_a_second()
 
     @allure.step("Переход в доп опции группы '{option_name}'")
     def open_more_options(self, option_name):
@@ -240,8 +250,29 @@ class BusinessPage(BasePage):
         self.click(f'//*[@text="{option_name}"]', option_name)
 
     def user_open_business(self, business_name):
-        business = self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=business_name)
-        element = self.get_element(business)
-        self.swipe_to_element(element)
-        self.click(element)
+        self.swipe_to_element(f'//*[@text="{business_name}"]')
+        self.click(self.d(resourceId="com.yapmap.yapmap:id/name_text_view", text=f'{business_name}'))
+
+    def user_check_business(self):
+        self.check_more_options()
+        self.open_more_options('Send message')
+        self.wait_text('Type message')
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
+
+    @allure.step("Проверяем чат")
+    def test_chat(self):
+        message = faker.text()
+        self.send_message(message)
+        self.wait_text(message)
+        self.click(self.back_btn_2, 'кнопка <-')
+        self.wait_a_second()
+        self.click_back_btn()
+        self.wait_a_second()
+        return message
+
 

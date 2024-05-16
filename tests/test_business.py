@@ -45,4 +45,9 @@ class TestBusiness:
         page.select_local_deals_filter()
         page.open_bottom_sheet()
         page.business.user_open_business(business_name)
-
+        page.business.user_check_business()
+        new_message = page.business.test_chat()
+        page.login.logout()
+        page.login.authorization()
+        page.menu.open_chats()
+        page.chats.check_business_message(business_name, new_message)
