@@ -64,7 +64,6 @@ class JobsPage(BasePage):
         position_name = self.get_text(self.position_name_value)
         self.select_profession_type()
         self.set_duties_description()
-        self.swipe_up()
         self.set_skills()
         self.upload_new_photo()
         self.select_job_type()
@@ -77,16 +76,16 @@ class JobsPage(BasePage):
         self.click_remotely_switch()
         self.swipe_to_element(self.post_btn)
         self.click_post_btn()
-        # self.wait_text("Your job has been accepted")
         self.wait_text(position_name)
         self.click(self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name))
         self.add_to_favorite()
         self.checking_more_options()
         return position_name
 
+    @allure.step("Удаление Jobs")
     def delete_job(self, position_name):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
-        self.click('//*[@text="Delete"]')
+        self.click('//*[@text="Delete"]', 'кнопка Delete')
         self.click(self.pop_up_ok_btn, 'кнопка ОК на popup')
         self.swipe_down()
         self.wait_a_second()
@@ -118,7 +117,7 @@ class JobsPage(BasePage):
         self.wait_text('Are you sure want to delete the job? This action cannot be undone')
         self.wait_element(self.cancel_button)
         self.wait_element(self.pop_up_ok_btn)
-        self.click(self.cancel_button)
+        self.click(self.cancel_button, 'кнопка Cancel')
         self.wait_a_moment()
         self.open_more_options("Cancel")
         self.wait_hidden_element(self.cancel_button)
@@ -142,6 +141,7 @@ class JobsPage(BasePage):
 
     @allure.step("Заполнение поля Skills")
     def set_skills(self):
+        self.swipe_to_element(self.skills_field)
         self.set_text(self.skills_field, text_250, "Skills")
 
     @allure.step("Клик чекбокс Commission")
