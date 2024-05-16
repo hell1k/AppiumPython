@@ -30,6 +30,7 @@ class MainPage(BasePage):
     horizontal_scroll_filters = '//android.widget.HorizontalScrollView'
     dating_filter = "com.yapmap.yapmap:id/dating_filter_text_view"
     local_deals_filter = "com.yapmap.yapmap:id/local_deals_filter_text_view"
+    jobs_filter = "com.yapmap.yapmap:id/jobs_filter_text_view"
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
@@ -50,6 +51,12 @@ class MainPage(BasePage):
         self.wait_text('Search')
         self.swipe_horizontal_to_element(self.local_deals_filter)
         self.click(self.local_deals_filter)
+
+    @allure.step("Выбрать фильтр Jobs")
+    def select_jobs_filter(self):
+        self.wait_text('Search')
+        self.swipe_horizontal_to_element(self.jobs_filter)
+        self.click(self.jobs_filter)
 
     def swipe_horizontal_filters(self):
         fx, fy = self.get_element(self.horizontal_scroll_filters).center()
