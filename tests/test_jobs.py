@@ -15,6 +15,8 @@ class TestJobs:
         page.business.check_business_item_availability()
         page.business.click_back_btn()
         page.profile.click_jobs()
-        page.jobs.create_new_jobs()
+        position_name = page.jobs.create_new_jobs()
+        new_position_name = page.jobs.edit_job(position_name)
+        page.jobs.delete_job(new_position_name)
 
 
