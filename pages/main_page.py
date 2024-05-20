@@ -11,6 +11,7 @@ from pages.profile_page import ProfilePage
 from pages.events_page import EventsPage
 from pages.pets_page import PetsPage
 from pages.chats_page import ChatsPage
+from pages.market_page import MarketPage
 
 
 class MainPage(BasePage):
@@ -24,6 +25,7 @@ class MainPage(BasePage):
     pets = PetsPage()
     jobs = JobsPage()
     chats = ChatsPage()
+    market = MarketPage()
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
