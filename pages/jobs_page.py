@@ -55,6 +55,7 @@ class JobsPage(BasePage):
     message = "com.yapmap.yapmap:id/body_text_view"
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
+    delete_and_leave_btn = "com.yapmap.yapmap:id/delete_button"
 
     @allure.step("Клик по кнопке создания новой Jobs")
     def click_create_new_jobs(self):
@@ -86,10 +87,10 @@ class JobsPage(BasePage):
         self.click_remotely_switch()
         self.swipe_to_element(self.post_btn)
         self.click_post_btn()
+        self.swipe_down()
+        self.wait_a_second()
         self.wait_text(position_name)
         self.click(self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name))
-        self.add_to_favorite()
-        self.checking_more_options()
         return position_name
 
     @allure.step("Удаление Jobs")
@@ -264,8 +265,9 @@ class JobsPage(BasePage):
 
     @allure.step("Открыть Job пользователем")
     def user_open_job(self, position_name):
-        self.click(
-            f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text={position_name}]')
+        self.wait_text(position_name)
+        job_locator = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{position_name}"]'
+        self.click(job_locator)
 
     @allure.step("Проверка меню ... в шапке")
     def checking_more_options_user(self):
@@ -309,5 +311,20 @@ class JobsPage(BasePage):
         self.swipe_to_element(self.send_message_btn)
         self.click(self.send_message_btn, 'нажать кнопку Contact employer')
         # self.wait_text()
+
+    @allure.step("Delete and Leave через Job chat")
+    def click_delete_and_leave(self, position_name):
+        self.click_avatar()
+        self.click(self.delete_and_leave_btn)
+        self.swipe_down()
+        self.wait_a_second()
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name).wait_gone(10)
+
+
+    @allure.step("Переход на экран редактирования")
+    def click_avatar(self):
+        self.click(self.d(description="User avatar image"), "аватар пользователя")
+
+
 
 

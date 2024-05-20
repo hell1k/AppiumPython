@@ -24,4 +24,5 @@ class Menu(BasePage):
     @allure.step("Переход в раздел Chats")
     def open_chats(self):
         self.click(self.chats_icon, 'Chats')
+        self.wait_text('People')
 

@@ -15,6 +15,7 @@ class ChatsPage(BasePage):
     people_tab = '//*[@text="People"]'
     pets_tab = '//*[@text="Pets"]'
     business_tab = '//*[@text="Businesses"]'
+    jobs_tab = '//*[@text="Jobs"]'
     tab_layout = '//*[@resource-id="com.yapmap.yapmap:id/tab_layout"]'
     i_own = '//*[@resource-id="com.yapmap.yapmap:id/owner_layout"]'
     i_am_interested = '//*[@resource-id="com.yapmap.yapmap:id/member_layout"]'
@@ -33,8 +34,11 @@ class ChatsPage(BasePage):
         self.swipe_to_element_in_tab(self.business_tab)
         self.click(self.business_tab, 'вкладка Pets')
 
+    def click_jobs_tab(self):
+        self.swipe_to_element_in_tab(self.jobs_tab)
+        self.click(self.jobs_tab, 'вкладка Jobs')
+
     def check_pets_message(self, pet_name, user_pet_name, message):
-        self.wait_text('People')
         self.click_pets_tab()
         self.click(self.i_own)
         self.click(f'//*[@text="{pet_name}"]', pet_name)
@@ -58,13 +62,19 @@ class ChatsPage(BasePage):
                 break
 
     def check_business_message(self, business_name, new_message):
-        self.wait_text('People')
         self.click_business_tab()
         self.click(self.i_own)
         self.click(self.business_chats)
         self.wait_text(business_name)
         self.wait_a_second()
         self.wait_text(new_message)
+
+    def check_job_message(self, position_name, message):
+        self.click_jobs_tab()
+        self.click(self.i_own)
+        self.click(f'//*[@text="{position_name}"]', position_name)
+        self.wait_a_second()
+        self.wait_text(message)
 
 
 

@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 
@@ -17,6 +19,8 @@ class TestJobs:
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()
+        page.jobs.add_to_favorite()
+        page.jobs.checking_more_options()
         new_position_name = page.jobs.edit_job(position_name)
         page.jobs.delete_job(new_position_name)
 
@@ -29,10 +33,12 @@ class TestJobs:
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()
-
+        page.jobs.click_back_btn()
+        page.jobs.click_back_btn()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
         page.select_jobs_filter()
+        page.open_bottom_sheet()
         page.jobs.user_open_job(position_name)
         page.jobs.add_to_favorite()
         page.jobs.checking_more_options_user()
@@ -41,9 +47,9 @@ class TestJobs:
         page.login.logout()
 
         page.login.authorization()
-        page.profile.click_jobs()
+        page.menu.open_chats()
+        page.chats.check_job_message(position_name, message)
+        page.jobs.click_delete_and_leave(position_name)
 
-
-        page.jobs.delete_job(position_name)
 
 
