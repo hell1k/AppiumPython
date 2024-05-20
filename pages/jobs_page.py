@@ -3,7 +3,6 @@ import random
 import allure
 import faker
 from faker import Faker
-
 from common.menu import Menu
 from common.permission import Permission
 from pages.base_page import BasePage
@@ -310,7 +309,6 @@ class JobsPage(BasePage):
     def click_contact_employer(self):
         self.swipe_to_element(self.send_message_btn)
         self.click(self.send_message_btn, 'нажать кнопку Contact employer')
-        # self.wait_text()
 
     @allure.step("Delete and Leave через Job chat")
     def click_delete_and_leave(self, position_name):
@@ -320,11 +318,6 @@ class JobsPage(BasePage):
         self.wait_a_second()
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name).wait_gone(10)
 
-
     @allure.step("Переход на экран редактирования")
     def click_avatar(self):
         self.click(self.d(description="User avatar image"), "аватар пользователя")
-
-
-
-

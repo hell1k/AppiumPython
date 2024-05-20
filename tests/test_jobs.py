@@ -12,6 +12,7 @@ from tests.config import *
 class TestJobs:
     @allure.title("Создание, редактирование и удаление сущности Jobs")
     @pytest.mark.smoke
+    @pytest.mark.jobs
     def test_create_new_jobs(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -26,6 +27,7 @@ class TestJobs:
 
     @allure.title("Взаимодействие пользователя с Jobs")
     @pytest.mark.smoke
+    @pytest.mark.jobs
     def test_user_jobs(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -45,7 +47,6 @@ class TestJobs:
         page.jobs.click_contact_employer()
         message = page.jobs.test_chat()
         page.login.logout()
-
         page.login.authorization()
         page.menu.open_chats()
         page.chats.check_job_message(position_name, message)
