@@ -58,6 +58,7 @@ class MarketPage(BasePage):
         self.click(self.plus_market_btn, "кнопка + создания новой сущности Market")
 
     def click_create(self):
+        self.wait_a_second()
         self.click(self.create_btn, "кнопка Create")
 
     @allure.step("Добавление в избранное")
@@ -77,20 +78,37 @@ class MarketPage(BasePage):
         self.click_back_btn()
         self.click_create()
         self.wait_text('Create an ad')
-        self.click(self.cancel_button)
+        self.click(self.cancel_button, 'кнопка Cancel')
+
+    @allure.step("Выбор типа transportation")
+    def select_transportation_type_ad(self):
+        self.click(self.transportation_type)
+
+    @allure.step("Выбор типа transportation")
+    def select_stuff_type_ad(self):
+        self.click(self.stuff_type)
+
+    @allure.step("Выбор типа transportation")
+    def select_housing_type_ad(self):
+        self.click(self.housing_type)
+
+    @allure.step("Нажать на свитч Sale/Rent")
+    def click_switch_sale_rent(self):
+        self.click(self.type_switch_sale_rent)
+
 
     @allure.step("Выбор случайного типа")
     def select_random_type_ad(self):
         random_type = random.randrange(1, 3)
         if random_type == 1:
-            self.click(self.transportation_type)
+            self.select_transportation_type_ad()
         if random_type == 2:
-            self.click(self.stuff_type)
+            self.select_stuff_type_ad()
         if random_type == 3:
-            self.click(self.housing_type)
+            self.select_housing_type_ad()
         random_type = random.randrange(1, 2)
         if random_type == 1:
-            self.click(self.type_switch_sale_rent)
+            self.click_switch_sale_rent()
         else:
             pass
 
@@ -104,7 +122,7 @@ class MarketPage(BasePage):
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.click(self.done_photo)
+        self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
     @allure.step("Добавить фото")
@@ -146,32 +164,30 @@ class MarketPage(BasePage):
         self.upload_new_photo()
         self.set_ad_name()
         self.swipe_to_element(self.category_selection)
-        self.click(self.category_selection)
+        self.click(self.category_selection, 'пункт Category')
         self.select_random()
         self.swipe_to_element(self.type_selection)
-        self.click(self.type_selection)
+        self.click(self.type_selection, 'пункт Type')
         self.select_random()
 
     @allure.step("Создание нового Ad Stuff")
     def create_new_ad_stuff(self):
-        self.click_plus_new_market()
-        self.wait_a_second()
-        self.click_create()
+
         self.upload_new_photo()
         ad_name = self.set_ad_name()
 
         self.swipe_to_element(self.category_selection)
-        self.click(self.category_selection)
+        self.click(self.category_selection, 'пункт Category')
         self.select_random()
 
         try:
-            self.click(self.type_selection)
+            self.click(self.type_selection, 'пункт Type')
             self.select_random()
         except:
             print('Нет раздела Type для выбранной категории')
 
         self.swipe_to_element(self.location_selector)
-        self.click(self.location_selector)
+        self.click(self.location_selector, 'пункт Location')
         self.set_address()
 
         self.swipe_to_element(self.price_selector)
@@ -181,23 +197,23 @@ class MarketPage(BasePage):
         self.click(self.done_button, 'кнопка Done')
 
         self.swipe_to_element(self.shipping_available_switch)
-        self.click(self.shipping_available_switch)
+        self.click(self.shipping_available_switch, 'свитч Shipping available')
         self.swipe_to_element(self.exchange_is_possible_switch)
-        self.click(self.exchange_is_possible_switch)
+        self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
         self.swipe_to_element(self.bargaining_is_possible_switch)
-        self.click(self.bargaining_is_possible_switch)
+        self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
 
         self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_1000)
 
         self.swipe_to_element(self.post_button)
-        self.click(self.post_button)
+        self.click(self.post_button, 'кнопка Post')
 
         self.wait_text('Market')
         self.swipe_down()
         self.wait_a_second()
         self.wait_a_second()
-        self.wait_text(ad_name[:20])
+        self.wait_text(ad_name)
         return ad_name
 
     def open_market(self, ad_name):
@@ -211,17 +227,17 @@ class MarketPage(BasePage):
         ad_name = self.set_ad_name()
 
         self.swipe_to_element(self.category_selection)
-        self.click(self.category_selection)
+        self.click(self.category_selection, 'пункт Category')
         self.select_random()
 
         try:
-            self.click(self.type_selection)
+            self.click(self.type_selection, 'пункт Type')
             self.select_random()
         except:
             print('Нет раздела Type для выбранной категории')
 
         self.swipe_to_element(self.location_selector)
-        self.click(self.location_selector)
+        self.click(self.location_selector, 'пункт Location')
         self.set_address()
 
         self.swipe_to_element(self.price_selector)
@@ -231,15 +247,15 @@ class MarketPage(BasePage):
         self.click(self.done_button, 'кнопка Done')
 
         self.swipe_to_element(self.shipping_available_switch)
-        self.click(self.shipping_available_switch)
-        self.click(self.exchange_is_possible_switch)
-        self.click(self.bargaining_is_possible_switch)
+        self.click(self.shipping_available_switch, 'свитч Shipping available')
+        self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
+        self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
 
         self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_1000_2)
 
         self.swipe_to_element(self.post_button)
-        self.click(self.post_button)
+        self.click(self.post_button, 'кнопка Edit')
         self.wait_text(ad_name)
         self.click_back_btn()
         self.wait_text('Market')
@@ -270,7 +286,7 @@ class MarketPage(BasePage):
         self.wait_a_moment()
         self.open_more_options("Generate QR Code")
         self.wait_element(self.qr_code)
-        self.click_back_btn()
+        self.press_back()
         self.wait_a_moment()
         self.open_more_options("Delete")
         self.wait_text('Delete advertisement')
