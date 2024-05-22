@@ -10,6 +10,7 @@ from tests.config import *
 class TestBusiness:
     @allure.title("Создание, редактирование, удаление")
     @pytest.mark.smoke
+    @pytest.mark.business
     def test_create_new_business(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -21,6 +22,7 @@ class TestBusiness:
 
     @allure.title("Проверка полей сущности Business")
     @pytest.mark.smoke
+    @pytest.mark.business
     def test_checking_edit_business(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -33,6 +35,7 @@ class TestBusiness:
 
     @allure.title("Взаимодействие пользователя")
     @pytest.mark.smoke
+    @pytest.mark.business
     def test_create_new_business(self, authorization):
         page = MainPage()
         page.profile.open_business()

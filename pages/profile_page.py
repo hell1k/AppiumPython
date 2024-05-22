@@ -276,7 +276,7 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.business_btn_in_profile)
         self.click(self.business_btn_in_profile, "кнопка Business")
 
-    @allure.step("Открытие раздела Pets из Профиля")
+    @allure.step("Переход в раздел Pets из Профиля")
     def open_pets(self):
         self.menu.open_profile()
         self.swipe_to_element(self.pets_btn_in_profile)
@@ -293,3 +293,10 @@ class ProfilePage(BasePage):
         self.menu.open_profile()
         self.swipe_to_element(self.jobs_btn_in_profile)
         self.click_jobs()
+
+    @allure.step("Открытие раздела Market из Профиля")
+    def open_market(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.market_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.market_btn_in_profile)
