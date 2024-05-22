@@ -14,6 +14,8 @@ class TestMarket:
     def test_create_new_business(self, authorization):
         page = MainPage()
         page.profile.open_market()
+        page.market.click_plus_new_market()
+        page.market.click_create()
         ad_name = page.market.create_new_ad_stuff()
         page.market.open_market(ad_name)
         page.market.checking_more_options()
@@ -21,3 +23,5 @@ class TestMarket:
         new_ad_name = page.market.edit_ad()
         page.market.open_market(new_ad_name)
         page.market.delete_ad(new_ad_name)
+
+
