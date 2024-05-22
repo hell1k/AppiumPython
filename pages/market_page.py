@@ -44,6 +44,12 @@ class MarketPage(BasePage):
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
     description_field = '//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
     post_button = '//*[@resource-id="com.yapmap.yapmap:id/post_button"]'
+    done_button = "com.yapmap.yapmap:id/done_button"
+    add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    more_options = '//*[@content-desc="More options"]'
+    qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
+    pop_up_ok_btn = "com.yapmap.yapmap:id/ok_button"
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the advertisement item")]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -53,6 +59,17 @@ class MarketPage(BasePage):
 
     def click_create(self):
         self.click(self.create_btn, "кнопка Create")
+
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.wait_a_second()
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+        self.wait_a_second()
+
+    @allure.step("Переход в доп опции '{option_name}'")
+    def open_more_options(self, option_name):
+        self.click(self.more_options, "меню группы")
+        self.click(f'//*[@text="{option_name}"]', option_name)
 
     def check_create_buttons(self):
         self.click_plus_new_market()
@@ -90,10 +107,23 @@ class MarketPage(BasePage):
         self.click(self.done_photo)
         self.wait_a_second()
 
+    @allure.step("Добавить фото")
+    def add_photo_without_permissions(self):
+        self.click(self.add_photo_btn, 'кнопка Add photos')
+        self.click(self.image_loader, "добавление нового фото")
+        self.wait_element(self.take_a_picture_btn)
+        self.wait_a_second()
+        self.click(self.take_a_picture_btn, "создание нового фото")
+        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.wait_a_second()
+        self.click(self.done_photo, 'кнопка Done')
+
     @allure.step("Заполнение поля Advertisement name")
     def set_ad_name(self):
         self.swipe_to_element(self.title_field)
-        self.set_text(self.title_field, self.faker.company(), "Advertisement name")
+        ad_name = 'Test AD_'+ str(random.randint(0, 999999999999))
+        self.set_text(self.title_field, ad_name, "Advertisement name")
+        return ad_name
 
     @allure.step("Выбор случайного типа")
     def select_random(self):
@@ -121,14 +151,15 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.type_selection)
         self.click(self.type_selection)
         self.select_random()
-        print('test')
 
     @allure.step("Создание нового Ad Stuff")
     def create_new_ad_stuff(self):
-        self.click_create()
+        self.click_plus_new_market()
+        self.wait_a_second()
         self.click_create()
         self.upload_new_photo()
-        self.set_ad_name()
+        ad_name = self.set_ad_name()
+
         self.swipe_to_element(self.category_selection)
         self.click(self.category_selection)
         self.select_random()
@@ -142,19 +173,14 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.location_selector)
         self.click(self.location_selector)
         self.set_address()
-        # self.click(self.zip_selector, 'ZIP')
-        # random_zip = faker.zipcode()
-        # self.set_text(self.edit_text_view, random_zip)
 
         self.swipe_to_element(self.price_selector)
         self.click(self.price_selector, 'Price')
         random_price = random.randrange(1, 10000)
         self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
 
-        self.swipe_to_element(self.type_selection)
-        self.click(self.type_selection)
-        self.select_random()
-
+        self.swipe_to_element(self.shipping_available_switch)
         self.click(self.shipping_available_switch)
         self.click(self.exchange_is_possible_switch)
         self.click(self.bargaining_is_possible_switch)
@@ -165,5 +191,89 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.post_button)
         self.click(self.post_button)
 
+        self.wait_text('Market')
+        self.swipe_down()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(ad_name[:20])
+        return ad_name
 
-        print('test')
+    def open_market(self, ad_name):
+        self.click(
+            f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]')
+
+    def edit_ad(self):
+        self.click(self.more_options, 'кнопка ... в верхнем правом углу')
+        self.click('//*[@text="Edit"]')
+        self.add_photo_without_permissions()
+        ad_name = self.set_ad_name()
+
+        self.swipe_to_element(self.category_selection)
+        self.click(self.category_selection)
+        self.select_random()
+
+        try:
+            self.click(self.type_selection)
+            self.select_random()
+        except:
+            print('Нет раздела Type для выбранной категории')
+
+        self.swipe_to_element(self.location_selector)
+        self.click(self.location_selector)
+        self.set_address()
+
+        self.swipe_to_element(self.price_selector)
+        self.click(self.price_selector, 'Price')
+        random_price = random.randrange(1, 10000)
+        self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.shipping_available_switch)
+        self.click(self.shipping_available_switch)
+        self.click(self.exchange_is_possible_switch)
+        self.click(self.bargaining_is_possible_switch)
+
+        self.swipe_to_element(self.description_field)
+        self.set_text(self.description_field, text_1000_2)
+
+        self.swipe_to_element(self.post_button)
+        self.click(self.post_button)
+        self.wait_text(ad_name)
+        self.click_back_btn()
+        self.wait_text('Market')
+        self.swipe_down()
+        self.wait_a_second()
+        self.wait_text(ad_name)
+
+        return ad_name
+
+    def delete_ad(self, ad_name):
+        self.click(self.more_options, 'кнопка ... в верхнем правом углу')
+        self.click('//*[@text="Delete"]')
+        self.click(self.pop_up_ok_btn, 'кнопка ОК на popup')
+        self.swipe_down()
+        self.wait_a_second()
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=ad_name).wait_gone(10)
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options(self):
+        self.wait_a_moment()
+        self.open_more_options("Edit")
+        self.wait_text('Editing')
+        self.click_back_btn()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.click_back_btn()
+        self.wait_a_moment()
+        self.open_more_options("Delete")
+        self.wait_text('Delete advertisement')
+        self.click(self.cancel_button, 'кнопка Cancel')
+        self.wait_hidden_element(self.cancel_button)
+        self.add_to_favorite()
+        self.click_back_btn()
+        self.wait_a_second()
+
