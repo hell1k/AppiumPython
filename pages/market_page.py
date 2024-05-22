@@ -182,7 +182,9 @@ class MarketPage(BasePage):
 
         self.swipe_to_element(self.shipping_available_switch)
         self.click(self.shipping_available_switch)
+        self.swipe_to_element(self.exchange_is_possible_switch)
         self.click(self.exchange_is_possible_switch)
+        self.swipe_to_element(self.bargaining_is_possible_switch)
         self.click(self.bargaining_is_possible_switch)
 
         self.swipe_to_element(self.description_field)
@@ -262,6 +264,7 @@ class MarketPage(BasePage):
         self.wait_text('Editing')
         self.click_back_btn()
         self.open_more_options("Share")
+        self.wait_a_second()
         self.wait_element(self.share_text)
         self.press_back()
         self.wait_a_moment()
