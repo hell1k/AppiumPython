@@ -34,6 +34,41 @@ class MarketPage(BasePage):
     price_selector = '//*[@text="Price"]/..'
     location_selector = '//*[@text="Location"]/..'
     currency_selector = '//*[@text="Currency"]/..'
+
+    type_of_transport = '//*[@text="Type of transport"]/..'
+    make = '//*[@text="Make"]/..'
+    year = '//*[@text="Year"]/..'
+    body_type = '//*[@text="Body type"]/..'
+    trim = '//*[@text="Trim"]/..'
+    engine_cylinders = '//*[@text="Engine cylinders"]/..'
+    liters = '//*[@text="Liters"]/..'
+    fuel_type = '//*[@text="Fuel type"]/..'
+    transmission = '//*[@text="Transmission"]/..'
+    drivetrain = '//*[@text="Drivetrain"]/..'
+    interior = '//*[@text="Interior"]/..'
+    condition = '//*[@text="Condition"]/..'
+    exterior_color = '//*[@text="Exteriror color"]/..'
+    interior_color = '//*[@text="Interior color"]/..'
+    sunroof_moonroof = '//*[@text="Sunroof / moonroof"]/..'
+    alloy_wheels = '//*[@text="Alloy wheels"]/..'
+    third_row_seating = '//*[@text="Third row seating"]/..'
+    bluetooth = '//*[@text="Bluetooth"]/..'
+    backup_camera = '//*[@text="Backup camera"]/..'
+    parking_sensors = '//*[@text="Parking sensors"]/..'
+    remote_start = '//*[@text="Remote start"]/..'
+    heated_seats = '//*[@text="Heated seats"]/..'
+    quick_order_package = '//*[@text="Quick order package"]/..'
+    do_you_have_a_clear_title = '//*[@text="Do You Have a Clear Title?"]/..'
+    has_your_car_ever_been_in_an_accident = '//*[@text="Has Your Car Ever Been in an Accident?"]/..'
+    does_your_car_have_cosmetic_or_mechanical_issues = '//*[@text="Does Your Car Have Cosmetic or Mechanical Issues?"]/..'
+    does_your_car_run_and_drive = '//*[@text="Does your car run and drive?"]/..'
+    is_there_history = '//*[@text="Is there history on your vehicle resulting from flood, theft recovery or salvage loss?"]/..'
+    serial_number = '//*[@text="Serial number"]/..'
+    model = '//*[@text="Model"]/..'
+    mileage = '//*[@text="Miliage, mi"]/..'
+    vin_code = '//*[@text="VIN-code"]/..'
+    working_hours = '//*[@text="Working hours"]/..'
+
     shipping_available_switch = '//*[@text="Shipping available"]/..'
     exchange_is_possible_switch = '//*[@text="Exchange is possible"]/..'
     bargaining_is_possible_switch = '//*[@text="Bargaining is possible"]/..'
@@ -49,13 +84,20 @@ class MarketPage(BasePage):
     more_options = '//*[@content-desc="More options"]'
     qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
     pop_up_ok_btn = "com.yapmap.yapmap:id/ok_button"
-    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the advertisement item")]'
+    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the advertisement")]'
+    first_photo = '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[2]'
+    switch_compat = "com.yapmap.yapmap:id/switch_compat"
+    enter_manually_button = "com.yapmap.yapmap:id/enter_manually_button"
+    vin_code_edit_text = "com.yapmap.yapmap:id/vin_code_edit_text"
+    use_vin_code_image_view = "com.yapmap.yapmap:id/use_vin_code_image_view"
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     def click_plus_new_market(self):
+        self.wait_a_second()
         self.click(self.plus_market_btn, "кнопка + создания новой сущности Market")
+        self.wait_a_second()
 
     def click_create(self):
         self.wait_a_second()
@@ -96,7 +138,6 @@ class MarketPage(BasePage):
     def click_switch_sale_rent(self):
         self.click(self.type_switch_sale_rent)
 
-
     @allure.step("Выбор случайного типа")
     def select_random_type_ad(self):
         random_type = random.randrange(1, 3)
@@ -122,6 +163,15 @@ class MarketPage(BasePage):
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.click(self.done_photo, 'кнопка Done')
+        self.wait_a_second()
+
+    @allure.step("Добавление фото")
+    def upload_photo(self):
+        self.click(self.add_photo_btn, 'add photo')
+        Permission().close_photo_permission()
+        self.click(self.first_photo)
+        self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
@@ -171,11 +221,13 @@ class MarketPage(BasePage):
         self.select_random()
 
     @allure.step("Создание нового Ad Stuff")
-    def create_new_ad_stuff(self):
+    def create_new_ad_stuff(self, permissions=True):
+        if permissions == True:
+            self.upload_new_photo()
+        else:
+            self.add_photo_without_permissions()
 
-        self.upload_new_photo()
         ad_name = self.set_ad_name()
-
         self.swipe_to_element(self.category_selection)
         self.click(self.category_selection, 'пункт Category')
         self.select_random()
@@ -216,10 +268,137 @@ class MarketPage(BasePage):
         self.wait_text(ad_name)
         return ad_name
 
+    @allure.step("Создание нового Ad Transport")
+    def create_new_ad_transport(self):
+        self.upload_photo()
+        ad_name = self.set_ad_name()
+
+        # Basic information
+        self.swipe_to_element(self.type_of_transport)
+        self.click(self.type_of_transport, 'пункт Type of transport')
+        self.select_random()
+
+        try:
+            self.click(self.serial_number, 'Serial number')
+            random_serial_number = random.randrange(1, 10000)
+            self.set_text(self.edit_text_view, random_serial_number)
+            self.click(self.done_button, 'кнопка Done')
+        except:
+            print('Нет раздела Serial number для выбранного типа транспорта')
+
+        try:
+            self.click(self.vin_code, 'VIN-code')
+            self.wait_a_second()
+            Permission().click_while_using_the_app()
+            self.wait_a_second()
+            self.click(self.enter_manually_button, 'кнопка ENTER MANUALLY')
+            self.wait_a_second()
+            self.set_text(self.vin_code_edit_text, 'THMBB7092WD114221')
+            self.click(self.use_vin_code_image_view, 'подтвердить VIN code')
+        except:
+            print('Нет раздела Serial number для выбранного типа транспорта')
+
+        self.swipe_to_element(self.make)
+        self.click(self.make, 'пункт Make')
+        self.select_random()
+
+        try:
+            self.swipe_to_element(self.model)
+            self.click(self.model, 'пункт Model')
+            self.select_random()
+        except:
+            print('Нет раздела Model для выбранного типа транспорта')
+
+        self.swipe_to_element(self.year)
+        self.click(self.year, 'пункт Year')
+        # self.set_year()
+        self.click(self.done_button, 'кнопка Done')
+
+        try:
+            self.click(self.body_type, 'пункт Body type')
+            self.select_random()
+        except:
+            print('Нет раздела Body type для выбранного типа транспорта')
+
+        self.swipe_to_element(self.trim)
+        self.click(self.trim, 'Trim')
+        text = 'Simple trim text'
+        self.set_text(self.edit_text_view, text)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_up()
+        try:
+            self.click(self.mileage, 'Mileage, mi')
+            random_mileage = random.randrange(1, 150000)
+            self.set_text(self.edit_text_view, random_mileage)
+            self.click(self.switch_compat, 'свитч Мили/Километры')
+            self.click(self.done_button, 'кнопка Done')
+        except:
+            print('Нет раздела Miliage для выбранного типа транспорта')
+
+        try:
+            self.click(self.working_hours, 'Working hours')
+            random_hours = random.randrange(1, 1500)
+            self.set_text(self.edit_text_view, random_hours)
+            self.click(self.done_button, 'кнопка Done')
+        except:
+            print('Нет раздела Miliage для выбранного типа транспорта')
+
+        self.swipe_to_element(self.location_selector)
+        self.click(self.location_selector, 'пункт Location')
+        self.set_address()
+
+        self.swipe_to_element(self.price_selector)
+        self.click(self.price_selector, 'Price')
+        random_price = random.randrange(1, 10000)
+        self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.exchange_is_possible_switch)
+        self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
+        self.swipe_to_element(self.bargaining_is_possible_switch)
+        self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
+
+        self.swipe_to_element(self.description_field)
+        self.set_text(self.description_field, text_1000)
+
+        # Additional characteristics
+        self.swipe_to_element(self.engine_cylinders)
+        self.click(self.engine_cylinders, 'пункт engine_cylinders')
+        self.select_random()
+
+        self.swipe_to_element(self.liters)
+        self.click(self.liters, 'пункт Liters')
+        random_liters = random.randrange(1, 6)
+        self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.fuel_type)
+        self.click(self.fuel_type, 'пункт Fuel type')
+        self.select_random()
+
+        self.swipe_to_element(self.transmission)
+        self.click(self.transmission, 'пункт Transmission')
+        self.select_random()
+
+        # ...
+
+        self.swipe_to_element(self.post_button)
+        self.click(self.post_button, 'кнопка Post')
+
+        self.wait_text('Market')
+        self.swipe_down()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(ad_name)
+        return ad_name
+
     def open_market(self, ad_name):
+        self.wait_a_second()
         self.click(
             f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]')
 
+    @allure.step("Редактирование Ad Stuff")
     def edit_ad(self):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
@@ -258,7 +437,8 @@ class MarketPage(BasePage):
 
         self.swipe_to_element(self.post_button)
         self.click(self.post_button, 'кнопка Edit')
-        self.wait_text(ad_name)
+        self.wait_a_second()
+        self.wait_text(ad_name[:14])
         self.click_back_btn()
         self.wait_text('Market')
         self.swipe_down()
@@ -267,6 +447,7 @@ class MarketPage(BasePage):
 
         return ad_name
 
+    @allure.step("Удаление Ad")
     def delete_ad(self, ad_name):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Delete"]')
