@@ -277,14 +277,7 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.type_of_transport)
         self.click(self.type_of_transport, 'пункт Type of transport')
         self.select_random()
-
-        try:
-            self.click(self.serial_number, 'Serial number')
-            random_serial_number = random.randrange(1, 10000)
-            self.set_text(self.edit_text_view, random_serial_number)
-            self.click(self.done_button, 'кнопка Done')
-        except:
-            print('Нет раздела Serial number для выбранного типа транспорта')
+        self.swipe_up()
 
         try:
             self.click(self.vin_code, 'VIN-code')
@@ -295,6 +288,14 @@ class MarketPage(BasePage):
             self.wait_a_second()
             self.set_text(self.vin_code_edit_text, 'THMBB7092WD114221')
             self.click(self.use_vin_code_image_view, 'подтвердить VIN code')
+        except:
+            print('Нет раздела Serial number для выбранного типа транспорта')
+
+        try:
+            self.click(self.serial_number, 'Serial number')
+            random_serial_number = random.randrange(1, 10000)
+            self.set_text(self.edit_text_view, random_serial_number)
+            self.click(self.done_button, 'кнопка Done')
         except:
             print('Нет раздела Serial number для выбранного типа транспорта')
 
