@@ -196,11 +196,11 @@ class MarketPage(BasePage):
         self.set_text(self.edit_text_view, random_price)
         self.click(self.done_button, 'кнопка Done')
 
-        self.swipe_to_element(self.shipping_available_switch)
+        self.swipe_to_element('//*[@text="Shipping available"]')
         self.click(self.shipping_available_switch, 'свитч Shipping available')
-        self.swipe_to_element(self.exchange_is_possible_switch)
+        self.swipe_to_element('//*[@text="Exchange is possible"]')
         self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
-        self.swipe_to_element(self.bargaining_is_possible_switch)
+        self.swipe_to_element('//*[@text="Bargaining is possible"]')
         self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
 
         self.swipe_to_element(self.description_field)
