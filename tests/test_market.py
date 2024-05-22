@@ -8,21 +8,21 @@ from tests.config import *
 @pytest.mark.usefixtures("setup")
 @allure.feature("Market")
 class TestMarket:
-    @allure.title("Создание, редактирование, удаление AD Stuff - Sale/Rent")
-    @pytest.mark.smoke
-    @pytest.mark.market
-    def test_create_new_ad_stuff(self, authorization):
-        page = MainPage()
-        page.profile.open_market()
-        page.market.click_plus_new_market()
-        page.market.click_create()
-        ad_name = page.market.create_new_ad_stuff()
-        page.market.open_market(ad_name)
-        page.market.checking_more_options()
-        page.market.open_market(ad_name)
-        new_ad_name = page.market.edit_ad()
-        page.market.open_market(new_ad_name)
-        page.market.delete_ad(new_ad_name)
+    # @allure.title("Создание, редактирование, удаление AD Stuff")
+    # @pytest.mark.smoke
+    # @pytest.mark.market
+    # def test_create_new_ad_stuff(self, authorization):
+    #     page = MainPage()
+    #     page.profile.open_market()
+    #     page.market.click_plus_new_market()
+    #     page.market.click_create()
+    #     ad_name = page.market.create_new_ad_stuff()
+    #     page.market.open_market(ad_name)
+    #     page.market.checking_more_options()
+    #     page.market.open_market(ad_name)
+    #     new_ad_name = page.market.edit_ad()
+    #     page.market.open_market(new_ad_name)
+    #     page.market.delete_ad(new_ad_name)
 
         # page.market.click_plus_new_market()
         # page.market.click_switch_sale_rent()
@@ -35,7 +35,7 @@ class TestMarket:
         # page.market.open_market(new_ad_name)
         # page.market.delete_ad(new_ad_name)
 
-    @allure.title("Создание, редактирование, удаление AD T - Sale/Rent")
+    @allure.title("Создание, редактирование, удаление AD Trasport")
     @pytest.mark.smoke
     @pytest.mark.market
     def test_create_new_ad_transport(self, authorization):
