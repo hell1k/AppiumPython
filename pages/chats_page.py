@@ -14,6 +14,7 @@ class ChatsPage(BasePage):
 
     people_tab = '//*[@text="People"]'
     pets_tab = '//*[@text="Pets"]'
+    market_tab = '//*[@text="Market"]'
     business_tab = '//*[@text="Businesses"]'
     jobs_tab = '//*[@text="Jobs"]'
     tab_layout = '//*[@resource-id="com.yapmap.yapmap:id/tab_layout"]'
@@ -27,6 +28,10 @@ class ChatsPage(BasePage):
     def click_pets_tab(self):
         self.swipe_to_element_in_tab(self.pets_tab)
         self.click(self.pets_tab, 'вкладка Pets')
+
+    def click_market_tab(self):
+        self.swipe_to_element_in_tab(self.market_tab)
+        self.click(self.market_tab, 'вкладка Market')
 
     def click_business_tab(self):
         self.wait_a_second()
@@ -75,6 +80,16 @@ class ChatsPage(BasePage):
         self.click(f'//*[@text="{position_name}"]', position_name)
         self.wait_a_second()
         self.wait_text(message)
+
+    def check_market_message(self, ad_name, message):
+        self.click_market_tab()
+        self.click(self.i_own)
+        # клик по куску сообщения
+        self.click(f'//*[@text="{ad_name}"]', ad_name)
+        self.wait_a_second()
+        self.wait_text(message)
+
+
 
 
 

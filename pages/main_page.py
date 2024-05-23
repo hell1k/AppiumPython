@@ -33,6 +33,7 @@ class MainPage(BasePage):
     dating_filter = "com.yapmap.yapmap:id/dating_filter_text_view"
     local_deals_filter = "com.yapmap.yapmap:id/local_deals_filter_text_view"
     jobs_filter = "com.yapmap.yapmap:id/jobs_filter_text_view"
+    market_filter = "com.yapmap.yapmap:id/advertisements_filter_text_view"
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
@@ -60,10 +61,38 @@ class MainPage(BasePage):
         self.swipe_horizontal_to_element(self.jobs_filter)
         self.click(self.jobs_filter)
 
+    @allure.step("Выбрать фильтр Market")
+    def select_market_filter(self):
+        self.wait_text('Search')
+        self.swipe_horizontal_to_element(self.market_filter)
+        self.click(self.market_filter)
+
     def swipe_horizontal_filters(self):
         fx, fy = self.get_element(self.horizontal_scroll_filters).center()
         tx, ty = self.get_element(self.dating_filter).center()
         self.swipe_coordinate(fx, fy, tx, ty)
+
+    def swipe_horizontal_markets(self):
+        x, fy = self.get_element("com.yapmap.yapmap:id/recycler_view").center()
+        ty = fy
+        fx = self.d.window_size()[0] - 50
+        tx = 50
+        self.swipe_coordinate(fx, fy, tx, ty)
+
+    def swipe_horizontal_to_element_in_market(self, locator):
+        for i in range(10):
+            if self.get_elements_amount(locator) == 0:
+                self.swipe_horizontal_markets()
+                self.wait_a_second()
+            else:
+                self.wait_element(locator)
+                break
+
+    @allure.step("Открыть Market пользователем")
+    def user_open_ad(self, ad_name):
+        element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]'
+        self.swipe_horizontal_to_element_in_market(element)
+        self.click(element)
 
     def swipe_horizontal_to_element(self, locator):
         for i in range(3):

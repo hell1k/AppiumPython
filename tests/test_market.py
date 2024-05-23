@@ -64,3 +64,28 @@ class TestMarket:
         page.market.checking_more_options()
         page.market.open_market(ad_name)
         page.market.delete_ad(ad_name)
+
+    @allure.title("Взаимодействие с пользователем")
+    @pytest.mark.smoke
+    @pytest.mark.market
+    def test_create_new_ad_stuff(self, authorization):
+        page = MainPage()
+        page.profile.open_market()
+        page.market.click_plus_new_market()
+        page.market.click_create()
+        ad_name = page.market.create_new_ad_stuff()
+        page.pets.click_back_btn()
+        page.login.logout()
+
+        page.login.authorization(test_user_login, test_user_password)
+        page.open_bottom_sheet()
+        page.select_market_filter()
+        page.user_open_ad(ad_name)
+        page.market.click_contact_seller_btn()
+        page.market.test_chat()
+
+        page.login.logout()
+        page.login.authorization()
+        page.menu.open_chats()
+        page.chats.check_market_message()
+

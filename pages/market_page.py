@@ -106,6 +106,13 @@ class MarketPage(BasePage):
     enter_manually_button = "com.yapmap.yapmap:id/enter_manually_button"
     vin_code_edit_text = "com.yapmap.yapmap:id/vin_code_edit_text"
     use_vin_code_image_view = "com.yapmap.yapmap:id/use_vin_code_image_view"
+    send_message_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
+    message_field = 'com.yapmap.yapmap:id/input_edit_text'
+    message = "com.yapmap.yapmap:id/body_text_view"
+    send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
+    back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
+    contact_seller_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
+    input_edit_text = '//*[@resource-id="com.yapmap.yapmap:id/input_edit_text"]'
 
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
@@ -691,3 +698,30 @@ class MarketPage(BasePage):
         self.wait_a_second()
         self.click(self.done_button, 'кнопка Done')
         self.wait_a_second()
+
+    @allure.step("Проверяем чат")
+    def test_chat(self):
+        message = faker.text()
+        self.send_message(message)
+        self.wait_text(message)
+        self.click(self.back_btn_2, 'кнопка <-')
+        self.wait_a_second()
+        self.click_back_btn()
+        self.wait_a_second()
+        return message
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_chat_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(message)
+
+    @allure.step("Открыть чат")
+    def click_contact_seller_btn(self):
+        self.swipe_to_element(self.contact_seller_btn)
+        self.click(self.contact_seller_btn, 'кнопка Contact seller')
+        self.wait_a_second()
+        assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
+
