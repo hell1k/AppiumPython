@@ -101,6 +101,15 @@ class BasePage:
                 self.wait_element(locator)
                 break
 
+    def swipe_down_to_element(self, locator):
+        for i in range(10):
+            if self.get_elements_amount(locator) == 0:
+                self.swipe_down()
+                self.wait_a_second()
+            else:
+                self.wait_element(locator)
+                break
+
     def swipe_coordinate(self, fx, fy, tx, ty):
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
 
