@@ -63,9 +63,10 @@ class MarketPage(BasePage):
     does_your_car_have_cosmetic_or_mechanical_issues = '//*[@text="Does Your Car Have Cosmetic or Mechanical Issues?"]/..'
     does_your_car_run_and_drive = '//*[@text="Does your car run and drive?"]/..'
     is_there_history = '//*[@text="Is there history on your vehicle resulting from flood, theft recovery or salvage loss?"]/..'
+    navigation_system = '//*[@text="Navigation system"]/..'
     serial_number = '//*[@text="Serial number"]/..'
     model = '//*[@text="Model"]/..'
-    mileage ='//*[@text="Mileage, mi"]/..'
+    mileage = '//*[@text="Mileage, mi"]/..'
     vin_code = '//*[@text="VIN-code"]/..'
     working_hours = '//*[@text="Working hours"]/..'
 
@@ -141,11 +142,11 @@ class MarketPage(BasePage):
     def select_transportation_type_ad(self):
         self.click(self.transportation_type)
 
-    @allure.step("Выбор типа transportation")
+    @allure.step("Выбор типа Stuff")
     def select_stuff_type_ad(self):
         self.click(self.stuff_type)
 
-    @allure.step("Выбор типа transportation")
+    @allure.step("Выбор типа Housing")
     def select_housing_type_ad(self):
         self.click(self.housing_type)
 
@@ -204,7 +205,7 @@ class MarketPage(BasePage):
     @allure.step("Заполнение поля Advertisement name")
     def set_ad_name(self):
         self.swipe_to_element(self.title_field)
-        ad_name = 'Test AD_'+ str(random.randint(0, 999999999999))
+        ad_name = 'Test AD_' + str(random.randint(0, 999999999999))
         self.set_text(self.title_field, ad_name, "Advertisement name")
         return ad_name
 
@@ -400,7 +401,71 @@ class MarketPage(BasePage):
         self.click(self.transmission, 'пункт Transmission')
         self.select_random()
 
-        # ...
+        self.swipe_to_element(self.drivetrain)
+        self.click(self.transmission, 'пункт Drivetrain')
+        self.select_random()
+
+        self.swipe_to_element(self.interior)
+        self.click(self.interior, 'пункт Interior')
+        self.select_random()
+
+        self.swipe_to_element(self.condition)
+        self.click(self.condition, 'пункт Condition')
+        self.set_condition()
+
+        self.swipe_to_element(self.exterior_color)
+        self.click(self.exterior_color, 'пункт Exterior color')
+        self.select_random()
+
+        self.swipe_to_element(self.interior_color)
+        self.click(self.interior_color, 'пункт Interior color')
+        self.select_random()
+
+        self.swipe_to_element(self.sunroof_moonroof)
+        self.click(self.sunroof_moonroof, 'пункт Sunroof / moonroof')
+
+        self.swipe_to_element(self.navigation_system)
+        self.click(self.navigation_system, 'пункт navigation_system')
+
+        self.swipe_to_element(self.alloy_wheels)
+        self.click(self.alloy_wheels, 'пункт Alloy wheels')
+
+        self.swipe_to_element(self.third_row_seating)
+        self.click(self.third_row_seating, 'пункт Third row seating')
+
+        self.swipe_to_element(self.bluetooth)
+        self.click(self.bluetooth, 'пункт Bluetooth')
+
+        self.swipe_to_element(self.backup_camera)
+        self.click(self.backup_camera, 'пункт Backup camera')
+
+        self.swipe_to_element(self.parking_sensors)
+        self.click(self.parking_sensors, 'пункт Parking sensors')
+
+        self.swipe_to_element(self.remote_start)
+        self.click(self.remote_start, 'пункт Remote start')
+
+        self.swipe_to_element(self.heated_seats)
+        self.click(self.heated_seats, 'пункт Heated seats')
+
+        self.swipe_to_element(self.quick_order_package)
+        self.click(self.quick_order_package, 'пункт Quick order package')
+
+        self.swipe_to_element(self.do_you_have_a_clear_title)
+        self.click(self.do_you_have_a_clear_title, 'пункт Do you have a clear title')
+
+        self.swipe_to_element(self.has_your_car_ever_been_in_an_accident)
+        self.click(self.has_your_car_ever_been_in_an_accident, 'Has your car ever been in an accident')
+
+        self.swipe_to_element(self.does_your_car_have_cosmetic_or_mechanical_issues)
+        self.click(self.does_your_car_have_cosmetic_or_mechanical_issues,
+                   'пункт does_your_car_have_cosmetic_or_mechanical_issues')
+
+        self.swipe_to_element(self.does_your_car_run_and_drive)
+        self.click(self.does_your_car_run_and_drive, 'пункт Does your car run and drive')
+
+        self.swipe_to_element(self.is_there_history)
+        self.click(self.is_there_history, 'пункт is_there_history...')
 
         self.swipe_to_element(self.post_button)
         self.click(self.post_button, 'кнопка Post')
@@ -471,19 +536,19 @@ class MarketPage(BasePage):
         self.click(self.done_button, 'кнопка Done')
 
         self.swipe_to_element(self.parking_type)
-        self.click(self.parking_type)
+        self.click(self.parking_type, 'Parking type')
         self.select_random()
 
         self.swipe_to_element(self.laundry_type)
-        self.click(self.laundry_type)
+        self.click(self.laundry_type, 'Laundry type')
         self.select_random()
 
         self.swipe_to_element(self.air_condition_type)
-        self.click(self.air_condition_type)
+        self.click(self.air_condition_type, 'Air condition type')
         self.select_random()
 
         self.swipe_to_element(self.heating_type)
-        self.click(self.heating_type)
+        self.click(self.heating_type, 'Heating type')
         self.select_random()
 
         self.swipe_to_element(self.pets_ok)
@@ -517,6 +582,7 @@ class MarketPage(BasePage):
         self.wait_text(ad_name)
         return ad_name
 
+    @allure.step("Открыть AD")
     def open_market(self, ad_name):
         self.wait_a_second()
         self.click(
@@ -623,7 +689,5 @@ class MarketPage(BasePage):
             tx = self.d.window_size()[0] / 2
             self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
         self.wait_a_second()
-        self.click(self.done_button)
+        self.click(self.done_button, 'кнопка Done')
         self.wait_a_second()
-
-
