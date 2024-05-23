@@ -306,7 +306,8 @@ class MarketPage(BasePage):
         try:
             self.swipe_to_element(self.model)
             self.click(self.model, 'пункт Model')
-            self.select_random()
+            # self.select_random()
+            self.click('//*[@text="Other"]/../..')
         except:
             print('Нет раздела Model для выбранного типа транспорта')
 
