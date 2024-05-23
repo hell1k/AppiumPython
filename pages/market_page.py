@@ -65,7 +65,7 @@ class MarketPage(BasePage):
     is_there_history = '//*[@text="Is there history on your vehicle resulting from flood, theft recovery or salvage loss?"]/..'
     serial_number = '//*[@text="Serial number"]/..'
     model = '//*[@text="Model"]/..'
-    mileage = '//*[@text="Miliage, mi"]/..'
+    mileage ='//*[@text="Mileage, mi"]/..'
     vin_code = '//*[@text="VIN-code"]/..'
     working_hours = '//*[@text="Working hours"]/..'
 
@@ -322,21 +322,24 @@ class MarketPage(BasePage):
             print('Нет раздела Body type для выбранного типа транспорта')
 
         self.swipe_to_element(self.trim)
+        self.wait_a_second()
         self.click(self.trim, 'Trim')
         text = 'Simple trim text'
         self.set_text(self.edit_text_view, text)
         self.click(self.done_button, 'кнопка Done')
 
         self.swipe_up()
+        self.wait_a_second()
         try:
             self.click(self.mileage, 'Mileage, mi')
             random_mileage = random.randrange(1, 150000)
             self.set_text(self.edit_text_view, random_mileage)
             self.click(self.switch_compat, 'свитч Мили/Километры')
             self.click(self.done_button, 'кнопка Done')
+
         except:
             print('Нет раздела Miliage для выбранного типа транспорта')
-
+        self.wait_a_second()
         try:
             self.click(self.working_hours, 'Working hours')
             random_hours = random.randrange(1, 1500)
@@ -462,6 +465,11 @@ class MarketPage(BasePage):
         self.wait_a_moment()
         self.open_more_options("Edit")
         self.wait_text('Editing')
+        try:
+            self.click('//*[@text="NO"]')
+        except:
+            print('Иногда при выходе без редактирования предлагает сохранить изменения, сейчас не предложил')
+        self.wait_a_second()
         self.click_back_btn()
         self.open_more_options("Share")
         self.wait_a_second()
