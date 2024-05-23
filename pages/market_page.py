@@ -69,6 +69,21 @@ class MarketPage(BasePage):
     vin_code = '//*[@text="VIN-code"]/..'
     working_hours = '//*[@text="Working hours"]/..'
 
+    property_type = '//*[@text="Property type"]/..'
+    year_built = '//*[@text="Year built"]/..'
+    bedrooms = '//*[@text="Bedrooms"]/..'
+    bathrooms = '//*[@text="Bathrooms"]/..'
+    basement = '//*[@text="Basement"]/..'
+    pool = '//*[@text="Pool"]/..'
+    parking_spots_number = '//*[@text="Parking spots number"]/..'
+    parking_type = '//*[@text="Parking type"]/..'
+    laundry_type = '//*[@text="Laundry type"]/..'
+    air_condition_type = '//*[@text="Air condition type"]/..'
+    heating_type = '//*[@text="Heating type"]/..'
+    pets_ok = '//*[@text="Pets OK"]/..'
+    living_area = '//*[@text="Living area"]/..'
+    lot_size = '//*[@text="Lot size"]/..'
+
     shipping_available_switch = '//*[@text="Shipping available"]/..'
     exchange_is_possible_switch = '//*[@text="Exchange is possible"]/..'
     bargaining_is_possible_switch = '//*[@text="Bargaining is possible"]/..'
@@ -397,6 +412,110 @@ class MarketPage(BasePage):
         self.wait_text(ad_name)
         return ad_name
 
+    @allure.step("Создание нового Ad Housing")
+    def create_new_ad_housing(self, permissions=True):
+        if permissions == True:
+            self.upload_new_photo()
+        else:
+            self.add_photo_without_permissions()
+
+        ad_name = self.set_ad_name()
+
+        self.swipe_to_element(self.property_type)
+        self.click(self.property_type)
+        self.select_random()
+
+        self.swipe_to_element(self.year_built)
+        self.click(self.year_built)
+        self.set_random_year()
+
+        self.swipe_to_element(self.location_selector)
+        self.click(self.location_selector, 'пункт Location')
+        self.set_address()
+
+        self.swipe_to_element(self.price_selector)
+        self.click(self.price_selector, 'Price')
+        random_price = random.randrange(1, 10000)
+        self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.exchange_is_possible_switch)
+        self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
+        self.swipe_to_element(self.bargaining_is_possible_switch)
+        self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
+
+        self.swipe_to_element(self.description_field)
+        self.set_text(self.description_field, text_1000)
+
+        self.swipe_to_element(self.bedrooms)
+        self.click(self.bedrooms, 'Bedrooms')
+        random_bedrooms = random.randrange(1, 12)
+        self.set_text(self.edit_text_view, random_bedrooms)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.bathrooms)
+        self.click(self.bathrooms, 'Bathrooms')
+        random_bathrooms = random.randrange(1, 12)
+        self.set_text(self.edit_text_view, random_bathrooms)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.basement)
+        self.click(self.basement, 'Basement')
+
+        self.swipe_to_element(self.pool)
+        self.click(self.pool, 'Pool')
+
+        self.swipe_to_element(self.parking_spots_number)
+        self.click(self.parking_spots_number, 'Parking spots number')
+        random_number = random.randrange(1, 12)
+        self.set_text(self.edit_text_view, random_number)
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.parking_type)
+        self.click(self.parking_type)
+        self.select_random()
+
+        self.swipe_to_element(self.laundry_type)
+        self.click(self.laundry_type)
+        self.select_random()
+
+        self.swipe_to_element(self.air_condition_type)
+        self.click(self.air_condition_type)
+        self.select_random()
+
+        self.swipe_to_element(self.heating_type)
+        self.click(self.heating_type)
+        self.select_random()
+
+        self.swipe_to_element(self.pets_ok)
+        self.click(self.pets_ok, 'Pets OK')
+
+        self.click(self.living_area, 'Living area')
+        random_area = random.randrange(1, 1500)
+        self.set_text(self.edit_text_view, random_area)
+        self.click(self.switch_compat, 'свитч sq.Meters/sq.Feet')
+        self.click(self.done_button, 'кнопка Done')
+
+        self.click(self.lot_size, 'Lot size')
+        random_size = random.randrange(1, 1500)
+        self.set_text(self.edit_text_view, random_size)
+        self.click(self.switch_compat, 'свитч Hectares/Acres')
+        self.click(self.done_button, 'кнопка Done')
+
+        self.swipe_to_element(self.condition)
+        self.click(self.condition, 'Condition')
+        self.set_condition()
+
+        self.swipe_to_element(self.post_button)
+        self.click(self.post_button, 'кнопка Post')
+
+        self.wait_text('Market')
+        self.swipe_down()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_text(ad_name)
+        return ad_name
+
     def open_market(self, ad_name):
         self.wait_a_second()
         self.click(
@@ -487,4 +606,23 @@ class MarketPage(BasePage):
         self.add_to_favorite()
         self.click_back_btn()
         self.wait_a_second()
+
+    @allure.step("Выбрать случайный Condition")
+    def set_condition(self):
+        self.click(f'//*[@resource-id="com.yapmap.yapmap:id/condition{random.randrange(1, 5)}_layout"]')
+        self.click(self.done_button, 'кнопка Done')
+
+    @allure.step("Выбрать случайный Year")
+    def set_random_year(self):
+        count = random.randrange(2, 5)
+        f = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[5]'
+        t = '//*[@resource-id="com.android.systemui:id/white_cutout"]'
+        for i in range(count):
+            fx, fy = self.get_element(f).center()
+            tx, ty = self.get_element(t).center()
+            self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+        self.wait_a_second()
+        self.click(self.done_button)
+        self.wait_a_second()
+
 
