@@ -393,6 +393,7 @@ class MarketPage(BasePage):
         self.wait_text('Market')
         self.swipe_down()
         self.wait_a_second()
+        self.swipe_down()
         self.wait_a_second()
         self.wait_text(ad_name)
         return ad_name
