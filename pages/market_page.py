@@ -466,12 +466,12 @@ class MarketPage(BasePage):
         self.wait_a_moment()
         self.open_more_options("Edit")
         self.wait_text('Editing')
+        self.wait_a_second()
+        self.click_back_btn()
         try:
             self.click('//*[@text="NO"]')
         except:
             print('Иногда при выходе без редактирования предлагает сохранить изменения, сейчас не предложил')
-        self.wait_a_second()
-        self.click_back_btn()
         self.open_more_options("Share")
         self.wait_a_second()
         self.wait_element(self.share_text)
