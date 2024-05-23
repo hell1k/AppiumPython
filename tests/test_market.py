@@ -53,7 +53,7 @@ class TestMarket:
     @allure.title("Создание, редактирование, удаление AD Housing")
     @pytest.mark.smoke
     @pytest.mark.market
-    def test_create_new_ad_transport(self, authorization):
+    def test_create_new_ad_housing(self, authorization):
         page = MainPage()
         page.profile.open_market()
         page.market.click_plus_new_market()

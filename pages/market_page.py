@@ -619,7 +619,9 @@ class MarketPage(BasePage):
         t = '//*[@resource-id="com.android.systemui:id/white_cutout"]'
         for i in range(count):
             fx, fy = self.get_element(f).center()
-            tx, ty = self.get_element(t).center()
+            ty = self.d.window_size()[1] - 10
+            tx = self.d.window_size()[0] / 2
+            # tx, ty = self.get_element(t).center()
             self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
         self.wait_a_second()
         self.click(self.done_button)
