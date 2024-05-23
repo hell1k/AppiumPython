@@ -328,8 +328,7 @@ class MarketPage(BasePage):
 
         self.swipe_to_element(self.year)
         self.click(self.year, 'пункт Year')
-        # self.set_year()
-        self.click(self.done_button, 'кнопка Done')
+        self.set_random_year()
 
         try:
             self.click(self.body_type, 'пункт Body type')
@@ -490,12 +489,14 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.pets_ok)
         self.click(self.pets_ok, 'Pets OK')
 
+        self.swipe_to_element(self.living_area)
         self.click(self.living_area, 'Living area')
         random_area = random.randrange(1, 1500)
         self.set_text(self.edit_text_view, random_area)
         self.click(self.switch_compat, 'свитч sq.Meters/sq.Feet')
         self.click(self.done_button, 'кнопка Done')
 
+        self.swipe_to_element(self.lot_size)
         self.click(self.lot_size, 'Lot size')
         random_size = random.randrange(1, 1500)
         self.set_text(self.edit_text_view, random_size)
@@ -615,13 +616,11 @@ class MarketPage(BasePage):
     @allure.step("Выбрать случайный Year")
     def set_random_year(self):
         count = random.randrange(2, 5)
-        f = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[5]'
-        t = '//*[@resource-id="com.android.systemui:id/white_cutout"]'
+        active_year = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[5]'
         for i in range(count):
-            fx, fy = self.get_element(f).center()
+            fx, fy = self.get_element(active_year).center()
             ty = self.d.window_size()[1] - 10
             tx = self.d.window_size()[0] / 2
-            # tx, ty = self.get_element(t).center()
             self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
         self.wait_a_second()
         self.click(self.done_button)
