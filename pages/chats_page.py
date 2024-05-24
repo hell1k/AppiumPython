@@ -37,12 +37,13 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_a_second()
         self.swipe_to_element_in_tab(self.business_tab)
-        self.click(self.business_tab, 'вкладка Pets')
+        self.click(self.business_tab, 'вкладка Business')
 
     def click_jobs_tab(self):
         self.swipe_to_element_in_tab(self.jobs_tab)
         self.click(self.jobs_tab, 'вкладка Jobs')
 
+    @allure.step("Проверяем чат раздела Pets")
     def check_pets_message(self, pet_name, user_pet_name, message):
         self.click_pets_tab()
         self.click(self.i_own)
@@ -66,6 +67,7 @@ class ChatsPage(BasePage):
                 self.wait_element(locator)
                 break
 
+    @allure.step("Проверяем чат раздела Business")
     def check_business_message(self, business_name, new_message):
         self.click_business_tab()
         self.click(self.i_own)
@@ -74,6 +76,7 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(new_message)
 
+    @allure.step("Проверяем чат раздела Job")
     def check_job_message(self, position_name, message):
         self.click_jobs_tab()
         self.click(self.i_own)
@@ -81,6 +84,7 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
+    @allure.step("Проверяем чат раздела Market")
     def check_market_message(self, message):
         self.click_market_tab()
         self.click(self.i_own)

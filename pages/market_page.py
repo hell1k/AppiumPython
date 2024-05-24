@@ -324,7 +324,8 @@ class MarketPage(BasePage):
 
         self.swipe_to_element(self.make)
         self.click(self.make, 'пункт Make')
-        self.select_random()
+        self.click('//*[@text="Other"]/../..')
+        # self.select_random()
 
         try:
             self.swipe_to_element(self.model)
