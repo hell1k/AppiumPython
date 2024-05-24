@@ -47,7 +47,7 @@ class MarketPage(BasePage):
     drivetrain = '//*[@text="Drivetrain"]/..'
     interior = '//*[@text="Interior"]/..'
     condition = '//*[@text="Condition"]/..'
-    exterior_color = '//*[@text="Exteriror color"]/..'
+    exterior_color = '//*[@text="Exterior color"]/..'
     interior_color = '//*[@text="Interior color"]/..'
     sunroof_moonroof = '//*[@text="Sunroof / moonroof"]/..'
     alloy_wheels = '//*[@text="Alloy wheels"]/..'
@@ -302,7 +302,9 @@ class MarketPage(BasePage):
         self.select_random()
         self.swipe_up()
 
-        try:
+        self.get_elements_amount(self.vin_code)
+
+        if self.get_elements_amount(self.vin_code) > 0:
             self.click(self.vin_code, 'VIN-code')
             self.wait_a_second()
             Permission().click_while_using_the_app()
@@ -311,39 +313,35 @@ class MarketPage(BasePage):
             self.wait_a_second()
             self.set_text(self.vin_code_edit_text, 'THMBB7092WD114221')
             self.click(self.use_vin_code_image_view, 'подтвердить VIN code')
-        except:
-            print('Нет раздела Serial number для выбранного типа транспорта')
 
-        try:
+        if self.get_elements_amount(self.serial_number) > 0:
             self.click(self.serial_number, 'Serial number')
             random_serial_number = random.randrange(1, 10000)
             self.set_text(self.edit_text_view, random_serial_number)
             self.click(self.done_button, 'кнопка Done')
-        except:
-            print('Нет раздела Serial number для выбранного типа транспорта')
 
         self.swipe_to_element(self.make)
         self.click(self.make, 'пункт Make')
         self.click('//*[@text="Other"]/../..')
         # self.select_random()
+        self.set_text(self.edit_text_view, 'RAND0me t3xt')
+        self.click(self.done_button, 'кнопка Done')
 
-        try:
+        if self.get_elements_amount(self.model) > 0:
             self.swipe_to_element(self.model)
             self.click(self.model, 'пункт Model')
             # self.select_random()
             self.click('//*[@text="Other"]/../..')
-        except:
-            print('Нет раздела Model для выбранного типа транспорта')
+            self.set_text(self.edit_text_view, 'RAND0me M0de1')
+            self.click(self.done_button, 'кнопка Done')
 
         self.swipe_to_element(self.year)
         self.click(self.year, 'пункт Year')
         self.set_random_year()
 
-        try:
+        if self.get_elements_amount(self.body_type) > 0:
             self.click(self.body_type, 'пункт Body type')
             self.select_random()
-        except:
-            print('Нет раздела Body type для выбранного типа транспорта')
 
         self.swipe_to_element(self.trim)
         self.wait_a_second()
@@ -354,23 +352,20 @@ class MarketPage(BasePage):
 
         self.swipe_up()
         self.wait_a_second()
-        try:
+        if self.get_elements_amount(self.mileage) > 0:
             self.click(self.mileage, 'Mileage, mi')
             random_mileage = random.randrange(1, 150000)
             self.set_text(self.edit_text_view, random_mileage)
             self.click(self.switch_compat, 'свитч Мили/Километры')
             self.click(self.done_button, 'кнопка Done')
 
-        except:
-            print('Нет раздела Miliage для выбранного типа транспорта')
+        self.swipe_up()
         self.wait_a_second()
-        try:
+        if self.get_elements_amount(self.working_hours) > 0:
             self.click(self.working_hours, 'Working hours')
             random_hours = random.randrange(1, 1500)
             self.set_text(self.edit_text_view, random_hours)
             self.click(self.done_button, 'кнопка Done')
-        except:
-            print('Нет раздела Miliage для выбранного типа транспорта')
 
         self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
