@@ -12,6 +12,7 @@ from pages.events_page import EventsPage
 from pages.pets_page import PetsPage
 from pages.chats_page import ChatsPage
 from pages.market_page import MarketPage
+from pages.places_page import PlacesPage
 
 
 class MainPage(BasePage):
@@ -26,6 +27,7 @@ class MainPage(BasePage):
     jobs = JobsPage()
     chats = ChatsPage()
     market = MarketPage()
+    place = PlacesPage()
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
@@ -34,6 +36,7 @@ class MainPage(BasePage):
     local_deals_filter = "com.yapmap.yapmap:id/local_deals_filter_text_view"
     jobs_filter = "com.yapmap.yapmap:id/jobs_filter_text_view"
     market_filter = "com.yapmap.yapmap:id/advertisements_filter_text_view"
+    places_filter = "com.yapmap.yapmap:id/places_filter_text_view"
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
@@ -66,6 +69,12 @@ class MainPage(BasePage):
         self.wait_text('Search')
         self.swipe_horizontal_to_element(self.market_filter)
         self.click(self.market_filter)
+
+    @allure.step("Выбрать фильтр Places")
+    def select_places_filter(self):
+        self.wait_text('Search')
+        self.swipe_horizontal_to_element(self.places_filter)
+        self.click(self.places_filter)
 
     def swipe_horizontal_filters(self):
         fx, fy = self.get_element(self.horizontal_scroll_filters).center()

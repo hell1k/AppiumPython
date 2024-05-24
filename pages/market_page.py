@@ -680,7 +680,7 @@ class MarketPage(BasePage):
         self.wait_a_moment()
         self.open_more_options("Contact seller")
         assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
-        self.click_back_btn()
+        self.press_back()
         self.wait_a_moment()
         self.open_more_options("Share")
         self.wait_element(self.share_text)

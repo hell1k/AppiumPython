@@ -300,3 +300,10 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.market_btn_in_profile)
         self.wait_a_second()
         self.click(self.market_btn_in_profile)
+
+    @allure.step("Открытие раздела Places из Профиля")
+    def open_places(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.places_to_visit_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.places_to_visit_btn_in_profile)
