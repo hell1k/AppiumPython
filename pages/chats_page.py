@@ -81,12 +81,11 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
-    def check_market_message(self, ad_name, message):
+    def check_market_message(self, message):
         self.click_market_tab()
         self.click(self.i_own)
-        # клик по куску сообщения
-        self.click(f'//*[@text="{ad_name}"]', ad_name)
-        self.wait_a_second()
+        self.wait_text(message)
+        self.click(f'//*[@text="{message}"]')
         self.wait_text(message)
 
 

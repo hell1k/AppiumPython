@@ -82,10 +82,12 @@ class TestMarket:
         page.select_market_filter()
         page.user_open_ad(ad_name)
         page.market.click_contact_seller_btn()
-        page.market.test_chat()
+        message = page.market.test_chat()
 
         page.login.logout()
         page.login.authorization()
         page.menu.open_chats()
-        page.chats.check_market_message()
+        page.chats.check_market_message(message)
+        new_message = faker.text()
+        page.market.send_message(new_message)
 
