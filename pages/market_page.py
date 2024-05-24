@@ -255,11 +255,9 @@ class MarketPage(BasePage):
         self.click(self.category_selection, 'пункт Category')
         self.select_random()
 
-        try:
+        if self.get_elements_amount(self.type_selection) > 0:
             self.click(self.type_selection, 'пункт Type')
             self.select_random()
-        except:
-            print('Нет раздела Type для выбранной категории')
 
         self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
@@ -640,7 +638,7 @@ class MarketPage(BasePage):
 
         return ad_name
 
-    @allure.step("Удаление Ad")
+    @allure.step("Удалить AD")
     def delete_ad(self, ad_name):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Delete"]')
@@ -676,6 +674,26 @@ class MarketPage(BasePage):
         self.add_to_favorite()
         self.click_back_btn()
         self.wait_a_second()
+
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options_user(self):
+        self.wait_a_moment()
+        self.open_more_options("Contact seller")
+        assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
+        self.click_back_btn()
+        self.wait_a_moment()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Report prohibited item")
+        self.wait_text('Choose a reason')
+        self.press_back()
+        self.wait_a_moment()
 
     @allure.step("Выбрать случайный Condition")
     def set_condition(self):

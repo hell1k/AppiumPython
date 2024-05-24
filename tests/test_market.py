@@ -69,6 +69,7 @@ class TestMarket:
     @pytest.mark.smoke
     @pytest.mark.test
     def test_create_new_ad_stuff(self, authorization):
+        # Создаем объявление пользователем 1
         page = MainPage()
         page.profile.open_market()
         page.market.click_plus_new_market()
@@ -76,15 +77,17 @@ class TestMarket:
         ad_name = page.market.create_new_ad_stuff()
         page.pets.click_back_btn()
         page.login.logout()
-
+        # Открываем объявление пользователем 2 и отправляем сообщение пользователю 1
         page.login.authorization(test_user_login, test_user_password)
         page.open_bottom_sheet()
         page.select_market_filter()
         page.user_open_ad(ad_name)
+        page.market.checking_more_options_user()
+        page.market.add_to_favorite()
         page.market.click_contact_seller_btn()
         message = page.market.test_chat()
-
         page.login.logout()
+        # Открываем объявление пользователем 1 и проверяем сообщение от пользователя 2
         page.login.authorization()
         page.menu.open_chats()
         page.chats.check_market_message(message)
