@@ -147,7 +147,7 @@ class EventsPage(BasePage):
 
         self.click(self.create_event_btn, "кнопка Создать")
         self.wait_element(self.event_name_in_list)
-        self.swipe_down()
+        self.swipe_down_to_element(f'//*[@text="{event_name}"]')
         self.wait_a_second()
         self.wait_text(event_name)
         return event_name

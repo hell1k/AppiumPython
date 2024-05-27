@@ -34,7 +34,7 @@ class PlacesPage(BasePage):
     location = '//*[@text="Location"]/..'
     types = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
-    address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
+    address_popup = "android:id/text1"
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     description_field = "com.yapmap.yapmap:id/description_edit_text"
 
@@ -59,6 +59,8 @@ class PlacesPage(BasePage):
     add_address_btn = 'com.yapmap.yapmap:id/address_location_field'
     address_location = 'com.yapmap.yapmap:id/activity_content_container'
     address_apply_btn = 'com.yapmap.yapmap:id/floating_action_button'
+
+    title = "com.yapmap.yapmap:id/title_text_view"
 
     @allure.step("Клик по кнопке Назад")
     def click_back_btn(self):
@@ -87,10 +89,10 @@ class PlacesPage(BasePage):
         self.click(self.place_type, 'пункт Place type')
         self.select_random()
 
-        # self.swipe_to_element(self.location)
-        # self.click(self.location, 'пункт Location')
-        # self.set_address()
-        self.select_address()
+        self.swipe_to_element(self.location)
+        self.click(self.location, 'пункт Location')
+        self.set_address()
+        # self.select_address()
 
         self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_1000)
@@ -142,6 +144,28 @@ class PlacesPage(BasePage):
         self.open_more_options("Cancel")
         self.wait_hidden_element(self.cancel_button)
 
+    @allure.step("Проверка меню ... в шапке")
+    def checking_more_options_user_place(self, place_name):
+        self.wait_a_moment()
+        self.open_more_options("Share")
+        self.wait_element(self.share_text)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Generate QR Code")
+        self.wait_element(self.qr_code)
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Chat")
+        assert self.get_text(self.title) == place_name
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Complain")
+        self.wait_text('Choose a reason')
+        self.press_back()
+        self.wait_a_moment()
+        self.open_more_options("Cancel")
+        self.wait_hidden_element(self.cancel_button)
+
     @allure.step("Добавление в избранное")
     def add_to_favorite(self):
         self.wait_a_second()
@@ -161,7 +185,7 @@ class PlacesPage(BasePage):
         return ad_name
 
     @allure.step("Выбрать адрес")
-    def set_address(self, city_name='Novosibirsk'):
+    def set_address(self, city_name='Stanford'):
         self.wait_text('Choose location')
         self.set_text(self.type_address_field, city_name)
         self.click(self.address_popup, 'адрес из всплывашки')
@@ -193,10 +217,11 @@ class PlacesPage(BasePage):
         self.click(self.dislike_button)
         assert int(self.get_text(self.rates_count_text_view)) == count
 
-    def click_group_chat_btn(self):
+    def click_group_chat_btn(self, place_name):
         self.swipe_to_element(self.group_chat_btn)
         self.click(self.group_chat_btn, 'кнопка Group chat')
-        assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
+        # assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
+        assert self.get_text(self.title) == place_name
 
     @allure.step("Проверяем чат")
     def test_chat(self):
@@ -260,3 +285,7 @@ class PlacesPage(BasePage):
         self.swipe_down()
         self.wait_a_second()
         self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=place_name).wait_gone(10)
+
+    @allure.step("Проверка наличия сообщения в чате")
+    def check_chat_msg(self, message):
+        self.wait_text(message)

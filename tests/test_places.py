@@ -6,7 +6,7 @@ from tests.config import *
 
 
 @pytest.mark.usefixtures("setup")
-@allure.feature("Market")
+@allure.feature("Places")
 class TestPlaces:
     @allure.title("Создание, редактирование, удаление Place")
     @pytest.mark.smoke
@@ -20,7 +20,7 @@ class TestPlaces:
         page.place.checking_more_options()
         page.place.add_to_favorite()
         page.place.check_like_and_dislike_btn()
-        page.place.click_group_chat_btn()
+        page.place.click_group_chat_btn(place_name)
         page.place.test_chat()
         new_place_name = page.place.edit_place()
         page.place.open_place(new_place_name)
@@ -39,20 +39,25 @@ class TestPlaces:
         page.place.click_add_new_place()
         place_name = page.place.create_new_place()
         page.place.open_place(place_name)
-        page.place.click_group_chat_btn()
-        page.place.test_chat()
-        page.pets.click_back_btn()
-        page.pets.click_back_btn()
+        page.place.click_group_chat_btn(place_name)
+        message = page.place.test_chat()
+        page.place.click_back_btn()
+        page.place.click_back_btn()
         page.login.logout()
 
         page.login.authorization(test_user_login, test_user_password)
         page.open_bottom_sheet()
         page.select_places_filter()
 
-        page.user_open_ad(place_name)
-        page.market.checking_more_options_user()
-        page.market.add_to_favorite()
-        page.market.click_contact_seller_btn()
-        message = page.market.test_chat()
+        page.user_open_place(place_name)
+        page.place.checking_more_options_user_place(place_name)
+        page.place.add_to_favorite()
+        page.place.click_group_chat_btn(place_name)
+        page.place.check_chat_msg(message)
+        new_message = page.place.test_chat()
         page.login.logout()
 
+        page.login.authorization()
+        page.profile.open_places()
+        page.user_open_place(place_name)
+        page.place.check_chat_msg(new_message)
