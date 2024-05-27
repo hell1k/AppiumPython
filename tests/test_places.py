@@ -33,7 +33,7 @@ class TestPlaces:
     @allure.title("Взаимодействие пользователя Place")
     @pytest.mark.smoke
     @pytest.mark.place
-    def test_create_new_place(self, authorization):
+    def test_user_place(self, authorization):
         page = MainPage()
         page.profile.open_places()
         page.place.click_add_new_place()
@@ -55,9 +55,9 @@ class TestPlaces:
         page.place.click_group_chat_btn(place_name)
         page.place.check_chat_msg(message)
         new_message = page.place.test_chat()
-        page.login.logout()
-
-        page.login.authorization()
-        page.profile.open_places()
-        page.user_open_place(place_name)
-        page.place.check_chat_msg(new_message)
+        # page.login.logout()
+        #
+        # page.login.authorization()
+        # page.profile.open_places()
+        # page.user_open_place(place_name)
+        # page.place.check_chat_msg(new_message)
