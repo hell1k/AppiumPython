@@ -307,3 +307,10 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.places_to_visit_btn_in_profile)
         self.wait_a_second()
         self.click(self.places_to_visit_btn_in_profile)
+
+    @allure.step("Открытие раздела Favorites из Профиля")
+    def open_favorites(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.favorites_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.favorites_btn_in_profile)

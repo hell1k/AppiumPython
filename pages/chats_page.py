@@ -11,6 +11,7 @@ from common.permission import Permission
 
 class ChatsPage(BasePage):
     menu = Menu()
+    permission = Permission()
 
     people_tab = '//*[@text="People"]'
     pets_tab = '//*[@text="Pets"]'
@@ -21,6 +22,17 @@ class ChatsPage(BasePage):
     i_own = '//*[@resource-id="com.yapmap.yapmap:id/owner_layout"]'
     i_am_interested = '//*[@resource-id="com.yapmap.yapmap:id/member_layout"]'
     business_chats = '//*[@resource-id="com.yapmap.yapmap:id/business_chats_recycler_view"]/android.widget.LinearLayout'
+    emoji_btn = "com.yapmap.yapmap:id/emoji_layout_button_image_view"
+    stickers_btn = "com.yapmap.yapmap:id/stickers_layout_button_image_view"
+    images_btn = "com.yapmap.yapmap:id/images_layout_button_image_view"
+    camera_btn = "com.yapmap.yapmap:id/camera_layout_button_image_view"
+    attachment_btn = "com.yapmap.yapmap:id/attachment_layout_button_image_view"
+    emoji_list = '//*[@resource-id="com.yapmap.yapmap:id/emoji_container_layout"]/android.widget.LinearLayout[1]/android.widget.ImageView'
+    send_button = "com.yapmap.yapmap:id/send_button_image_view"
+    like_btn = "com.yapmap.yapmap:id/primary_emoji_image_view"
+    take_a_picture_btn = 'com.android.camera2:id/bottom_bar'
+    take_a_picture_done_btn = '//*[@resource-id="com.android.camera2:id/done_button"]'
+    message_edit_text = "com.yapmap.yapmap:id/message_edit_text"
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -92,7 +104,37 @@ class ChatsPage(BasePage):
         self.click(f'//*[@text="{message}"]')
         self.wait_text(message)
 
+    @allure.step("Отправить emoji в чат")
+    def check_send_emoji(self):
+        self.click(self.emoji_btn, 'кнопка Emoji')
+        self.click(self.get_random_element(self.emoji_list), 'рандомный emoji')
+        self.click(self.send_button)
 
+    @allure.step("Отправить sticker в чат")
+    def check_send_sticker(self):
+        self.click(self.stickers_btn, 'кнопка Sticker')
+        self.click(
+            self.d('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[2]'))
+        self.wait_text('Upload your stickers now!')
 
+    @allure.step("Отправить images в чат")
+    def check_send_images(self):
+        self.click(self.images_btn)
 
+    @allure.step("Отправить images с камеры в чат")
+    def check_send_images_from_camera(self):
+        self.click(self.camera_btn)
+        self.wait_text('Allow')
+        self.permission.click_while_using_the_app()
+        self.click(self.take_a_picture_btn)
+        self.click(self.take_a_picture_done_btn)
+        self.set_text(self.message_edit_text, 'Random text')
+        self.click(self.send_button)
 
+    @allure.step("Отправить attachment в чат")
+    def check_send_attachment(self):
+        self.click(self.attachment_btn)
+        self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from gallery"))
+        self.permission.photo_permission_allow()
+        self.click(self.get_random_element(
+            '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup'))

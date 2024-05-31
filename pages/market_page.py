@@ -671,7 +671,6 @@ class MarketPage(BasePage):
         self.wait_text('Delete advertisement')
         self.click(self.cancel_button, 'кнопка Cancel')
         self.wait_hidden_element(self.cancel_button)
-        self.add_to_favorite()
         self.click_back_btn()
         self.wait_a_second()
 

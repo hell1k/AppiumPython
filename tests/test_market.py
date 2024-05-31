@@ -18,6 +18,7 @@ class TestMarket:
         page.market.click_create()
         ad_name = page.market.create_new_ad_stuff()
         page.market.open_market(ad_name)
+        page.market.add_to_favorite()
         page.market.checking_more_options()
         page.market.open_market(ad_name)
         new_ad_name = page.market.edit_ad()

@@ -114,14 +114,16 @@ class EventsPage(BasePage):
         self.wait_a_moment()
 
     @allure.step("Создание нового эвента")
-    def add_new_event(self, is_private=None):
+    def add_new_event(self, is_private=None, permission=True):
         event_name = 'Test event_' + str(randint(0, 999999999))
         self.click(self.add_new_event_btn, "добавить новый Event")
         self.set_text(self.name_field, event_name, "Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
-        Permission().close_photo_permission()
+        if permission == True:
+            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        if permission == True:
+            Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")

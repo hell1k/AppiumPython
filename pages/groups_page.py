@@ -61,14 +61,16 @@ class GroupsPage(BasePage):
     popup_yes = '//*[@text="YES"]'
 
     @allure.step("Добавление новой группы")
-    def add_new_group(self, is_private=None):
+    def add_new_group(self, is_private=None, permission=True):
         group_name = 'Test group_' + str(randint(0, 999999999))
         self.click(self.add_new_group_btn, "добавить новую группу")
         self.set_text(self.name_field, group_name, "Name group")
         self.click(self.upload_a_picture, 'upload a picture')
-        Permission().close_photo_permission()
+        if permission == True:
+            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        if permission == True:
+            Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
@@ -84,6 +86,9 @@ class GroupsPage(BasePage):
         self.swipe_down()
         self.wait_text(group_name)
         return group_name
+
+    def click_save(self):
+        self.click(self.save_btn, 'кнопка Save')
 
     @allure.step("Редактирование группы '{group_name}'")
     def edit_group(self, group_name):

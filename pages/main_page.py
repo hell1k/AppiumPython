@@ -13,6 +13,7 @@ from pages.pets_page import PetsPage
 from pages.chats_page import ChatsPage
 from pages.market_page import MarketPage
 from pages.places_page import PlacesPage
+from pages.favorites_page import FavoritesPage
 
 
 class MainPage(BasePage):
@@ -28,6 +29,7 @@ class MainPage(BasePage):
     chats = ChatsPage()
     market = MarketPage()
     place = PlacesPage()
+    favorites = FavoritesPage()
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
@@ -37,6 +39,16 @@ class MainPage(BasePage):
     jobs_filter = "com.yapmap.yapmap:id/jobs_filter_text_view"
     market_filter = "com.yapmap.yapmap:id/advertisements_filter_text_view"
     places_filter = "com.yapmap.yapmap:id/places_filter_text_view"
+    add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+
+    def click_back_btn(self):
+        self.click(self.d(description="Back"), "кнопка Назад")
+
+    @allure.step("Добавление в избранное")
+    def add_to_favorite(self):
+        self.wait_a_second()
+        self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+        self.wait_a_second()
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
