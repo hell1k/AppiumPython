@@ -4,6 +4,7 @@ from tests.config import *
 import allure
 import uiautomator2 as u
 from faker import Faker
+from PIL import Image
 from uiautomator2 import Direction
 
 
@@ -186,4 +187,32 @@ class BasePage:
             return len(self.get_element(locator).all())
         else:
             return self.get_element(locator).count
+
+    @allure.step('Определяем цвет середины элемента')
+    def get_color_element(self, locator):
+        self.wait_element(locator)
+        self.get_screen()
+        img = Image.open("screen.png")
+        center = self.get_element(locator).center()
+        pixel_color = img.getpixel(center)
+        return pixel_color
+
+    @allure.step('Определяем цвет по координатам')
+    def get_color_pixel(self, x, y):
+        img = Image.open("screen.png")
+        pixel_color = img.getpixel((x, y))
+        return pixel_color
+
+    def clear_field(self, locator, element_name=None):
+        if element_name is not None:
+            with allure.step(f"Удалить текст из поля '{element_name}'"):
+                self.get_element(locator).clear_text()
+        else:
+            self.get_element(locator).clear_text()
+
+    @allure.step("Клик по координатам ({x}:{y})")
+    def coordinate_click(self, x, y):
+        self.d.click(x, y)
+
+
 

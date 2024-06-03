@@ -15,6 +15,7 @@ class Menu(BasePage):
 
     @allure.step("Переход в раздел Groups")
     def open_groups(self):
+        self.wait_a_second()
         self.click(self.groups_icon, 'Groups')
         self.wait_a_second()
 

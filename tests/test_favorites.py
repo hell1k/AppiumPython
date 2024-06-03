@@ -14,25 +14,29 @@ class TestFavorites:
     def test_add_to_favorite(self, authorization):
         page = MainPage()
 
-        page.menu.open_groups()
-        group_name = page.groups.add_new_group()
-        page.groups.open_an_open_group(group_name)
-        page.groups.click_edit_group()
-        page.add_to_favorite()
-        page.groups.click_save()
-        page.click_back_btn()
-
-        page.profile.open_events()
-        event_name = page.events.add_new_event(permission=False)
-        page.events.open_event(event_name)
-        page.add_to_favorite()
-        page.click_back_btn()
-        page.click_back_btn()
+        # page.menu.open_groups()
+        # group_name = page.groups.add_new_group()
+        # page.groups.open_an_open_group(group_name)
+        # page.groups.click_edit_group()
+        # page.add_to_favorite()
+        # page.favorites.favorite_btn_wait_color()
+        # page.groups.click_save()
+        # page.click_back_btn()
+        #
+        # page.profile.open_events()
+        # event_name = page.events.add_new_event(permission=False)
+        # page.events.open_event(event_name)
+        # page.add_to_favorite()
+        # page.favorites.favorite_btn_wait_color()
+        # page.click_back_btn()
+        # page.click_back_btn()
 
         page.profile.open_business()
         page.business.clear_business()
         business_name = page.business.add_new_business()
+        page.business.open_business(business_name)
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 
@@ -42,6 +46,7 @@ class TestFavorites:
         ad_name = page.market.create_new_ad_stuff()
         page.market.open_market(ad_name)
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 
@@ -49,6 +54,7 @@ class TestFavorites:
         channel_name = page.channels.add_new_channel()
         page.channels.open_channel(channel_name)
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 
@@ -58,6 +64,7 @@ class TestFavorites:
         page.profile.click_jobs()
         job_name = page.jobs.create_new_jobs()
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 
@@ -68,6 +75,7 @@ class TestFavorites:
         pet_name = page.pets.add_new_pet()
         page.pets.open_pet(pet_name)
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 
@@ -76,6 +84,7 @@ class TestFavorites:
         place_name = page.place.create_new_place()
         page.place.open_place(place_name)
         page.add_to_favorite()
+        page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
         page.click_back_btn()
 

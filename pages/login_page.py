@@ -96,6 +96,7 @@ class LoginPage(BasePage):
             self.set_text(self.password_field, "Qq12345678!", "Password")
             self.set_text(self.confirm_password_field, "Qq12345678!", "Confirm password")
             self.click(self.terms_switch, "Terms of use")
+            self.swipe_to_element(self.sign_up_btn)
             self.click_sign_up()
             self.wait_a_second()
             self.wait_a_second()

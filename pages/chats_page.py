@@ -33,6 +33,11 @@ class ChatsPage(BasePage):
     take_a_picture_btn = 'com.android.camera2:id/bottom_bar'
     take_a_picture_done_btn = '//*[@resource-id="com.android.camera2:id/done_button"]'
     message_edit_text = "com.yapmap.yapmap:id/message_edit_text"
+    search_plate = "com.yapmap.yapmap:id/search_src_text"
+    add_for_free_button = "com.yapmap.yapmap:id/add_for_free_button"
+    add_button = "com.yapmap.yapmap:id/add_button"
+    back_button = "com.yapmap.yapmap:id/back_button"
+    cancel_button = "com.yapmap.yapmap:id/cancel_button"
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -113,18 +118,35 @@ class ChatsPage(BasePage):
     @allure.step("Отправить sticker в чат")
     def check_send_sticker(self):
         self.click(self.stickers_btn, 'кнопка Sticker')
-        self.click(
-            self.d('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[2]'))
-        self.wait_text('Upload your stickers now!')
+        self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[1]')
+        self.wait_text('Enter at least 3 characters')
+        self.set_text(self.search_plate, 'tiger')
+        self.wait_a_second()
+        self.click(self.add_for_free_button, 'кнопка Add free')
+        self.wait_text('Sticker pack')
+        self.click(self.add_button, 'кнопка ADD FREE')
+        self.wait_text('ADDED')
+        self.click(self.back_button, 'кнопка назад')
+        self.click(self.cancel_button, 'кнопка Cancel')
+        self.click(self.stickers_btn, 'кнопка Sticker')
+        self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
+
+
+        # self.click(
+        #     self.d('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[2]'))
+        # self.wait_text('Upload your stickers now!')
 
     @allure.step("Отправить images в чат")
     def check_send_images(self):
         self.click(self.images_btn)
+        self.click(self.d(resourceId="com.google.android.documentsui:id/sub_menu"))
+        self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
+        self.set_text(self.message_edit_text, 'Random text')
+        self.click(self.send_button)
 
     @allure.step("Отправить images с камеры в чат")
     def check_send_images_from_camera(self):
         self.click(self.camera_btn)
-        self.wait_text('Allow')
         self.permission.click_while_using_the_app()
         self.click(self.take_a_picture_btn)
         self.click(self.take_a_picture_done_btn)
@@ -135,6 +157,8 @@ class ChatsPage(BasePage):
     def check_send_attachment(self):
         self.click(self.attachment_btn)
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from gallery"))
-        self.permission.photo_permission_allow()
-        self.click(self.get_random_element(
-            '//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup'))
+        # self.permission.photo_permission_allow()
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup'))
+        self.click(self.attachment_btn)
+        self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
+        self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
