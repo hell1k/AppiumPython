@@ -5,11 +5,13 @@ import allure
 from tests.config import *
 from pages.base_page import BasePage
 from common.menu import Menu
+from common.photo import Photo
 from common.permission import Permission
 
 
 class GroupsPage(BasePage):
     menu = Menu()
+    photo = Photo()
 
     add_new_group_btn = 'com.yapmap.yapmap:id/action_show_option_menu'
     name_field = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
@@ -65,16 +67,21 @@ class GroupsPage(BasePage):
         group_name = 'Test group_' + str(randint(0, 999999999))
         self.click(self.add_new_group_btn, "добавить новую группу")
         self.set_text(self.name_field, group_name, "Name group")
-        self.click(self.upload_a_picture, 'upload a picture')
         if permission == True:
-            Permission().close_photo_permission()
-        self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
-            Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+            self.photo.upload_new_photo()
+        else:
+            self.photo.upload_new_photo(permission=False)
+        # self.click(self.upload_a_picture, 'upload a picture')
+        # if permission == True:
+        #     Permission().close_photo_permission()
+        # self.click(self.image_loader, "добавление нового фото")
+        # if permission == True:
+        #     Permission().click_while_using_the_app()
+        # self.wait_element(self.take_a_picture_btn)
+        # self.wait_a_second()
+        # self.click(self.take_a_picture_btn, "создание нового фото")
+        # self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+
         self.set_text(self.description_field, text_250, 'поле Description')
 
         if is_private == 'private':

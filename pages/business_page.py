@@ -51,9 +51,12 @@ class BusinessPage(BasePage):
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
 
     @allure.step("Добавление новой записи Business")
-    def add_new_business(self):
+    def add_new_business(self, permission=True):
         self.click_new_business_btn()
-        self.upload_new_photo()
+        if permission == True:
+            self.upload_new_photo()
+        else:
+            self.upload_new_photo(permission=False)
         business_name = self.set_name()
         self.set_business_type()
         self.set_description("Some description")
@@ -136,11 +139,13 @@ class BusinessPage(BasePage):
         self.click(self.done_photo)
 
     @allure.step("Добавление нового фото")
-    def upload_new_photo(self):
+    def upload_new_photo(self, permission=True):
         self.click(self.upload_a_picture, 'upload a picture')
-        Permission().close_photo_permission()
+        if permission == True:
+            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        if permission == True:
+            Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")

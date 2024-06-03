@@ -77,20 +77,24 @@ class ChannelsPage(BasePage):
         self.click(self.d(description="Back"), "кнопка Назад")
 
     @allure.step("Добавление нового канала")
-    def add_new_channel(self, is_private=None):
+    def add_new_channel(self, is_private=None, permission=True):
         channel_name = 'Test channel_' + str(randint(0, 999999999))
         self.click(self.add_new_channel_btn, "добавить новый канал")
         self.set_text(self.name_field, channel_name, "Channel Name")
+
         self.click(self.upload_a_picture, 'upload a picture')
-        Permission().close_photo_permission()
+        if permission == True:
+            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        if permission == True:
+            Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
         self.click(self.done_photo, "подтверждение созданного фото")
+
         self.set_text(self.description_field, text_1000, 'Description')
         if is_private == 'private':
             self.swipe_up()

@@ -65,6 +65,7 @@ class LoginPage(BasePage):
         else:
             self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "Почта")
             self.set_text(self.password_field, 'Qq12345678!', "поле Пароль")
+        self.swipe_to_element(self.sign_in_btn)
         self.click_sign_in()
 
     @allure.step("Авторизация")

@@ -195,12 +195,14 @@ class JobsPage(BasePage):
         self.click(self.get_random_element(self.profession_type_list), "рандомный Professional type")
 
     @allure.step("Добавление нового фото")
-    def upload_new_photo(self):
+    def upload_new_photo(self, permission=True):
         self.swipe_to_element(self.add_photo_btn)
         self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
+        if permission == True:
+            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        if permission == True:
+            Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
