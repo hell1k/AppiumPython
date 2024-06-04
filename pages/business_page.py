@@ -57,20 +57,15 @@ class BusinessPage(BasePage):
         self.click_new_business_btn()
 
         if permission == True:
-            self.photo.upload_new_photo()
+            self.photo.upload_picture()
         else:
-            self.photo.upload_new_photo(permission=False)
-        # if permission == True:
-        #     self.upload_new_photo()
-        # else:
-        #     self.upload_new_photo(permission=False)
+            self.photo.upload_picture(permission=False)
 
         business_name = self.set_name()
         self.set_business_type()
         self.set_description("Some description")
         self.swipe_to_element(self.add_photo_btn)
-        self.photo.upload_new_photo()
-        # self.add_new_photo()
+        self.photo.upload_new_photo(permission=False)
         self.select_address()
         self.set_phone()
         self.swipe_up()
@@ -89,7 +84,7 @@ class BusinessPage(BasePage):
     def add_new_business_with_full_fields(self):
         self.click_new_business_btn()
         # self.upload_new_photo()
-        self.photo.upload_new_photo()
+        self.photo.upload_picture()
         self.set_text(self.business_name_field, text_250_2, "Business name")
         self.set_business_type()
         self.set_description(text_250)

@@ -36,7 +36,7 @@ class TestBusiness:
     @allure.title("Взаимодействие пользователя")
     @pytest.mark.smoke
     @pytest.mark.business
-    def test_create_new_business(self, authorization):
+    def test_user_business(self, authorization):
         page = MainPage()
         page.profile.open_business()
         page.business.clear_business()

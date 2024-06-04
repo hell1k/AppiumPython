@@ -5,12 +5,14 @@ import faker
 from faker import Faker
 from common.menu import Menu
 from common.permission import Permission
+from common.photo import Photo
 from pages.base_page import BasePage
 from tests.config import *
 
 
 class PlacesPage(BasePage):
     menu = Menu()
+    photo = Photo()
     faker = Faker()
 
     plus_btn = 'com.yapmap.yapmap:id/action_create'
@@ -69,21 +71,22 @@ class PlacesPage(BasePage):
     def click_add_new_place(self):
         self.click(self.plus_btn, 'кнопка +')
 
-    @allure.step("Добавление нового фото")
-    def upload_new_photo(self):
-        self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
-        self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.click(self.done_photo, 'кнопка Done')
-        self.wait_a_second()
+    # @allure.step("Добавление нового фото")
+    # def upload_new_photo(self):
+    #     self.click(self.add_photo_btn, 'add photo')
+    #     Permission().close_photo_permission()
+    #     self.click(self.image_loader, "добавление нового фото")
+    #     Permission().click_while_using_the_app()
+    #     self.wait_element(self.take_a_picture_btn)
+    #     self.wait_a_second()
+    #     self.click(self.take_a_picture_btn, "создание нового фото")
+    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
+    #     self.click(self.done_photo, 'кнопка Done')
+    #     self.wait_a_second()
 
     def create_new_place(self):
-        self.upload_new_photo()
+        # self.upload_new_photo()
+        self.photo.upload_new_photo()
         place_name = self.set_name()
         self.swipe_to_element(self.place_type)
         self.click(self.place_type, 'пункт Place type')

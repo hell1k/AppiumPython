@@ -12,6 +12,7 @@ class Photo(BasePage):
     upload_a_picture = '//*[@resource-id="com.yapmap.yapmap:id/avatar_layout"]/android.widget.FrameLayout[1]'
     done_photo = "com.yapmap.yapmap:id/action_done"
 
+
     @allure.step("Добавление нового фото")
     def upload_new_photo(self, permission=True):
         # self.swipe_to_element(self.add_photo_btn)
@@ -28,5 +29,16 @@ class Photo(BasePage):
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.click(self.done_photo, 'кнопка Done')
 
-
+    @allure.step("Добавление нового фото")
+    def upload_picture(self, permission=True):
+        self.click(self.upload_a_picture, 'upload a picture')
+        if permission == True:
+            Permission().close_photo_permission()
+        self.click(self.image_loader, "добавление нового фото")
+        if permission == True:
+            Permission().click_while_using_the_app()
+        self.wait_element(self.take_a_picture_btn)
+        self.wait_a_second()
+        self.click(self.take_a_picture_btn, "создание нового фото")
+        self.click(self.take_a_picture_done_btn, "выбрать фото")
 
