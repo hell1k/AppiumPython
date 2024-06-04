@@ -5,6 +5,7 @@ import faker
 from faker import Faker
 from common.menu import Menu
 from common.permission import Permission
+from common.photo import Photo
 from pages.base_page import BasePage
 from tests.config import *
 
@@ -12,6 +13,7 @@ from tests.config import *
 class MarketPage(BasePage):
     menu = Menu()
     faker = Faker()
+    photo = Photo()
 
     plus_market_btn = 'com.yapmap.yapmap:id/action_create'
     create_btn = 'com.yapmap.yapmap:id/create_button'
@@ -198,16 +200,16 @@ class MarketPage(BasePage):
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
-    @allure.step("Добавить фото")
-    def add_photo_without_permissions(self):
-        self.click(self.add_photo_btn, 'кнопка Add photos')
-        self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.wait_a_second()
-        self.click(self.done_photo, 'кнопка Done')
+    # @allure.step("Добавить фото")
+    # def add_photo_without_permissions(self):
+    #     self.click(self.add_photo_btn, 'кнопка Add photos')
+    #     self.click(self.image_loader, "добавление нового фото")
+    #     self.wait_element(self.take_a_picture_btn)
+    #     self.wait_a_second()
+    #     self.click(self.take_a_picture_btn, "создание нового фото")
+    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
+    #     self.wait_a_second()
+    #     self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Заполнение поля Advertisement name")
     def set_ad_name(self):
@@ -234,7 +236,7 @@ class MarketPage(BasePage):
         self.click_create()
         self.select_random_type_ad()
         self.click_create()
-        self.upload_new_photo()
+        self.photo.upload_new_photo()
         self.set_ad_name()
         self.swipe_to_element(self.category_selection)
         self.click(self.category_selection, 'пункт Category')
@@ -244,11 +246,16 @@ class MarketPage(BasePage):
         self.select_random()
 
     @allure.step("Создание нового Ad Stuff")
-    def create_new_ad_stuff(self, permissions=True):
-        if permissions == True:
-            self.upload_new_photo()
+    def create_new_ad_stuff(self, permission=True):
+        if permission == True:
+            self.photo.upload_new_photo()
         else:
-            self.add_photo_without_permissions()
+            self.photo.upload_new_photo(permission=False)
+
+        # if permissions == True:
+        #     self.upload_new_photo()
+        # else:
+        #     self.add_photo_without_permissions()
 
         ad_name = self.set_ad_name()
         self.swipe_to_element(self.category_selection)
@@ -291,7 +298,8 @@ class MarketPage(BasePage):
 
     @allure.step("Создание нового Ad Transport")
     def create_new_ad_transport(self):
-        self.upload_photo()
+        # self.upload_photo()
+        self.photo.upload_new_photo()
         ad_name = self.set_ad_name()
 
         # Basic information
@@ -478,11 +486,16 @@ class MarketPage(BasePage):
         return ad_name
 
     @allure.step("Создание нового Ad Housing")
-    def create_new_ad_housing(self, permissions=True):
-        if permissions == True:
-            self.upload_new_photo()
+    def create_new_ad_housing(self, permission=True):
+        # if permissions == True:
+        #     self.upload_new_photo()
+        # else:
+        #     self.add_photo_without_permissions()
+
+        if permission == True:
+            self.photo.upload_new_photo()
         else:
-            self.add_photo_without_permissions()
+            self.photo.upload_new_photo(permission=False)
 
         ad_name = self.set_ad_name()
 
@@ -593,7 +606,8 @@ class MarketPage(BasePage):
     def edit_ad(self):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
-        self.add_photo_without_permissions()
+        # self.add_photo_without_permissions()
+        self.photo.upload_new_photo(permission=False)
         ad_name = self.set_ad_name()
 
         self.swipe_to_element(self.category_selection)

@@ -14,7 +14,7 @@ class Photo(BasePage):
 
     @allure.step("Добавление нового фото")
     def upload_new_photo(self, permission=True):
-        self.swipe_to_element(self.add_photo_btn)
+        # self.swipe_to_element(self.add_photo_btn)
         self.click(self.add_photo_btn, 'add photo')
         if permission == True:
             Permission().close_photo_permission()

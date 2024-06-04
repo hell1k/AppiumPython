@@ -69,7 +69,7 @@ class TestMarket:
     @allure.title("Взаимодействие с пользователем")
     @pytest.mark.smoke
     @pytest.mark.market
-    def test_create_new_ad_stuff(self, authorization):
+    def test_user_ad(self, authorization):
         # Создаем объявление пользователем 1
         page = MainPage()
         page.profile.open_market()

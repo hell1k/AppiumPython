@@ -6,6 +6,7 @@ from faker import Faker
 from common.permission import Permission
 from pages.base_page import BasePage
 from common.menu import Menu
+from common.photo import Photo
 from tests.config import text_250, text_250_2
 
 faker = Faker()
@@ -13,6 +14,7 @@ faker = Faker()
 
 class BusinessPage(BasePage):
     menu = Menu()
+    photo = Photo()
 
     new_business_btn = '//*[@resource-id="com.yapmap.yapmap:id/action_create"]'
     upload_a_picture = '//*[@resource-id="com.yapmap.yapmap:id/avatar_layout"]/android.widget.FrameLayout[1]'
@@ -53,14 +55,22 @@ class BusinessPage(BasePage):
     @allure.step("Добавление новой записи Business")
     def add_new_business(self, permission=True):
         self.click_new_business_btn()
+
         if permission == True:
-            self.upload_new_photo()
+            self.photo.upload_new_photo()
         else:
-            self.upload_new_photo(permission=False)
+            self.photo.upload_new_photo(permission=False)
+        # if permission == True:
+        #     self.upload_new_photo()
+        # else:
+        #     self.upload_new_photo(permission=False)
+
         business_name = self.set_name()
         self.set_business_type()
         self.set_description("Some description")
-        self.add_new_photo()
+        self.swipe_to_element(self.add_photo_btn)
+        self.photo.upload_new_photo()
+        # self.add_new_photo()
         self.select_address()
         self.set_phone()
         self.swipe_up()
@@ -78,11 +88,14 @@ class BusinessPage(BasePage):
     @allure.step("Добавление новой записи Business с максимальным заполнением полей")
     def add_new_business_with_full_fields(self):
         self.click_new_business_btn()
-        self.upload_new_photo()
+        # self.upload_new_photo()
+        self.photo.upload_new_photo()
         self.set_text(self.business_name_field, text_250_2, "Business name")
         self.set_business_type()
         self.set_description(text_250)
-        self.add_new_photo()
+        self.swipe_to_element(self.add_photo_btn)
+        self.photo.upload_new_photo()
+        # self.add_new_photo()
         self.select_address()
         self.set_phone()
         self.swipe_up()
@@ -127,29 +140,29 @@ class BusinessPage(BasePage):
         self.swipe_to_element(self.description)
         self.set_text(self.description, description, "Description")
 
-    @allure.step("Добавление нового фото")
-    def add_new_photo(self):
-        self.swipe_to_element(self.add_photo_btn)
-        self.click(self.add_photo_btn, "add photos")
-        self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.click(self.done_photo)
+    # @allure.step("Добавление нового фото")
+    # def add_new_photo(self):
+    #     self.swipe_to_element(self.add_photo_btn)
+    #     self.click(self.add_photo_btn, "add photos")
+    #     self.click(self.image_loader, "добавление нового фото")
+    #     self.wait_element(self.take_a_picture_btn)
+    #     self.wait_a_second()
+    #     self.click(self.take_a_picture_btn, "создание нового фото")
+    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
+    #     self.click(self.done_photo)
 
-    @allure.step("Добавление нового фото")
-    def upload_new_photo(self, permission=True):
-        self.click(self.upload_a_picture, 'upload a picture')
-        if permission == True:
-            Permission().close_photo_permission()
-        self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
-            Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+    # @allure.step("Добавление нового фото")
+    # def upload_new_photo(self, permission=True):
+    #     self.click(self.upload_a_picture, 'upload a picture')
+    #     if permission == True:
+    #         Permission().close_photo_permission()
+    #     self.click(self.image_loader, "добавление нового фото")
+    #     if permission == True:
+    #         Permission().click_while_using_the_app()
+    #     self.wait_element(self.take_a_picture_btn)
+    #     self.wait_a_second()
+    #     self.click(self.take_a_picture_btn, "создание нового фото")
+    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
 
     @allure.step("Добавление адреса")
     def select_address(self):
