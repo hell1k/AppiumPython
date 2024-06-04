@@ -94,6 +94,7 @@ class LoginPage(BasePage):
             mail = user_name + "@mailforspam.com"
             self.set_text(self.email_field, mail, "Email")
             self.set_text(self.password_field, "Qq12345678!", "Password")
+            self.swipe_to_element(self.confirm_password_field)
             self.set_text(self.confirm_password_field, "Qq12345678!", "Confirm password")
             self.click(self.terms_switch, "Terms of use")
             self.swipe_to_element(self.sign_up_btn)
@@ -117,6 +118,7 @@ class LoginPage(BasePage):
             self.wait_element(self.personal_info_title, "заголовок User's personal information")
             status = self.profile.edit_profile_data("Status")
             orientation = self.profile.edit_profile_data("Sexual orientation")
+            self.swipe_up()
             religion = self.profile.edit_profile_data("Religion")
             ethnos = self.profile.edit_profile_data("Ethnos")
             self.swipe_up()
@@ -178,6 +180,7 @@ class LoginPage(BasePage):
 
     @allure.step("Выбор значения в поле Дата")
     def set_date(self):
+        self.swipe_to_element(self.date_field)
         self.click(self.date_field, "поле Дата")
         self.click(self.date_year_btn, "переход к выбору года")
         self.click(self.date_year_selector, "год")

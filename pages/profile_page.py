@@ -150,12 +150,14 @@ class ProfilePage(BasePage):
 
     @allure.step("Редактирование роста")
     def edit_height(self, value):
+        self.swipe_to_element(self.height)
         self.click(self.height, "рост")
         self.set_text(self.height_weight_field, value, 'Height')
         self.click(self.height_weight_done_btn, "кнопка Сохранить")
 
     @allure.step("Редактирование веса")
     def edit_weight(self, value):
+        self.swipe_to_element(self.weight)
         self.click(self.weight, "вес")
         self.set_text(self.height_weight_field, value, 'Weight')
         self.click(self.height_weight_done_btn, "кнопка Сохранить")

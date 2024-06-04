@@ -38,6 +38,7 @@ class ChatsPage(BasePage):
     add_button = "com.yapmap.yapmap:id/add_button"
     back_button = "com.yapmap.yapmap:id/back_button"
     cancel_button = "com.yapmap.yapmap:id/cancel_button"
+    my_notes = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[1]'
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -162,3 +163,7 @@ class ChatsPage(BasePage):
         self.click(self.attachment_btn)
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
         self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
+
+    def open_my_notes(self):
+        self.click(self.my_notes, 'My notes')
+
