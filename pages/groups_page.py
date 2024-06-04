@@ -71,16 +71,6 @@ class GroupsPage(BasePage):
             self.photo.upload_new_photo()
         else:
             self.photo.upload_new_photo(permission=False)
-        # self.click(self.upload_a_picture, 'upload a picture')
-        # if permission == True:
-        #     Permission().close_photo_permission()
-        # self.click(self.image_loader, "добавление нового фото")
-        # if permission == True:
-        #     Permission().click_while_using_the_app()
-        # self.wait_element(self.take_a_picture_btn)
-        # self.wait_a_second()
-        # self.click(self.take_a_picture_btn, "создание нового фото")
-        # self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
 
         self.set_text(self.description_field, text_250, 'поле Description')
 

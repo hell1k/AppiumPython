@@ -242,22 +242,22 @@ class PlacesPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
-    @allure.step("Добавить фото")
-    def add_photo_without_permissions(self):
-        self.click(self.add_photo_btn, 'кнопка Add photos')
-        self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.wait_a_second()
-        self.click(self.done_photo, 'кнопка Done')
+    # @allure.step("Добавить фото")
+    # def add_photo_without_permissions(self):
+    #     self.click(self.add_photo_btn, 'кнопка Add photos')
+    #     self.click(self.image_loader, "добавление нового фото")
+    #     self.wait_element(self.take_a_picture_btn)
+    #     self.wait_a_second()
+    #     self.click(self.take_a_picture_btn, "создание нового фото")
+    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
+    #     self.wait_a_second()
+    #     self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Редактирование Place")
     def edit_place(self):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
-        self.add_photo_without_permissions()
+        self.photo.upload_new_photo(permission=False)
         place_name = self.set_name()
         self.swipe_to_element(self.place_type)
         self.click(self.place_type, 'пункт Place type')

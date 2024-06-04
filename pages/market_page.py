@@ -178,19 +178,6 @@ class MarketPage(BasePage):
         else:
             pass
 
-    @allure.step("Добавление нового фото")
-    def upload_new_photo(self):
-        self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
-        self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
-        self.click(self.done_photo, 'кнопка Done')
-        self.wait_a_second()
-
     @allure.step("Добавление фото")
     def upload_photo(self):
         self.click(self.add_photo_btn, 'add photo')
@@ -199,17 +186,6 @@ class MarketPage(BasePage):
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
-
-    # @allure.step("Добавить фото")
-    # def add_photo_without_permissions(self):
-    #     self.click(self.add_photo_btn, 'кнопка Add photos')
-    #     self.click(self.image_loader, "добавление нового фото")
-    #     self.wait_element(self.take_a_picture_btn)
-    #     self.wait_a_second()
-    #     self.click(self.take_a_picture_btn, "создание нового фото")
-    #     self.click(self.take_a_picture_done_btn, "выбрать фото")
-    #     self.wait_a_second()
-    #     self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Заполнение поля Advertisement name")
     def set_ad_name(self):
@@ -251,11 +227,6 @@ class MarketPage(BasePage):
             self.photo.upload_new_photo()
         else:
             self.photo.upload_new_photo(permission=False)
-
-        # if permissions == True:
-        #     self.upload_new_photo()
-        # else:
-        #     self.add_photo_without_permissions()
 
         ad_name = self.set_ad_name()
         self.swipe_to_element(self.category_selection)
@@ -487,10 +458,6 @@ class MarketPage(BasePage):
 
     @allure.step("Создание нового Ad Housing")
     def create_new_ad_housing(self, permission=True):
-        # if permissions == True:
-        #     self.upload_new_photo()
-        # else:
-        #     self.add_photo_without_permissions()
 
         if permission == True:
             self.photo.upload_new_photo()
@@ -606,7 +573,6 @@ class MarketPage(BasePage):
     def edit_ad(self):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
-        # self.add_photo_without_permissions()
         self.photo.upload_new_photo(permission=False)
         ad_name = self.set_ad_name()
 

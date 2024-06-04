@@ -11,8 +11,11 @@ class TestMarket:
     @allure.title("Создание, редактирование, удаление AD Stuff")
     @pytest.mark.smoke
     @pytest.mark.market
-    def test_create_new_ad_stuff(self, authorization):
+    def test_create_new_ad_stuff(self):
         page = MainPage()
+
+        page.login.login_user()
+
         page.profile.open_market()
         page.market.click_plus_new_market()
         page.market.click_create()
@@ -39,8 +42,11 @@ class TestMarket:
     @allure.title("Создание, редактирование, удаление AD Trasport")
     @pytest.mark.smoke
     @pytest.mark.market
-    def test_create_new_ad_transport(self, authorization):
+    def test_create_new_ad_transport(self):
         page = MainPage()
+
+        page.login.login_user()
+
         page.profile.open_market()
         page.market.click_plus_new_market()
         page.market.select_transportation_type_ad()
@@ -56,6 +62,9 @@ class TestMarket:
     @pytest.mark.market
     def test_create_new_ad_housing(self, authorization):
         page = MainPage()
+
+        page.login.login_user()
+
         page.profile.open_market()
         page.market.click_plus_new_market()
         page.market.select_housing_type_ad()

@@ -57,14 +57,6 @@ def authorization(request):
 
     Permission().click_allow()
 
-
-@pytest.fixture()
-def login():
-    LoginPage().login()
-    time.sleep(3)
-    Permission().click_allow()
-
-
 @pytest.fixture()
 def install_app():
     d.press('home')

@@ -5,12 +5,14 @@ import faker
 from faker import Faker
 from common.menu import Menu
 from common.permission import Permission
+from common.photo import Photo
 from pages.base_page import BasePage
 from tests.config import *
 
 
 class JobsPage(BasePage):
     menu = Menu()
+    photo = Photo()
     faker = Faker()
 
     hire_now_btn = 'com.yapmap.yapmap:id/create_button'
@@ -75,7 +77,9 @@ class JobsPage(BasePage):
         self.set_text(self.duties_description, text_1000, "Duties description")
         self.swipe_to_element(self.skills_field)
         self.set_text(self.skills_field, text_1000_2, "Skills")
-        self.upload_new_photo()
+
+        self.photo.upload_picture()
+
         self.select_job_type()
         self.select_hours_per_week()
         self.select_salary_per()
@@ -193,20 +197,6 @@ class JobsPage(BasePage):
         self.click(self.profession_type_btn, 'поле Profession type')
         self.wait_element(self.profession_type_list)
         self.click(self.get_random_element(self.profession_type_list), "рандомный Professional type")
-
-    @allure.step("Добавление нового фото")
-    def upload_new_photo(self, permission=True):
-        self.swipe_to_element(self.add_photo_btn)
-        self.click(self.add_photo_btn, 'add photo')
-        if permission == True:
-            Permission().close_photo_permission()
-        self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
-            Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
 
     @allure.step("Добавление нового фото")
     def upload_new_photo_without_permission(self):
