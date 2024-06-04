@@ -18,7 +18,7 @@ d = u.connect(device_id)
 
 @allure.step("Запуск приложения")
 def open_app():
-    d.implicitly_wait(10)
+    d.implicitly_wait(15)
     # d.app_install("/home/qasquad/Загрузки/yapmap.apk")
     # d.uiautomator.stop()
     # d.uiautomator.start()
