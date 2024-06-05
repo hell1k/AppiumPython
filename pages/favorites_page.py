@@ -38,11 +38,11 @@ class FavoritesPage(BasePage):
         counter = 10
         while counter > 0:
             color = self.get_color_element(self.add_to_favorites_btn)
-            if color == (175, 144, 255, 255):
+            if color == (175, 144, 255):
                 break
             else:
                 self.wait_a_second()
                 counter = counter - 1
         else:
             color = self.get_color_element(self.add_to_favorites_btn)
-            assert color == (175, 144, 255, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255, 255)'
+            assert color == (175, 144, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255)'
