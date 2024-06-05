@@ -166,8 +166,11 @@ class LoginPage(BasePage):
         time.sleep(10)
         code = str(self.get_verification_code(user_name))
         self.set_text(self.code_first_number, code[0])
+        self.wait_a_moment()
         self.set_text(self.code_second_number, code[1])
+        self.wait_a_moment()
         self.set_text(self.code_third_number, code[2])
+        self.wait_a_moment()
         self.set_text(self.code_fourth_number, code[3])
 
     @allure.step("Выбор значения в поле Пол")

@@ -19,11 +19,13 @@ class FavoritesPage(BasePage):
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
 
     def open_item(self, name):
-        self.swipe_to_element(self.d(f'//*[@text="{name}"]/..'))
-        self.click(self.d(f'//*[@text="{name}"]/..'))
+        self.swipe_to_element(f'//*[@text="{name}"]/..')
+        self.click(f'//*[@text="{name}"]/..')
 
     @allure.step("Проверяем имя")
     def check_name(self, name):
+        self.wait_a_second()
+        self.swipe_to_element(f'//*[@text="{name}"]/..')
         self.wait_a_second()
         self.wait_text(name)
 

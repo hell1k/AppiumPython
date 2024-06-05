@@ -108,6 +108,7 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         new_message = faker.text()
         page.channels.send_message(new_message)
+        page.chats.check_send_emoji()
         page.chats.check_send_sticker()
         page.chats.check_send_images()
         page.chats.check_send_images_from_camera()

@@ -39,6 +39,7 @@ class ChatsPage(BasePage):
     back_button = "com.yapmap.yapmap:id/back_button"
     cancel_button = "com.yapmap.yapmap:id/cancel_button"
     my_notes = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[1]'
+    menu_tabs = "com.yapmap.yapmap:id/tab_layout"
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -166,4 +167,56 @@ class ChatsPage(BasePage):
 
     def open_my_notes(self):
         self.click(self.my_notes, 'My notes')
+
+    def swipe_horizontal_menu(self):
+        fx, fy = self.get_element(self.menu_tabs).center()
+        tx = 50
+        ty = fy
+        self.swipe_coordinate(fx, fy, tx, ty)
+
+    def swipe_horizontal_to_element(self, locator):
+        for i in range(3):
+            if self.get_elements_amount(locator) == 0:
+                self.swipe_horizontal_menu()
+                self.wait_a_second()
+            else:
+                self.wait_element(locator)
+                break
+
+    @allure.step("Открыть таб People")
+    def open_people_tab(self):
+        self.click('//*[@content-desc="People"]')
+
+    @allure.step("Открыть таб Events")
+    def open_events_tab(self):
+        self.click('//*[@content-desc="Events"]')
+
+    @allure.step("Открыть таб Groups")
+    def open_groups_tab(self):
+        self.click('//*[@content-desc="Groups"]')
+
+    @allure.step("Открыть таб Businesses")
+    def open_businesses_tab(self):
+        self.click('//*[@content-desc="Businesses"]')
+
+    @allure.step("Открыть таб Market")
+    def open_market_tab(self):
+        self.swipe_horizontal_to_element('//*[@content-desc="Market"]')
+        self.wait_a_second()
+        self.click('//*[@content-desc="Market"]')
+
+    @allure.step("Открыть таб Jobs")
+    def open_jobs_tab(self):
+        self.swipe_horizontal_to_element('//*[@content-desc="Jobs"]')
+        self.wait_a_second()
+        self.click('//*[@content-desc="Jobs"]')
+
+    @allure.step("Открыть таб Places")
+    def open_places_tab(self):
+        self.swipe_horizontal_to_element('//*[@content-desc="Places"]')
+        self.wait_a_second()
+        self.click('//*[@content-desc="Places"]')
+
+
+
 
