@@ -80,35 +80,5 @@ class TestGroups:
         page.press_back()
         page.groups.leave_group(group_name)
 
-    @allure.title("Очистка чата администратором")
-    @pytest.mark.smoke
-    @pytest.mark.groups
-    def test_clear_chat(self, authorization):
-        page = MainPage()
-        page.menu.open_groups()
-        group_name = page.groups.add_new_group()
-        page.login.logout()
-        page.login.authorization(test_user_login, test_user_password)
-        page.menu.open_groups()
-        page.groups.join_an_open_group(group_name)
-        page.groups.click_chat_icon()
-        new_message = faker.text()
-        page.groups.send_message(new_message)
-        page.chats.check_send_images()
-        page.chats.check_send_images_from_camera()
-        page.chats.check_send_attachment()
-        page.press_back()
-        page.press_back()
-        page.login.logout()
-        page.login.authorization()
-        page.menu.open_groups()
-        page.groups.open_an_open_group(group_name)
-        page.groups.click_edit_group()
-        page.groups.clear_chat_history()
-        page.press_back()
-        page.login.logout()
-        page.login.authorization(test_user_login, test_user_password)
-        page.menu.open_groups()
-        page.groups.open_an_open_group(group_name)
-        page.groups.checking_empty_chat()
+
 

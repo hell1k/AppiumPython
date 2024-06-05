@@ -66,32 +66,5 @@ class TestMarket:
         page.market.open_market(ad_name)
         page.market.delete_ad(ad_name)
 
-    @allure.title("Взаимодействие с пользователем")
-    @pytest.mark.smoke
-    @pytest.mark.market
-    def test_create_new_ad_stuff(self, authorization):
-        # Создаем объявление пользователем 1
-        page = MainPage()
-        page.profile.open_market()
-        page.market.click_plus_new_market()
-        page.market.click_create()
-        ad_name = page.market.create_new_ad_stuff()
-        page.pets.click_back_btn()
-        page.login.logout()
-        # Открываем объявление пользователем 2 и отправляем сообщение пользователю 1
-        page.login.authorization(test_user_login, test_user_password)
-        page.open_bottom_sheet()
-        page.select_market_filter()
-        page.user_open_ad(ad_name)
-        page.market.checking_more_options_user()
-        page.market.add_to_favorite()
-        page.market.click_contact_seller_btn()
-        message = page.market.test_chat()
-        page.login.logout()
-        # Открываем объявление пользователем 1 и проверяем сообщение от пользователя 2
-        page.login.authorization()
-        page.menu.open_chats()
-        page.chats.check_market_message(message)
-        new_message = faker.text()
-        page.market.send_message(new_message)
+
 

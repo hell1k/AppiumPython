@@ -40,6 +40,18 @@ class ChatsPage(BasePage):
     cancel_button = "com.yapmap.yapmap:id/cancel_button"
     my_notes = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout[1]'
     menu_tabs = "com.yapmap.yapmap:id/tab_layout"
+    back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
+    back_btn = '//*[@content-desc="Back"]'
+    message_field = 'com.yapmap.yapmap:id/input_edit_text'
+    message = "com.yapmap.yapmap:id/body_text_view"
+    send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
+    sticker_pack_name = "com.yapmap.yapmap:id/sticker_pack_name_text_view"
+    delete_btn = "com.yapmap.yapmap:id/delete_button"
+    ok_btn = "com.yapmap.yapmap:id/ok_button"
+
+    @allure.step("Клик по кнопке Назад")
+    def click_back_btn(self):
+        self.click(self.back_btn, "кнопка Назад")
 
     def click_people_tab(self):
         self.click(self.people_tab, 'вкладка People')
@@ -120,6 +132,19 @@ class ChatsPage(BasePage):
     @allure.step("Отправить sticker в чат")
     def check_send_sticker(self):
         self.click(self.stickers_btn, 'кнопка Sticker')
+        if self.get_elements_amount(self.sticker_pack_name) == 0:
+            self.add_sticker_pack()
+        self.click(self.stickers_btn, 'кнопка Sticker')
+        self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
+
+    def del_sticker_pack(self):
+        self.click(self.stickers_btn, 'кнопка Sticker')
+        self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
+        self.click(self.delete_btn, 'кнопка x')
+        self.click(self.ok_btn, 'кнопка OK')
+        self.wait_hidden_element(self.sticker_pack_name)
+
+    def add_sticker_pack(self):
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[1]')
         self.wait_text('Enter at least 3 characters')
         self.set_text(self.search_plate, 'tiger')
@@ -130,9 +155,6 @@ class ChatsPage(BasePage):
         self.wait_text('ADDED')
         self.click(self.back_button, 'кнопка назад')
         self.click(self.cancel_button, 'кнопка Cancel')
-        self.click(self.stickers_btn, 'кнопка Sticker')
-        self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
-
 
         # self.click(
         #     self.d('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[2]'))
@@ -216,6 +238,26 @@ class ChatsPage(BasePage):
         self.swipe_horizontal_to_element('//*[@content-desc="Places"]')
         self.wait_a_second()
         self.click('//*[@content-desc="Places"]')
+
+    @allure.step("Проверяем отправку текстового сообщения в чат")
+    def check_send_text(self):
+        message = faker.text()
+        self.send_message(message)
+        self.wait_text(message)
+        return message
+
+    @allure.step("Выход из чата")
+    def back_from_chat_to_main(self):
+        self.click(self.back_btn_2, 'кнопка <-')
+        self.wait_a_second()
+        self.click_back_btn()
+        self.wait_a_second()
+
+    @allure.step("Отправка в чат сообщения '{message}'")
+    def send_message(self, message):
+        self.set_text(self.message_field, message, "сообщение")
+        self.click(self.send_message_btn, "кнопка отправки сообщения")
+        self.wait_a_second()
 
 
 

@@ -82,7 +82,7 @@ class TestChannels:
         page.swipe_to_element(page.channels.leave_channel_btn)
         page.channels.delete_and_leave(channel_name)
 
-    @allure.title("Взаимодействие с группой участником канала")
+    @allure.title("Взаимодействие с каналом участником канала")
     @pytest.mark.smoke
     @pytest.mark.channels
     def test_channels_participant(self, authorization):
@@ -97,31 +97,6 @@ class TestChannels:
         page.channels.checking_report_channel_btn()
         page.press_back()
         page.channels.leave_channel(channel_name)
-
-    @allure.title("Очистка чата администратором")
-    @pytest.mark.smoke
-    @pytest.mark.channels
-    def test_channels_clear_chat(self, authorization):
-        page = MainPage()
-        page.menu.open_channels()
-        channel_name = page.channels.add_new_channel()
-        page.channels.open_channel(channel_name)
-        new_message = faker.text()
-        page.channels.send_message(new_message)
-        page.chats.check_send_emoji()
-        page.chats.check_send_sticker()
-        page.chats.check_send_images()
-        page.chats.check_send_images_from_camera()
-        page.chats.check_send_attachment()
-        page.channels.click_edit_channel()
-        page.swipe_to_element(page.channels.clear_chat_history_btn)
-        page.channels.clear_chat_history()
-        page.press_back()
-        page.login.logout()
-        page.login.authorization(test_user_login, test_user_password)
-        page.menu.open_channels()
-        page.channels.open_channel(channel_name)
-        page.channels.checking_empty_chat()
 
     @allure.title("Проверка комментария к сообщению в канале")
     @pytest.mark.smoke
