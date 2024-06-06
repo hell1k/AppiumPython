@@ -275,7 +275,7 @@ class MarketPage(BasePage):
         self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
         self.swipe_to_element(self.bargaining_is_possible_switch)
         self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
-
+        self.swipe_up()
         self.swipe_to_element(self.description_field)
         self.set_text(self.description_field, text_1000)
 

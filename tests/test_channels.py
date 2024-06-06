@@ -117,3 +117,29 @@ class TestChannels:
         page.channels.open_channel(channel_name)
         page.channels.checking_channel_comment_member(comment)
 
+    @allure.title("Проверка отправки всех типов медиа в чат channels и очистка чата")
+    @pytest.mark.smoke
+    @pytest.mark.channels
+    @pytest.mark.chats
+    def test_channels_chat(self, authorization):
+        page = MainPage()
+        page.menu.open_channels()
+        channel_name = page.channels.add_new_channel()
+        page.channels.open_channel(channel_name)
+        new_message = faker.text()
+        page.channels.send_message(new_message)
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images_type_2()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_attachment()
+        page.channels.click_edit_channel()
+        page.swipe_to_element(page.channels.clear_chat_history_btn)
+        page.channels.clear_chat_history()
+        page.press_back()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.menu.open_channels()
+        page.channels.open_channel(channel_name)
+        page.channels.checking_empty_chat()
+

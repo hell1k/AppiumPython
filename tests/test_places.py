@@ -33,13 +33,19 @@ class TestPlaces:
     @allure.title("Взаимодействие пользователя Place")
     @pytest.mark.smoke
     @pytest.mark.place
-    def test_user_place(self, authorization):
+    @pytest.mark.chats
+    def test_chat_place(self, authorization):
         page = MainPage()
         page.profile.open_places()
         page.place.click_add_new_place()
         place_name = page.place.create_new_place()
         page.place.open_place(place_name)
         page.place.click_group_chat_btn(place_name)
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_attachment()
         message = page.place.test_chat()
         page.place.click_back_btn()
         page.place.click_back_btn()

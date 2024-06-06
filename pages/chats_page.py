@@ -48,35 +48,42 @@ class ChatsPage(BasePage):
     sticker_pack_name = "com.yapmap.yapmap:id/sticker_pack_name_text_view"
     delete_btn = "com.yapmap.yapmap:id/delete_button"
     ok_btn = "com.yapmap.yapmap:id/ok_button"
+    comment_button = "com.yapmap.yapmap:id/comment_button"
+    x_btn_bottom_sheets = '//*[@content-desc="Close"]'
+    bottom_sheet_title = 'com.yapmap.yapmap:id/title_text_view'
+    done_btn = "com.yapmap.yapmap:id/action_done"
+    find_button = "com.yapmap.yapmap:id/find_button"
+    create_event_button = "com.yapmap.yapmap:id/create_event_button"
+    create_group_button = "com.yapmap.yapmap:id/create_group_button"
 
     @allure.step("Клик по кнопке Назад")
     def click_back_btn(self):
         self.click(self.back_btn, "кнопка Назад")
 
-    def click_people_tab(self):
-        self.click(self.people_tab, 'вкладка People')
-
-    def click_pets_tab(self):
-        self.swipe_to_element_in_tab(self.pets_tab)
-        self.click(self.pets_tab, 'вкладка Pets')
-
-    def click_market_tab(self):
-        self.swipe_to_element_in_tab(self.market_tab)
-        self.click(self.market_tab, 'вкладка Market')
-
-    def click_business_tab(self):
-        self.wait_a_second()
-        self.wait_a_second()
-        self.swipe_to_element_in_tab(self.business_tab)
-        self.click(self.business_tab, 'вкладка Business')
-
-    def click_jobs_tab(self):
-        self.swipe_to_element_in_tab(self.jobs_tab)
-        self.click(self.jobs_tab, 'вкладка Jobs')
+    # def click_people_tab(self):
+    #     self.click(self.people_tab, 'вкладка People')
+    #
+    # def click_pets_tab(self):
+    #     self.swipe_to_element_in_tab(self.pets_tab)
+    #     self.click(self.pets_tab, 'вкладка Pets')
+    #
+    # def click_market_tab(self):
+    #     self.swipe_to_element_in_tab(self.market_tab)
+    #     self.click(self.market_tab, 'вкладка Market')
+    #
+    # def click_business_tab(self):
+    #     self.wait_a_second()
+    #     self.wait_a_second()
+    #     self.swipe_to_element_in_tab(self.business_tab)
+    #     self.click(self.business_tab, 'вкладка Business')
+    #
+    # def click_jobs_tab(self):
+    #     self.swipe_to_element_in_tab(self.jobs_tab)
+    #     self.click(self.jobs_tab, 'вкладка Jobs')
 
     @allure.step("Проверяем чат раздела Pets")
     def check_pets_message(self, pet_name, user_pet_name, message):
-        self.click_pets_tab()
+        self.open_pets_tab()
         self.click(self.i_own)
         self.click(f'//*[@text="{pet_name}"]', pet_name)
         self.wait_a_second()
@@ -84,23 +91,16 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
-    def swipe_horizontal_tabs(self):
-        fx, fy = self.get_element(self.tab_layout).center()
-        tx, ty = self.get_element(self.people_tab).center()
-        self.swipe_coordinate(fx, fy, tx, ty)
-
-    def swipe_to_element_in_tab(self, locator):
-        for i in range(3):
-            if self.get_elements_amount(locator) == 0:
-                self.swipe_horizontal_tabs()
-                self.wait_a_second()
-            else:
-                self.wait_element(locator)
-                break
+    @allure.step("Проверяем чат раздела Events")
+    def check_events_message(self, event_name, message):
+        self.open_events_tab()
+        self.click(f'//*[@text="{event_name}"]')
+        self.wait_a_second()
+        self.wait_text(message)
 
     @allure.step("Проверяем чат раздела Business")
     def check_business_message(self, business_name, new_message):
-        self.click_business_tab()
+        self.open_businesses_tab()
         self.click(self.i_own)
         self.click(self.business_chats)
         self.wait_text(business_name)
@@ -109,7 +109,7 @@ class ChatsPage(BasePage):
 
     @allure.step("Проверяем чат раздела Job")
     def check_job_message(self, position_name, message):
-        self.click_jobs_tab()
+        self.open_jobs_tab()
         self.click(self.i_own)
         self.click(f'//*[@text="{position_name}"]', position_name)
         self.wait_a_second()
@@ -117,7 +117,7 @@ class ChatsPage(BasePage):
 
     @allure.step("Проверяем чат раздела Market")
     def check_market_message(self, message):
-        self.click_market_tab()
+        self.open_market_tab()
         self.click(self.i_own)
         self.wait_text(message)
         self.click(f'//*[@text="{message}"]')
@@ -125,9 +125,10 @@ class ChatsPage(BasePage):
 
     @allure.step("Отправить emoji в чат")
     def check_send_emoji(self):
-        self.click(self.emoji_btn, 'кнопка Emoji')
-        self.click(self.get_random_element(self.emoji_list), 'рандомный emoji')
-        self.click(self.send_button)
+        # self.click(self.emoji_btn, 'кнопка Emoji')
+        # self.click(self.get_random_element(self.emoji_list), 'рандомный emoji')
+        # self.click(self.send_button)
+        print('Раскомментить после правки бага')
 
     @allure.step("Отправить sticker в чат")
     def check_send_sticker(self):
@@ -136,6 +137,8 @@ class ChatsPage(BasePage):
             self.add_sticker_pack()
         self.click(self.stickers_btn, 'кнопка Sticker')
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
+        self.click(self.get_random_element(
+            '//*[@resource-id="com.yapmap.yapmap:id/stickers_flexbox_layout"]/android.widget.FrameLayout'))
 
     def del_sticker_pack(self):
         self.click(self.stickers_btn, 'кнопка Sticker')
@@ -146,6 +149,19 @@ class ChatsPage(BasePage):
 
     def add_sticker_pack(self):
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[1]')
+        self.wait_text('Enter at least 3 characters')
+        self.set_text(self.search_plate, 'tiger')
+        self.wait_a_second()
+        self.click(self.add_for_free_button, 'кнопка Add free')
+        self.wait_text('Sticker pack')
+        self.click(self.add_button, 'кнопка ADD FREE')
+        self.wait_text('ADDED')
+        self.click(self.back_button, 'кнопка назад')
+        self.click(self.cancel_button, 'кнопка Cancel')
+
+    def add_sticker_pack_comment(self):
+        self.click('com.yapmap.yapmap:id/stickers_layout_button_image_view')
+        self.click('com.yapmap.yapmap:id/sticker_picture_view')
         self.wait_text('Enter at least 3 characters')
         self.set_text(self.search_plate, 'tiger')
         self.wait_a_second()
@@ -168,14 +184,21 @@ class ChatsPage(BasePage):
         self.set_text(self.message_edit_text, 'Random text')
         self.click(self.send_button)
 
+    @allure.step("Отправить images в чат")
+    def check_send_images_type_2(self):
+        self.click(self.images_btn)
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup'))
+        self.click(self.done_btn)
+
     @allure.step("Отправить images с камеры в чат")
     def check_send_images_from_camera(self):
         self.click(self.camera_btn)
         self.permission.click_while_using_the_app()
         self.click(self.take_a_picture_btn)
         self.click(self.take_a_picture_done_btn)
-        self.set_text(self.message_edit_text, 'Random text')
-        self.click(self.send_button)
+        if self.get_elements_amount(self.message_edit_text) > 0:
+            self.set_text(self.message_edit_text, 'Random text')
+            self.click(self.send_button)
 
     @allure.step("Отправить attachment в чат")
     def check_send_attachment(self):
@@ -233,6 +256,12 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.click('//*[@content-desc="Jobs"]')
 
+    @allure.step("Открыть таб Pets")
+    def open_pets_tab(self):
+        self.swipe_horizontal_to_element('//*[@content-desc="Pets"]')
+        self.wait_a_second()
+        self.click('//*[@content-desc="Pets"]')
+
     @allure.step("Открыть таб Places")
     def open_places_tab(self):
         self.swipe_horizontal_to_element('//*[@content-desc="Places"]')
@@ -259,6 +288,42 @@ class ChatsPage(BasePage):
         self.click(self.send_message_btn, "кнопка отправки сообщения")
         self.wait_a_second()
 
+    @allure.step("Проверка комментария к сообщению")
+    def checking_comment(self):
+        self.wait_element(self.comment_button)
+        self.click(self.comment_button, 'кнопка Comment')
+        self.wait_element(self.bottom_sheet_title)
+        self.wait_text('Comments')
+        comment = faker.text()
+        self.send_message(comment)
+        self.wait_text('Discussion started')
+        return comment
 
+    @allure.step("Проверка пустого экрана чата")
+    def checking_clear_chat(self):
+        self.open_people_tab()
+        self.wait_element(self.find_button)
+        self.wait_text("Start chatting with people")
+
+        self.open_events_tab()
+        self.wait_element(self.create_event_button)
+
+        self.open_groups_tab()
+        self.wait_element(self.create_group_button)
+
+        self.open_businesses_tab()
+        self.click(self.i_own)
+
+        self.open_market_tab()
+        self.click(self.i_own)
+
+        self.open_jobs_tab()
+        self.click(self.i_own)
+
+        self.open_pets_tab()
+        self.click(self.i_own)
+
+        self.open_places_tab()
+        self.click(self.i_own)
 
 

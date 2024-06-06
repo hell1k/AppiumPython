@@ -33,24 +33,31 @@ class TestBusiness:
         page.business.delete_business(page.get_text(page.business.business_item))
         page.business.checking_empty_business_page()
 
-    # @allure.title("Взаимодействие пользователя")
-    # @pytest.mark.smoke
-    # @pytest.mark.business
-    # def test_create_new_business(self, authorization):
-    #     page = MainPage()
-    #     page.profile.open_business()
-    #     page.business.clear_business()
-    #     business_name = page.business.add_new_business()
-    #     page.wait_text(business_name)
-    #     page.business.click_back_btn()
-    #     page.login.logout()
-    #     page.login.authorization(test_user_login, test_user_password)
-    #     page.select_local_deals_filter()
-    #     page.open_bottom_sheet()
-    #     page.business.user_open_business(business_name)
-    #     page.business.user_check_business()
-    #     new_message = page.business.test_chat()
-    #     page.login.logout()
-    #     page.login.authorization()
-    #     page.menu.open_chats()
-    #     page.chats.check_business_message(business_name, new_message)
+    @allure.title("Проверка отправки всех типов медиа в чат business")
+    @pytest.mark.smoke
+    @pytest.mark.business
+    @pytest.mark.chats
+    def test_create_new_business(self, authorization):
+        page = MainPage()
+        page.profile.open_business()
+        page.business.clear_business()
+        business_name = page.business.add_new_business()
+        page.wait_text(business_name)
+        page.business.click_back_btn()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.select_local_deals_filter()
+        page.open_bottom_sheet()
+        page.business.user_open_business(business_name)
+        page.business.user_check_business()
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_attachment()
+        new_message = page.business.test_chat()
+        page.login.logout()
+        page.login.authorization()
+        page.menu.open_chats()
+        page.chats.check_business_message(business_name, new_message)
+

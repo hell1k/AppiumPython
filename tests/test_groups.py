@@ -80,5 +80,37 @@ class TestGroups:
         page.press_back()
         page.groups.leave_group(group_name)
 
-
+    @allure.title("Проверка отправки всех типов медиа в чат GROUPS и очистка чата")
+    @pytest.mark.smoke
+    @pytest.mark.groups
+    @pytest.mark.chats
+    def test_groups_chat(self, authorization):
+        page = MainPage()
+        page.menu.open_groups()
+        group_name = page.groups.add_new_group()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.menu.open_groups()
+        page.groups.join_an_open_group(group_name)
+        page.groups.click_chat_icon()
+        new_message = faker.text()
+        page.groups.send_message(new_message)
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_attachment()
+        page.press_back()
+        page.login.logout()
+        page.login.authorization()
+        page.menu.open_groups()
+        page.groups.open_an_open_group(group_name)
+        page.groups.click_edit_group()
+        page.groups.clear_chat_history()
+        page.press_back()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.menu.open_groups()
+        page.groups.open_an_open_group(group_name)
+        page.groups.checking_empty_chat()
 

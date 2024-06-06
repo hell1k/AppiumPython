@@ -63,7 +63,7 @@ class LoginPage(BasePage):
             self.set_text(self.email_field, email, "Почта")
             self.set_text(self.password_field, password, "Пароль")
         else:
-            self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "Почта")
+            self.set_text(self.email_field, 'yapmap.tester@yandex.ru', "Почта")
             self.set_text(self.password_field, 'Qq12345678!', "поле Пароль")
         self.click_sign_in()
 
@@ -75,7 +75,7 @@ class LoginPage(BasePage):
             self.set_text(self.password_field, password, "Пароль")
         else:
             self.set_text(self.email_field, 'idgwynbleidd@gmail.com', "Почта")
-            self.set_text(self.password_field, 'Qwerty1!', "Пароль")
+            self.set_text(self.password_field, 'Qq12345678!', "Пароль")
         self.click_sign_in()
 
     @allure.step("Клик по кнопке Регистрация")
@@ -99,8 +99,8 @@ class LoginPage(BasePage):
             self.click(self.terms_switch, "Terms of use")
             self.swipe_to_element(self.sign_up_btn)
             self.click_sign_up()
-            self.wait_a_second()
-            self.wait_a_second()
+            time.sleep(10)
+            self.wait_element(self.code_first_number)
             self.set_verification_code(user_name)
             self.wait_a_second()
         with allure.step("2 step"):
@@ -163,14 +163,13 @@ class LoginPage(BasePage):
 
     @allure.step("Получение и установка проверочного кода")
     def set_verification_code(self, user_name):
-        time.sleep(10)
         code = str(self.get_verification_code(user_name))
         self.set_text(self.code_first_number, code[0])
-        self.wait_a_moment()
+        self.wait_a_second()
         self.set_text(self.code_second_number, code[1])
-        self.wait_a_moment()
+        self.wait_a_second()
         self.set_text(self.code_third_number, code[2])
-        self.wait_a_moment()
+        self.wait_a_second()
         self.set_text(self.code_fourth_number, code[3])
 
     @allure.step("Выбор значения в поле Пол")

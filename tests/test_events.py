@@ -79,6 +79,30 @@ class TestEvents:
         page.events.checking_report_btn()
         page.events.checking_leave_btn(event_name)
 
-
+    @allure.title("Проверка отправки всех типов медиа в чат EVENTS и очистка чата")
+    @pytest.mark.smoke
+    @pytest.mark.events
+    @pytest.mark.chats
+    def test_event_chat(self, authorization):
+        page = MainPage()
+        page.profile.open_events()
+        event_name = page.events.add_new_event()
+        page.events.user_open_event(event_name)
+        page.events.checking_chat_btn()
+        new_message = faker.text()
+        page.events.send_message(new_message)
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_attachment()
+        page.events.click_edit()
+        page.swipe_to_element(page.events.clear_chat_history_btn)
+        page.events.clear_chat_history()
+        page.press_back()
+        page.login.logout()
+        page.login.authorization(test_user_login, test_user_password)
+        page.events.user_open_event(event_name)
+        page.events.checking_empty_chat()
 
 
