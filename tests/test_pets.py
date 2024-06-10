@@ -77,7 +77,21 @@ class TestPets:
         # Отправляем сообщение питомцу 1 от питомца 2
         page.pets.click_send_message()
         page.pets.open_pet(user_pet_name)
+
+        # page.chats.check_send_emoji()
+        # page.chats.check_send_sticker()
+        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images()
+        page.chats.check_send_attachment()
         message = page.pets.test_chat()
+        page.chats.back_from_chat_to_main()
+
+        page.menu.open_chats()
+        page.chats.open_pets_tab()
+        page.chats.click_i_am_interested()
+        page.chats.open_item_by_name(pet_name)
+        page.chats.check_message_in_chat(message)
+
         page.login.logout()
         # Проверяем что пользователь 1 увидит сообщение пользователя 2
         page.login.authorization()

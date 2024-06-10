@@ -310,6 +310,12 @@ class ChatsPage(BasePage):
         self.wait_text('Discussion started')
         return comment
 
+    def open_item_by_name(self, name_item):
+        item = f'//*[@text="{name_item}"]'
+        self.swipe_down_to_element(item)
+        self.wait_a_second()
+        self.click(item)
+
     @allure.step("Проверка пустого экрана чата")
     def checking_clear_chat(self):
         self.open_people_tab()
