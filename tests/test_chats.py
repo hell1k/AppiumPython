@@ -27,21 +27,21 @@ class TestChats:
     @allure.title("Проверка открытия разделов на экране Chats")
     @pytest.mark.smoke
     @pytest.mark.chats
-    def test_add_and_del_sticker_pack(self):
+    def test_open_chats_tabs(self):
         page = MainPage()
         page.login.registration()
         page.menu.open_chats()
         page.chats.checking_clear_chat()
 
-    @allure.title("Проверка разделов Chats")
-    @pytest.mark.smoke
-    @pytest.mark.chats
-    def test_add_and_del_sticker_pack(self, authorization):
-        page = MainPage()
-        page.menu.open_chats()
-        page.chats.open_events_tab()
-
-        print('test')
+    # @allure.title("Проверка разделов Chats")
+    # @pytest.mark.smoke
+    # @pytest.mark.chats
+    # def test_add_and_del_sticker_pack(self, authorization):
+    #     page = MainPage()
+    #     page.menu.open_chats()
+    #     page.chats.open_events_tab()
+    #
+    #     print('test')
 
 
 

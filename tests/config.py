@@ -54,7 +54,7 @@ test_user_password = 'Qq12345678!'
 
 login = 'relagram.auto@yandex.ru'
 login_channel = 'relagram.auto+channel@yandex.ru'
-login_event = 'relagram.auto+event@yandex.ru'
+login_event = 'relagram.auto+events@yandex.ru'
 
 
 

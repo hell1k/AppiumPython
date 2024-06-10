@@ -98,6 +98,12 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
+    def click_i_own(self):
+        self.click(self.i_own, 'I Own')
+
+    def click_i_am_interested(self):
+        self.click(self.i_am_interested, 'I am interested')
+
     @allure.step("Проверяем чат раздела Business")
     def check_business_message(self, business_name, new_message):
         self.open_businesses_tab()
@@ -282,6 +288,11 @@ class ChatsPage(BasePage):
         self.click_back_btn()
         self.wait_a_second()
 
+    @allure.step("Выход из чата")
+    def back_from_chat(self):
+        self.click(self.back_btn_2, 'кнопка <-')
+        self.wait_a_second()
+
     @allure.step("Отправка в чат сообщения '{message}'")
     def send_message(self, message):
         self.set_text(self.message_field, message, "сообщение")
@@ -326,4 +337,7 @@ class ChatsPage(BasePage):
         self.open_places_tab()
         self.click(self.i_own)
 
+    def check_message_in_chat(self, message):
+        self.wait_a_second()
+        self.wait_text(message)
 

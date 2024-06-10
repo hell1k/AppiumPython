@@ -268,6 +268,12 @@ class JobsPage(BasePage):
         job_locator = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{position_name}"]'
         self.click(job_locator)
 
+    @allure.step("Открыть Job")
+    def open_job(self, position_name):
+        self.wait_text(position_name)
+        job_locator = f'//*[@resource-id="com.yapmap.yapmap:id/business_chats_recycler_view"]/android.widget.LinearLayout[1]//*[@text="{position_name}"]'
+        self.click(job_locator)
+
     @allure.step("Проверка меню ... в шапке")
     def checking_more_options_user(self):
         self.wait_a_moment()
