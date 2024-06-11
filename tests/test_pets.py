@@ -43,6 +43,7 @@ class TestPets:
     @allure.title("Взаимодействие другого пользователя с питомцем")
     @pytest.mark.smoke
     @pytest.mark.pets
+    @pytest.mark.debug
     # @pytest.mark.login_marker("relagram.auto+pets@yandex.ru")
     def test_user_pet(self, authorization):
         # Создаем питомца пользователем 1
