@@ -139,7 +139,8 @@ class ChatsPage(BasePage):
     @allure.step("Отправить sticker в чат")
     def check_send_sticker(self):
         self.click(self.stickers_btn, 'кнопка Sticker')
-        if self.get_elements_amount(self.sticker_pack_name) == 0:
+            # if self.get_elements_amount(self.sticker_pack_name) == 0:
+        if self.get_elements_amount('//*[@content-desc="Cosmic Tiger"]') == 0:
             self.add_sticker_pack()
         self.click(self.stickers_btn, 'кнопка Sticker')
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
@@ -208,10 +209,12 @@ class ChatsPage(BasePage):
 
     @allure.step("Отправить attachment в чат")
     def check_send_attachment(self):
+        self.wait_a_second()
         self.click(self.attachment_btn)
+        self.wait_a_second()
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from gallery"))
         # self.permission.photo_permission_allow()
-        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup'))
+        self.click('//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[2]')
         self.click(self.attachment_btn)
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
         self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
@@ -320,7 +323,7 @@ class ChatsPage(BasePage):
     def checking_clear_chat(self):
         self.open_people_tab()
         self.wait_element(self.find_button)
-        self.wait_text("Start chatting with people")
+        self.wait_text("My notes")
 
         self.open_events_tab()
         self.wait_element(self.create_event_button)

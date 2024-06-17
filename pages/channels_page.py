@@ -122,7 +122,9 @@ class ChannelsPage(BasePage):
 
     @allure.step("Переход к экрану канала '{channel_name}'")
     def open_channel(self, channel_name):
+        self.wait_a_second()
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
+        self.wait_a_second()
 
     @allure.step("Переход в канал или создание нового")
     def open_or_create_channel(self):
