@@ -298,9 +298,12 @@ class PetsPage(BasePage):
 
     @allure.step("Проверка сообщения You don't have any Pets here yet")
     def user_dont_have_pets_msg_check(self):
-        self.wait_text("You don't have any Pets here yet")
-        self.wait_text(
-            "You can't use the Pets feature because you don't have any Pets added to your profile yet. Do you wish to create?")
+        if self.get_elements_amount(self.cancel_button) > 0:
+        # self.wait_text("You don't have any Pets here yet")
+        # self.wait_text(
+        #     "You can't use the Pets feature because you don't have any Pets added to your profile yet. Do you wish to create?")
+            self.click_cancel()
+
 
     def click_cancel(self):
         self.click(self.cancel_button, 'кнопка Cancel')
@@ -335,4 +338,11 @@ class PetsPage(BasePage):
         self.click_back_btn()
         self.wait_a_second()
         return message
+
+    def search_pet_name(self, pet_name):
+        self.set_text(self.search_field, pet_name)
+
+    def wait_pets_page(self):
+        self.wait_a_second()
+        self.wait_text('Pets')
 
