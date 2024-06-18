@@ -149,6 +149,12 @@ class TestFavorites:
         page.favorites.check_name(place_name)
 
 
+    @allure.title("Создание. Редактирование. Удаление Wish List.")
+    @pytest.mark.smoke
+    @pytest.mark.wishlist
+    def test_user_pet(self, authorization):
+        page = MainPage()
+        page.profile.open_wishlist()
 
 
 

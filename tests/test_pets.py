@@ -84,24 +84,21 @@ class TestPets:
         page.chats.check_send_images()
         page.chats.check_send_attachment()
         message = page.pets.test_chat()
-        # page.chats.back_from_chat_to_main()
 
         page.menu.open_chats()
         page.chats.open_pets_tab()
         page.chats.click_i_am_interested()
         page.chats.open_item_by_name(pet_name)
-        page.chats.check_message_in_chat(message)
 
+        page.chats.check_message_in_chat(message)
+        page.click_back_btn()
         page.login.logout()
         # Проверяем что пользователь 1 увидит сообщение пользователя 2
         page.login.authorization()
         # Путь проверки - 'Профиль - Чат - Pets - I own - name_pet - user_pet_name'
         page.menu.open_chats()
         page.chats.check_pets_message(pet_name, user_pet_name, message)
-        # Путь проверки - 'Фильтр - name_pet - user_pet_name'
-        # page.select_pets_filter()
-        # page.open_bottom_sheet()
-        # page.pets.open_pet(pet_name)
+
 
 
 

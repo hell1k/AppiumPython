@@ -17,6 +17,7 @@ class FavoritesPage(BasePage):
     cancel_button = "com.yapmap.yapmap:id/cancel_button"
     delete_button = "com.yapmap.yapmap:id/delete_button"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    create_btn = "com.yapmap.yapmap:id/action_show_option_menu"
 
     def open_item(self, name):
         self.swipe_to_element(f'//*[@text="{name}"]/..')
@@ -46,3 +47,8 @@ class FavoritesPage(BasePage):
         else:
             color = self.get_color_element(self.add_to_favorites_btn)
             assert color == (175, 144, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255)'
+
+    def create_wishlist(self):
+        self.click(self.create_btn, 'Кнопка +')
+        self.wait_text('Create your wish')
+

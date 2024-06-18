@@ -296,6 +296,12 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.jobs_btn_in_profile)
         self.click_jobs()
 
+    @allure.step("Переход в раздел Wish List из Профиля")
+    def open_wishlist(self):
+        self.menu.open_profile()
+        self.swipe_to_element(self.wish_list_btn_in_profile)
+        self.click(self.wish_list_btn_in_profile)
+
     @allure.step("Открытие раздела Market из Профиля")
     def open_market(self):
         self.menu.open_profile()
