@@ -6,7 +6,7 @@ from tests.config import *
 
 
 @pytest.mark.usefixtures("setup")
-@allure.feature("Favorites")
+@allure.feature("Favorites / Wishlist")
 class TestFavorites:
     @allure.title("Добавление в избранное groups")
     @pytest.mark.smoke
@@ -148,13 +148,14 @@ class TestFavorites:
         page.favorites.open_item('Places')
         page.favorites.check_name(place_name)
 
-
     @allure.title("Создание. Редактирование. Удаление Wish List.")
     @pytest.mark.smoke
     @pytest.mark.wishlist
     def test_user_pet(self, authorization):
         page = MainPage()
         page.profile.open_wishlist()
-
+        page.favorites.create_wishlist()
+        page.favorites.open_wishlist()
+        page.favorites.checking_more_options()
 
 
