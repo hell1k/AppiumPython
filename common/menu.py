@@ -31,6 +31,7 @@ class Menu(BasePage):
 
     @allure.step("Переход в раздел Search")
     def open_search(self):
+        self.click_back_btn()
         self.click(self.search_icon, 'Chats')
         self.wait_text('Search')
 

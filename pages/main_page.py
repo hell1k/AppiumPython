@@ -97,7 +97,7 @@ class MainPage(BasePage):
 
     @allure.step("Выбрать фильтр Places")
     def select_places_filter(self):
-        self.wait_text('Search')
+        # self.wait_text('Search')
         self.wait_a_second()
         self.swipe_horizontal_to_element(self.places_filter)
         self.wait_a_second()

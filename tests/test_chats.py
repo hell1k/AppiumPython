@@ -33,7 +33,7 @@ class TestChats:
         page.menu.open_chats()
         page.chats.checking_clear_chat()
 
-    @allure.title("Проверка отправки всех типов медиа в чат business")
+    @allure.title("Проверка отправки всех типов медиа в чат BUSINESS")
     @pytest.mark.smoke
     @pytest.mark.business
     @pytest.mark.chats
@@ -61,7 +61,7 @@ class TestChats:
         page.menu.open_chats()
         page.chats.check_business_message(business_name, new_message)
 
-    @allure.title("Проверка отправки всех типов медиа в чат channels и очистка чата")
+    @allure.title("Проверка отправки всех типов медиа в чат CHANNELS и очистка чата")
     @pytest.mark.smoke
     @pytest.mark.channels
     @pytest.mark.chats
@@ -247,7 +247,7 @@ class TestChats:
         # new_message = faker.text()
         # page.market.send_message(new_message)
 
-    @allure.title("Взаимодействие другого пользователя с питомцем")
+    @allure.title("Проверка отправки всех типов медиа в чат PETS")
     @pytest.mark.smoke
     @pytest.mark.pets
     @pytest.mark.debug
@@ -273,7 +273,7 @@ class TestChats:
         user_pet_name = page.pets.add_new_pet()
         # Открываем пользователем 2 питомца пользователя 1
         page.pets.wait_pets_page()
-        page.click_back_btn()
+        page.press_back()
         page.menu.open_search()
         page.select_pets_filter()
         page.open_bottom_sheet()
@@ -303,7 +303,7 @@ class TestChats:
         page.menu.open_chats()
         page.chats.check_pets_message(pet_name, user_pet_name, message)
 
-    @allure.title("Взаимодействие пользователя Place")
+    @allure.title("Проверка отправки всех типов медиа в чат PLACE")
     @pytest.mark.smoke
     @pytest.mark.place
     @pytest.mark.chats
