@@ -73,6 +73,7 @@ class TestEvents:
         page.press_back()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
+        page.select_events_filter()
         page.open_bottom_sheet()
         page.events.user_open_event(event_name)
         page.events.click_edit()

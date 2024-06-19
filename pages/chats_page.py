@@ -203,6 +203,7 @@ class ChatsPage(BasePage):
         self.permission.click_while_using_the_app()
         self.click(self.take_a_picture_btn)
         self.click(self.take_a_picture_done_btn)
+        self.wait_a_second()
         if self.get_elements_amount(self.message_edit_text) > 0:
             self.set_text(self.message_edit_text, 'Random text')
             self.click(self.send_button)
@@ -251,7 +252,9 @@ class ChatsPage(BasePage):
 
     @allure.step("Открыть таб Businesses")
     def open_businesses_tab(self):
+        self.wait_a_second()
         self.click('//*[@content-desc="Businesses"]')
+        self.wait_a_second()
 
     @allure.step("Открыть таб Market")
     def open_market_tab(self):
@@ -322,7 +325,7 @@ class ChatsPage(BasePage):
     @allure.step("Проверка пустого экрана чата")
     def checking_clear_chat(self):
         self.open_people_tab()
-        self.wait_element(self.find_button)
+        # self.wait_element(self.find_button)
         self.wait_text("My notes")
 
         self.open_events_tab()

@@ -88,7 +88,7 @@ class TestFavorites:
         page.add_to_favorite()
         page.favorites.favorite_btn_wait_color()
         page.click_back_btn()
-        page.press_back()
+        page.unsaved_changes_popup_click_yes()
         page.press_back()
         page.profile.open_favorites()
         page.favorites.open_item('Channels')

@@ -39,6 +39,7 @@ class MainPage(BasePage):
     jobs_filter = "com.yapmap.yapmap:id/jobs_filter_text_view"
     market_filter = "com.yapmap.yapmap:id/advertisements_filter_text_view"
     places_filter = "com.yapmap.yapmap:id/places_filter_text_view"
+    events_filter = "com.yapmap.yapmap:id/events_filter_text_view"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
 
     def click_back_btn(self):
@@ -50,6 +51,12 @@ class MainPage(BasePage):
         self.wait_a_second()
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
         self.wait_a_second()
+
+    @allure.step("Подтверждение изменений")
+    def unsaved_changes_popup_click_yes(self):
+        if self.get_elements_amount('//*[@text="YES"]') > 0:
+            self.click('//*[@text="YES"]')
+            self.wait_a_second()
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet(self):
@@ -76,6 +83,11 @@ class MainPage(BasePage):
         self.wait_text('Search')
         self.swipe_horizontal_to_element(self.jobs_filter)
         self.click(self.jobs_filter)
+
+    @allure.step("Выбрать фильтр Events")
+    def select_events_filter(self):
+        self.wait_text('Search')
+        self.click(self.events_filter, 'Events')
 
     @allure.step("Выбрать фильтр Market")
     def select_market_filter(self):

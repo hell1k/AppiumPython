@@ -49,10 +49,10 @@ class FavoritesPage(BasePage):
 
     @allure.step("Проверяем цвет иконки добавления в избранное")
     def favorite_btn_wait_color(self):
-        counter = 10
+        counter = 15
         while counter > 0:
             color = self.get_color_element(self.add_to_favorites_btn)
-            if color == (175, 144, 255):
+            if color == (175, 144, 255) or color == (175, 144, 255, 255):
                 break
             else:
                 self.wait_a_second()

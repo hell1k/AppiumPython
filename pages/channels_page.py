@@ -113,6 +113,7 @@ class ChannelsPage(BasePage):
         self.click(self.save_btn, "кнопка Save")
         self.click(self.d(description="Back"), "кнопка Назад")
         self.wait_element(self.channel_name_in_list)
+        self.swipe_down_to_element(f'//*[@text="{channel_name}"]')
         self.wait_text(new_channel_name)
 
     @allure.step("Переход на экран редактирования")
@@ -251,13 +252,14 @@ class ChannelsPage(BasePage):
         self.wait_element(self.message_field, "поле для текста")
         self.wait_hidden_element(self.message, "сообщения в чате")
 
-    @allure.step("Удаление группы")
-    def delete_and_leave(self, group_name):
+    @allure.step("Удаление канала")
+    def delete_and_leave(self, channel_name):
         self.wait_a_second()
+        self.swipe_to_element(self.delete_and_leave_btn)
         self.click(self.delete_and_leave_btn, "кнопка Delete and leave")
         self.wait_element(self.alert_title, "Delete group alert")
         self.click(self.delete_channel_alert_delete_btn, "кнопка Delete")
-        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=group_name).wait_gone(10)
+        self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=channel_name).wait_gone(10)
 
     @allure.step("Вступление в группу '{channel_name}'")
     def join_a_channel(self, channel_name):

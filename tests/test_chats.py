@@ -97,10 +97,9 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.events
     @pytest.mark.chats
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
-    def test_event_chat(self):
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    def test_event_chat(self, authorization):
         page = MainPage()
-        # page.login.authorization('relagram.auto+events@yandex.ru', 'Qq12345678!')
         page.profile.open_events()
         event_name = page.events.add_new_event()
         page.events.user_open_event(event_name)

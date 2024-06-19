@@ -79,7 +79,6 @@ class TestChannels:
         page.channels.click_yes_popup()
         page.channels.send_message(faker.text())
         page.channels.click_edit_channel()
-        page.swipe_to_element(page.channels.leave_channel_btn)
         page.channels.delete_and_leave(channel_name)
 
     @allure.title("Взаимодействие с каналом участником канала")
