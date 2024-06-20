@@ -15,8 +15,6 @@ class Photo(BasePage):
 
     @allure.step("Добавление нового фото")
     def upload_new_photo(self, permission=True):
-        # self.swipe_to_element(self.add_photo_btn)
-        # self.click(self.add_photo_btn, 'add photo')
         if permission == True:
             Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
@@ -27,11 +25,11 @@ class Photo(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.wait_a_second()
         self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Добавление нового фото")
     def upload_picture(self, permission=True):
-        # self.click(self.upload_a_picture, 'upload a picture')
         if permission == True:
             Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
@@ -40,5 +38,7 @@ class Photo(BasePage):
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()
         self.click(self.take_a_picture_btn, "создание нового фото")
+        self.wait_a_second()
         self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.wait_a_second()
 

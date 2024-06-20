@@ -14,6 +14,7 @@ from pages.chats_page import ChatsPage
 from pages.market_page import MarketPage
 from pages.places_page import PlacesPage
 from pages.favorites_page import FavoritesPage
+from pages.ticker_page import TickerPage
 
 
 class MainPage(BasePage):
@@ -30,6 +31,7 @@ class MainPage(BasePage):
     market = MarketPage()
     place = PlacesPage()
     favorites = FavoritesPage()
+    ticker = TickerPage()
 
     pets_filter = "com.yapmap.yapmap:id/pets_filter_text_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'

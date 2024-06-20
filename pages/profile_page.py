@@ -278,6 +278,12 @@ class ProfilePage(BasePage):
         self.swipe_to_element(self.business_btn_in_profile)
         self.click(self.business_btn_in_profile, "кнопка Business")
 
+    @allure.step("Открыть раздел Purchase history")
+    def open_purchase_history(self):
+        self.swipe_to_element(self.purchase_history_btn_in_profile)
+        self.wait_a_second()
+        self.click(self.purchase_history_btn_in_profile)
+
     @allure.step("Переход в раздел Pets из Профиля")
     def open_pets(self):
         self.menu.open_profile()

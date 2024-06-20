@@ -37,6 +37,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.business
     @pytest.mark.chats
+    @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_business_chat(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -65,6 +66,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.channels
     @pytest.mark.chats
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_channels_chat(self, authorization):
         page = MainPage()
         page.menu.open_channels()
@@ -97,7 +99,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.events
     @pytest.mark.chats
-    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_event_chat(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -132,6 +134,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.groups
     @pytest.mark.chats
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_groups_chat(self, authorization):
         page = MainPage()
         page.menu.open_groups()
@@ -171,6 +174,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.jobs
     @pytest.mark.chats
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_jobs_chat(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -210,6 +214,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.market
     @pytest.mark.chats
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_market_chat(self, authorization):
         # Создаем объявление пользователем 1
         page = MainPage()
@@ -251,7 +256,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.pets
     @pytest.mark.debug
-    # @pytest.mark.login_marker("relagram.auto+pets@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_pets_chat(self, authorization):
         # Создаем питомца пользователем 1
         page = MainPage()
@@ -307,6 +312,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.place
     @pytest.mark.chats
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_place_chat(self, authorization):
         page = MainPage()
         page.profile.open_places()
