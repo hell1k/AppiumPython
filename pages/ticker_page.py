@@ -46,9 +46,10 @@ class TickerPage(BasePage):
         self.click(self.add_file_btn, 'Кнопка Add file')
 
     def click_pay_now(self):
+        input_string = self.get_text(self.cost_text)
+        cost = float(input_string.replace('COST: ', ''))
         self.wait_element(self.post_button)
         self.click(self.post_button, 'Кнопка Pay Now')
-        cost = int(self.get_text(self.cost_text))
         return cost
 
     def click_delete_attachment(self):
@@ -96,8 +97,17 @@ class TickerPage(BasePage):
         self.swipe_ruler(self.interval_between_rounds_ruler)
         self.get_screen()
 
-    def check_purchase_history(self):
-        self.menu.open_profile()
+    def check_purchase_history(self, start_coins, cost):
+        mfc_balance = self.get_mfc_balance()
+        assert start_coins - mfc_balance == cost
         self.profile.open_purchase_history()
+
+    def get_mfc_balance(self):
+        self.menu.open_profile()
+        mfc_balance = self.get_text(self.balance_coins)
+        new_string = mfc_balance.replace(",", "")
+        mfc_balance = float(new_string)
+        self.menu.open_search()
+        return mfc_balance
 
 

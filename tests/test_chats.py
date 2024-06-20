@@ -279,6 +279,7 @@ class TestChats:
         # Открываем пользователем 2 питомца пользователя 1
         page.pets.wait_pets_page()
         page.press_back()
+        page.press_back()
         page.menu.open_search()
         page.select_pets_filter()
         page.open_bottom_sheet()

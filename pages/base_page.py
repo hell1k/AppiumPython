@@ -5,6 +5,7 @@ import allure
 import uiautomator2 as u
 from faker import Faker
 from PIL import Image
+import re
 from uiautomator2 import Direction
 
 
@@ -213,6 +214,4 @@ class BasePage:
     @allure.step("Клик по координатам ({x}:{y})")
     def coordinate_click(self, x, y):
         self.d.click(x, y)
-
-
 
