@@ -98,9 +98,31 @@ class TestTicker:
     @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_market_transport(self, authorization):
         page = MainPage()
-
         page.profile.open_market()
         ad_name = page.market.create_market_transport()
+        page.click_back_btn()
+        start_coins = page.ticker.get_mfc_balance()
+        page.menu.open_search()
+        page.ticker.click_ticker_option()
+        page.ticker.click_create_a_posting()
+        page.ticker.select_item_for_posting(ad_name)
+        page.ticker.set_rulers()
+        page.ticker.set_message()
+        page.ticker.check_send_attachment()
+        page.swipe_up()
+        cost = page.ticker.click_pay_now()
+        page.ticker.check_balance(start_coins, cost)
+        page.ticker.check_purchase_history(cost)
+
+    @allure.title("Создать публикацию рынка - транспорт MARKET - STUFF")
+    @pytest.mark.smoke
+    @pytest.mark.ticker
+    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    def test_create_a_posting_market_transport(self, authorization):
+        page = MainPage()
+        page.profile.open_market()
+
+        ad_name = page.market.create_market_stuff()
 
         page.click_back_btn()
         start_coins = page.ticker.get_mfc_balance()

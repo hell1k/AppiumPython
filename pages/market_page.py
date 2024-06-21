@@ -469,6 +469,7 @@ class MarketPage(BasePage):
         self.click(self.is_there_history, 'пункт is_there_history...')
 
         self.swipe_to_element(self.post_button)
+        self.wait_a_second()
         self.click(self.post_button, 'кнопка Post')
 
         self.wait_text('Market')
@@ -745,3 +746,8 @@ class MarketPage(BasePage):
         ad_name = self.create_new_ad_transport()
         return ad_name
 
+    def create_market_stuff(self):
+        self.click_plus_new_market()
+        self.click_create()
+        ad_name = self.create_new_ad_stuff()
+        return ad_name

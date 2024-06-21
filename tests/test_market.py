@@ -14,9 +14,7 @@ class TestMarket:
     def test_create_new_ad_stuff(self, authorization):
         page = MainPage()
         page.profile.open_market()
-        page.market.click_plus_new_market()
-        page.market.click_create()
-        ad_name = page.market.create_new_ad_stuff()
+        ad_name = page.market.create_market_stuff()
         page.market.open_market(ad_name)
         page.market.add_to_favorite()
         page.market.checking_more_options()
