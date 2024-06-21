@@ -42,10 +42,7 @@ class TestMarket:
     def test_create_new_ad_transport(self, authorization):
         page = MainPage()
         page.profile.open_market()
-        page.market.click_plus_new_market()
-        page.market.select_transportation_type_ad()
-        page.market.click_create()
-        ad_name = page.market.create_new_ad_transport()
+        ad_name = page.market.create_market_transport()
         page.market.open_market(ad_name)
         page.market.checking_more_options()
         page.market.open_market(ad_name)

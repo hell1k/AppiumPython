@@ -738,3 +738,10 @@ class MarketPage(BasePage):
         self.wait_a_second()
         assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
 
+    def create_market_transport(self):
+        self.click_plus_new_market()
+        self.select_transportation_type_ad()
+        self.click_create()
+        ad_name = self.create_new_ad_transport()
+        return ad_name
+

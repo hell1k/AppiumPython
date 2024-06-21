@@ -19,7 +19,6 @@ class TestGroups:
     @allure.title("Создание новой не приватной группы")
     @pytest.mark.smoke
     @pytest.mark.groups
-    @pytest.mark.demo
     def test_create_new_group(self, authorization):
         self.menu.open_groups()
         group_name = self.groups.add_new_group()

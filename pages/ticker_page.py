@@ -29,6 +29,8 @@ class TickerPage(BasePage):
     attachment_delete = "com.yapmap.yapmap:id/attachment_delete_click_view"
     cost_text = "com.yapmap.yapmap:id/cost_text_view"
     balance_coins = "com.yapmap.yapmap:id/dozen_count_text_view"
+    last_purchased_price_text = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[3]'
+    last_purchased_description = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[2]'
 
     def click_ticker_option(self):
         self.click(self.ticker_options, 'Кнопка ...')
@@ -89,25 +91,41 @@ class TickerPage(BasePage):
 
     @allure.step("Установить ползунки")
     def set_rulers(self):
+        random_number = random.randint(1, 3)
         self.swipe_to_element(self.radius_ruler)
-        self.swipe_ruler(self.radius_ruler)
+        for count in range(1, random_number + 1):
+            self.swipe_ruler(self.radius_ruler)
         self.swipe_to_element(self.rounds_ruler)
-        self.swipe_ruler(self.rounds_ruler)
+        for count in range(1, random_number + 1):
+            self.swipe_ruler(self.rounds_ruler)
         self.swipe_to_element(self.interval_between_rounds_ruler)
-        self.swipe_ruler(self.interval_between_rounds_ruler)
+        for count in range(1, random_number + 1):
+            self.swipe_ruler(self.interval_between_rounds_ruler)
         self.get_screen()
 
-    def check_purchase_history(self, start_coins, cost):
+    def check_balance(self, start_coins, cost):
         mfc_balance = self.get_mfc_balance()
-        assert start_coins - mfc_balance == cost
-        self.profile.open_purchase_history()
+        count_cost = round(start_coins - mfc_balance, 2)
+        assert count_cost == cost, f'Разница начального баланса {start_coins} и текущего баланса {mfc_balance} вышла {count_cost}, что не равно стоимости публикации {cost}'
 
     def get_mfc_balance(self):
         self.menu.open_profile()
         mfc_balance = self.get_text(self.balance_coins)
         new_string = mfc_balance.replace(",", "")
         mfc_balance = float(new_string)
-        self.menu.open_search()
         return mfc_balance
 
+    def check_purchase_history(self, cost):
+        self.profile.open_purchase_history()
+        amount_text = self.get_text(self.last_purchased_price_text)
+        amount = float(amount_text.replace("-", ""))
+        was_paid_text = self.get_text(self.last_purchased_description)
+        was_paid_step = was_paid_text.replace("You have purchased ticker. ", "")
+        was_paid = float(was_paid_step.replace(" MFC was paid.", ""))
+        assert amount == was_paid, f'Число в описании {was_paid} не совпадает с числом в стоимости {amount}'
+        assert amount == cost, f'Число при оформлении {cost} не равно числу в стоимости {amount}'
+
+    def select_item_for_posting(self, item_name):
+        self.swipe_to_element(f'//*[@text="{item_name}"]')
+        self.click(f'//*[@text="{item_name}"]')
 
