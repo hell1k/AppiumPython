@@ -31,6 +31,17 @@ class TickerPage(BasePage):
     balance_coins = "com.yapmap.yapmap:id/dozen_count_text_view"
     last_purchased_price_text = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[3]'
     last_purchased_description = '//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[2]'
+    more_options = '//*[@resource-id="com.yapmap.yapmap:id/options_image_view"]'
+
+    personal_ads_switch = '//*[@text="Personal ads"]/..'
+    groups_switch = '//*[@text="Groups"]/..'
+    channels_switch = '//*[@text="Channels"]/..'
+    market_ads_selection = '//*[@text="Market ads"]/..'
+    events_selection = '//*[@text="Events"]/..'
+    local_deals_selection = '//*[@text="Local deals"]/..'
+    pets_selection = '//*[@text="Pets"]/..'
+    places_selection = '//*[@text="Places"]/..'
+    jobs_selection = '//*[@text="Jobs"]/..'
 
     def click_ticker_option(self):
         self.click(self.ticker_options, 'Кнопка ...')
@@ -103,6 +114,9 @@ class TickerPage(BasePage):
             self.swipe_ruler(self.interval_between_rounds_ruler)
         self.get_screen()
 
+    def click_more_options(self):
+        self.click(self.more_options, 'Кнопка ... (more options)')
+
     def check_balance(self, start_coins, cost):
         mfc_balance = self.get_mfc_balance()
         count_cost = round(start_coins - mfc_balance, 2)
@@ -130,3 +144,55 @@ class TickerPage(BasePage):
         self.swipe_to_element(f'//*[@text="{item_name}"]')
         self.click(f'//*[@text="{item_name}"]')
 
+    def check_selectors(self):
+        self.click_more_options()
+        self.click('//*[@text="Cancel"]')
+        self.click_more_options()
+        self.click('//*[@text="Unselect all"]')
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout'))
+        self.swipe_to_element('//*[@text="Other"]')
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout'))
+        self.click_more_options()
+        self.click('//*[@text="Select all"]')
+        self.press_back()
+
+    def check_ticker_filters(self):
+        self.wait_text('Ticker Filters')
+        self.click(self.personal_ads_switch)
+        self.click(self.groups_switch)
+        self.click(self.channels_switch)
+
+        self.click(self.market_ads_selection)
+        self.wait_text('Stuff')
+        self.wait_text('Housing')
+        self.wait_text('Transportation')
+        self.press_back()
+
+        self.click(self.events_selection)
+        self.wait_text('Events')
+        self.click_more_options()
+        self.click('//*[@text="Cancel"]')
+        self.click_more_options()
+        self.click('//*[@text="Unselect all"]')
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout'))
+        self.swipe_to_element('//*[@text="Workshop"]')
+        self.click(self.get_random_element('//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout'))
+        self.click_more_options()
+        self.click('//*[@text="Select all"]')
+        self.press_back()
+
+        self.click(self.local_deals_selection)
+        self.wait_text('Businesses')
+        self.check_selectors()
+
+        self.click(self.pets_selection)
+        self.wait_text('Pets')
+        self.check_selectors()
+
+        self.click(self.places_selection)
+        self.wait_text('Places')
+        self.check_selectors()
+
+        self.click(self.jobs_selection)
+        self.wait_text('Profession type')
+        self.check_selectors()

@@ -104,6 +104,7 @@ class TestFavorites:
         page.business.click_back_btn()
         page.profile.click_jobs()
         job_name = page.jobs.create_new_jobs()
+        page.jobs.open_create_job(job_name)
         page.add_to_favorite()
         page.favorites.favorite_btn_wait_color()
         page.click_back_btn()

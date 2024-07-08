@@ -93,7 +93,7 @@ class MarketPage(BasePage):
     address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
-    description_field = '//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
+    description_field = '//*[@text="Description"]'
     post_button = '//*[@resource-id="com.yapmap.yapmap:id/post_button"]'
     done_button = "com.yapmap.yapmap:id/done_button"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'

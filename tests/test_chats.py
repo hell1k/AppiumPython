@@ -182,7 +182,7 @@ class TestChats:
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()
-        page.jobs.click_back_btn()
+
         page.jobs.click_back_btn()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)

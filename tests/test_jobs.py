@@ -20,6 +20,7 @@ class TestJobs:
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()
+        page.jobs.open_create_job(position_name)
         page.jobs.add_to_favorite()
         page.jobs.checking_more_options()
         new_position_name = page.jobs.edit_job(position_name)

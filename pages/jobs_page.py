@@ -86,11 +86,19 @@ class JobsPage(BasePage):
         self.click_remotely_switch()
         self.swipe_to_element(self.post_btn)
         self.click_post_btn()
+        self.wait_text(position_name)
+        # self.swipe_down()
+        # self.wait_a_second()
+        # self.wait_text(position_name)
+        # self.click(self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name))
+        return position_name
+
+    @allure.step("Открыть Jobs")
+    def open_create_job(self, position_name):
         self.swipe_down()
         self.wait_a_second()
         self.wait_text(position_name)
         self.click(self.d(resourceId='com.yapmap.yapmap:id/recycler_view').child(text=position_name))
-        return position_name
 
     @allure.step("Удаление Jobs")
     def delete_job(self, position_name):
