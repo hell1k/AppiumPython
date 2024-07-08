@@ -259,7 +259,7 @@ class TestTicker:
     @pytest.mark.smoke
     @pytest.mark.ticker
     @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
-    def test_create_a_posting_place(self, authorization):
+    def test_ticker_filters(self, authorization):
         page = MainPage()
         page.menu.open_search()
         page.ticker.click_ticker_option()
