@@ -266,3 +266,18 @@ class TestTicker:
         page.ticker.click_ticker_filters()
         page.ticker.check_ticker_filters()
 
+    @allure.title("Проверить публикацию профиля PROFILE")
+    @pytest.mark.smoke
+    @pytest.mark.ticker
+    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    def test_open_a_posting_profile(self, authorization):
+        page = MainPage()
+        page.menu.open_search()
+        page.ticker.click_ticker_option()
+        page.ticker.click_create_a_posting()
+        page.ticker.set_rulers()
+        message = page.ticker.set_message()
+        page.ticker.check_send_attachment()
+        page.swipe_up()
+        page.ticker.click_pay_now()
+        page.ticker.check_post_profile_ticker(message)

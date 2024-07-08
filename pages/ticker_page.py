@@ -1,4 +1,6 @@
 import random
+import time
+
 import allure
 from faker import Faker
 from common.permission import Permission
@@ -43,6 +45,8 @@ class TickerPage(BasePage):
     places_selection = '//*[@text="Places"]/..'
     jobs_selection = '//*[@text="Jobs"]/..'
 
+    last_post_ticker = '//*[@resource-id="com.yapmap.yapmap:id/ticker_recycler_view"]/android.view.ViewGroup[8]/android.widget.FrameLayout[1]'
+
     def click_ticker_option(self):
         self.click(self.ticker_options, 'Кнопка ...')
 
@@ -73,6 +77,7 @@ class TickerPage(BasePage):
         self.swipe_to_element(self.send_message_field)
         message = faker.text()
         self.set_text(self.send_message_field, message)
+        return message
 
     @allure.step("Отправить attachment")
     def check_send_attachment(self):
@@ -196,3 +201,13 @@ class TickerPage(BasePage):
         self.click(self.jobs_selection)
         self.wait_text('Profession type')
         self.check_selectors()
+
+    def check_post(self, name, message):
+        self.click(self.last_post_ticker)
+        self.wait_text(name)
+        self.wait_text(message)
+
+    def check_post_profile_ticker(self, message):
+        time.sleep(120)
+        self.click(self.last_post_ticker)
+        self.wait_text(message)
