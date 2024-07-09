@@ -25,7 +25,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -48,11 +47,9 @@ class TestTicker:
         page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
-
         page.ticker.get_coordinates_last_post_ticker()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -78,7 +75,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -105,7 +101,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -131,7 +126,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -157,7 +151,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -186,7 +179,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -211,7 +203,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -240,7 +231,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -269,7 +259,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -296,7 +285,6 @@ class TestTicker:
         cost = page.ticker.click_pay_now()
 
         page.ticker.check_post_profile_ticker(message)
-        page.click_back_btn()
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)

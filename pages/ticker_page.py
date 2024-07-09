@@ -47,6 +47,9 @@ class TickerPage(BasePage):
 
     last_post_ticker = '//*[@resource-id="com.yapmap.yapmap:id/ticker_recycler_view"]/android.view.ViewGroup[8]/android.widget.FrameLayout[1]'
 
+    def click_back_btn(self):
+        self.click(self.d(description="Back"), "кнопка Назад")
+
     def click_ticker_option(self):
         self.click(self.ticker_options, 'Кнопка ...')
 
@@ -212,6 +215,7 @@ class TickerPage(BasePage):
         time.sleep(120)
         self.click_coordinates_last_post_ticker()
         self.wait_text(message)
+        self.press_back()
 
     def click_coordinates_last_post_ticker(self):
         info = self.get_element(self.ticker_options).bounds()
