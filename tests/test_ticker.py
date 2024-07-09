@@ -49,6 +49,8 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
+        page.ticker.get_coordinates_last_post_ticker()
+
         page.ticker.check_post_profile_ticker(message)
         page.click_back_btn()
 

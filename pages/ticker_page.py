@@ -210,5 +210,16 @@ class TickerPage(BasePage):
 
     def check_post_profile_ticker(self, message):
         time.sleep(120)
-        self.click(self.last_post_ticker)
+        self.click_coordinates_last_post_ticker()
         self.wait_text(message)
+
+    def click_coordinates_last_post_ticker(self):
+        info = self.get_element(self.ticker_options).bounds()
+        center = self.get_element(self.ticker_options).center()
+        x, y = center
+        left, top, right, bottom = info
+        width = right - left
+        x = x - width
+        print(info)
+        self.coordinate_click(x, y)
+
