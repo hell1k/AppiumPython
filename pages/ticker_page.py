@@ -67,6 +67,7 @@ class TickerPage(BasePage):
         cost = float(input_string.replace('COST: ', ''))
         self.wait_element(self.post_button)
         self.click(self.post_button, 'Кнопка Pay Now')
+        self.wait_a_second()
         return cost
 
     def click_delete_attachment(self):
