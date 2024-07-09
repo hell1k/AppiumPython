@@ -65,14 +65,14 @@ class BasePage:
     def get_random_element_gallery(self, locator):
         if isinstance(locator, str):
             if locator[0] == '/' and locator[1] == '/':
-                counter = random.randrange(1, len(self.d.xpath(locator).all()))
+                counter = random.randrange(1, len(self.d.xpath(locator).all()) - 1)
                 elements_list = self.d.xpath(locator).all()
                 return elements_list[counter]
             else:
-                counter = random.randrange(1, self.d(resourceId=locator).count)
+                counter = random.randrange(1, self.d(resourceId=locator).count - 1)
                 return self.d(resourceId=locator)[counter]
         else:
-            counter = random.randrange(1, locator.count)
+            counter = random.randrange(1, locator.count - 1)
             return locator[counter]
 
     def get_text(self, locator):
