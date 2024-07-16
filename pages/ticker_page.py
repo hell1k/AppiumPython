@@ -111,7 +111,7 @@ class TickerPage(BasePage):
 
     @allure.step("Установить ползунки")
     def set_rulers(self):
-        random_number = random.randint(1, 3)
+        random_number = random.randint(2, 3)
         self.swipe_to_element(self.radius_ruler)
         for count in range(1, random_number + 1):
             self.swipe_ruler(self.radius_ruler)
