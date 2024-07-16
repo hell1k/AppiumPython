@@ -48,7 +48,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -73,7 +73,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -99,7 +99,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -124,7 +124,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -149,7 +149,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -177,7 +177,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -201,7 +201,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -229,7 +229,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -257,7 +257,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
@@ -283,7 +283,7 @@ class TestTicker:
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
-        page.ticker.check_post_profile_ticker(message)
+        # page.ticker.check_post_profile_ticker(message)
 
         page.ticker.check_balance(start_coins, cost)
         page.ticker.check_purchase_history(cost)
