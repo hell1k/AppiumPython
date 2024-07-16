@@ -212,7 +212,7 @@ class TickerPage(BasePage):
         self.wait_text(message)
 
     def check_post_profile_ticker(self, message):
-        time.sleep(120)
+        time.sleep(180)
         self.click_coordinates_last_post_ticker()
         self.wait_text(message)
         self.press_back()
