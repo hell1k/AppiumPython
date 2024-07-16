@@ -85,6 +85,9 @@ class TickerPage(BasePage):
 
     @allure.step("Отправить attachment")
     def check_send_attachment(self):
+        self.wait_a_second()
+        self.swipe_up()
+        self.wait_a_second()
         self.swipe_to_element(self.add_file_btn)
         self.wait_a_second()
         self.click_add_file()
