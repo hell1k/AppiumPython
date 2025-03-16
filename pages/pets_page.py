@@ -142,6 +142,7 @@ class PetsPage(BasePage):
         self.click(self.take_a_picture_btn, "создание нового фото")
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
+        self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 
     @allure.step("Выбор случайного типа")

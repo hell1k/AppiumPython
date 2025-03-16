@@ -283,9 +283,9 @@ class MarketPage(BasePage):
         self.click(self.post_button, 'кнопка Post')
 
         self.wait_text('Market')
-        self.swipe_down_to_element(ad_name)
-        self.wait_a_second()
-        self.wait_a_second()
+        # self.swipe_down_to_element(ad_name)
+        # self.wait_a_second()
+        # self.wait_a_second()
         self.wait_text(ad_name)
         return ad_name
 

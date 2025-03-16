@@ -108,6 +108,7 @@ class EventsPage(BasePage):
 
     @allure.step("Выбор случайного типа")
     def select_random_type(self):
+        self.swipe_to_element(self.type_selection)
         self.click(self.type_selection, 'type selection')
         self.wait_element(self.types)
         self.click(self.get_random_element(self.types), "рандомный тип")
@@ -130,7 +131,6 @@ class EventsPage(BasePage):
         self.click(self.take_a_picture_done_btn, "выбрать фото")
         self.wait_a_second()
         self.set_text(self.description_field, text_250, 'Description')
-
         self.select_random_type()
         self.add_photo()
         self.set_dates()
