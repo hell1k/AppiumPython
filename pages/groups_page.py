@@ -89,6 +89,8 @@ class GroupsPage(BasePage):
 
     def click_save(self):
         self.click(self.save_btn, 'кнопка Save')
+        self.wait_a_second()
+        self.wait_hidden_element(self.save_btn)
 
     @allure.step("Редактирование группы '{group_name}'")
     def edit_group(self, group_name):
