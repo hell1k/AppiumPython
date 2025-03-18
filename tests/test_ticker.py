@@ -11,7 +11,7 @@ class TestTicker:
     @allure.title("Создать публикацию профиля PROFILE")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_profile(self, authorization):
         page = MainPage()
         start_coins = page.ticker.get_mfc_balance()
@@ -32,7 +32,7 @@ class TestTicker:
     @allure.title("Создать публикацию группы GROUPS")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_group(self, authorization):
         page = MainPage()
         page.menu.open_groups()
@@ -56,7 +56,7 @@ class TestTicker:
     @allure.title("Создать публикацию ивента EVENTS")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_event(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -81,7 +81,7 @@ class TestTicker:
     @allure.title("Создать публикацию бизнеса BUSINESS")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_business(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -107,7 +107,7 @@ class TestTicker:
     @allure.title("Создать публикацию рынка - транспорт MARKET - TRANSPORTATION")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_market_transport(self, authorization):
         page = MainPage()
         page.profile.open_market()
@@ -132,7 +132,7 @@ class TestTicker:
     @allure.title("Создать публикацию рынка - транспорт MARKET - STUFF")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_market_transport(self, authorization):
         page = MainPage()
         page.profile.open_market()
@@ -157,7 +157,7 @@ class TestTicker:
     @allure.title("Создать публикацию рынка - транспорт MARKET - HOUSING")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_market_housing(self, authorization):
         page = MainPage()
         page.profile.open_market()
@@ -185,7 +185,7 @@ class TestTicker:
     @allure.title("Создать публикацию канала CHANNELS")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_channel(self, authorization):
         page = MainPage()
         page.menu.open_channels()
@@ -209,7 +209,7 @@ class TestTicker:
     @allure.title("Создать публикацию JOB")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_job(self, authorization):
         page = MainPage()
         page.profile.open_business()
@@ -237,7 +237,7 @@ class TestTicker:
     @allure.title("Создать публикацию PETS")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_pets(self, authorization):
         page = MainPage()
         page.profile.open_pets()
@@ -265,7 +265,7 @@ class TestTicker:
     @allure.title("Создать публикацию PLACE")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_create_a_posting_place(self, authorization):
         page = MainPage()
         page.profile.open_places()
@@ -291,7 +291,7 @@ class TestTicker:
     @allure.title("Проверить фильтры Ticker Filters")
     @pytest.mark.smoke
     @pytest.mark.ticker
-    @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+market@yandex.ru")
     def test_ticker_filters(self, authorization):
         page = MainPage()
         page.menu.open_search()

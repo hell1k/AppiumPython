@@ -37,7 +37,7 @@ class TestChats:
     @pytest.mark.smoke
     @pytest.mark.business
     @pytest.mark.chats
-    @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
+    # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_business_chat(self, authorization):
         page = MainPage()
         page.profile.open_business()

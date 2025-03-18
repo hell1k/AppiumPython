@@ -12,7 +12,7 @@ class TestEvents:
     @allure.title("Создание нового приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
     def test_create_new_private_event(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -22,7 +22,7 @@ class TestEvents:
     @allure.title("Создание нового не приватного события")
     @pytest.mark.smoke
     @pytest.mark.events
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
     def test_create_new_event(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -32,7 +32,7 @@ class TestEvents:
     @allure.title("Проверка элементов приватного события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
     def test_private_event_checking_elements(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -49,7 +49,7 @@ class TestEvents:
     @allure.title("Проверка элементов события при редактировании")
     @pytest.mark.smoke
     @pytest.mark.events
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
     def test_event_checking_elements(self, authorization):
         page = MainPage()
         page.profile.open_events()
@@ -65,7 +65,7 @@ class TestEvents:
     @allure.title("Взаимодействие с событием участника")
     @pytest.mark.smoke
     @pytest.mark.events
-    @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
+    # @pytest.mark.login_marker('relagram.auto+events@yandex.ru')
     def test_events_other_user(self, authorization):
         page = MainPage()
         page.profile.open_events()
