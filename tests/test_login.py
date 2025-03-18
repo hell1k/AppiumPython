@@ -5,7 +5,7 @@ import pytest
 import uiautomator2 as u
 from selenium import webdriver
 
-d = u.connect("emulator-5554")
+d = u.connect("5921d37d")
 
 
 @pytest.mark.usefixtures("setup")
