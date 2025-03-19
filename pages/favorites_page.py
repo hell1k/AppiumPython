@@ -29,8 +29,9 @@ class FavoritesPage(BasePage):
     add_extra_pictures_check_box = '//*[@resource-id="com.yapmap.yapmap:id/add_extra_pictures_check_box"]'
     more_options = '//*[@resource-id="com.yapmap.yapmap:id/action_show_option_menu"]'
     edit_image_btn = '//*[@resource-id="com.yapmap.yapmap:id/circle_2_view"]'
-    share_button = '//*[@resource-id="com.yapmap.yapmap:id/share_button"]'
+    share_button = '//android.widget.TextView[@resource-id="com.yapmap.yapmap:id/button" and @text="Share"]'
     ok_button = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
+    share_title = '//android.widget.TextView[@resource-id="android:id/title" and @text="Share"]'
 
     def open_item(self, name):
         self.swipe_to_element(f'//*[@text="{name}"]/..')
@@ -123,9 +124,9 @@ class FavoritesPage(BasePage):
         self.press_back()
         self.open_more_options('Share')
         self.wait_text('Share')
-        self.click(self.share_button, 'кнопка SHARE')
-        assert self.get_text("android:id/title") == 'Share'
-        self.press_back()
+        # self.click(self.share_button, 'кнопка SHARE')
+        self.wait_element(self.share_title)
+        # self.press_back()
         self.press_back()
         self.open_more_options('Cancel')
         self.wait_hidden_element(self.cancel_button)

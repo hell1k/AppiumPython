@@ -186,8 +186,10 @@ class ChatsPage(BasePage):
     @allure.step("Отправить images в чат")
     def check_send_images(self):
         self.click(self.images_btn)
-        self.click(self.d(resourceId="com.google.android.documentsui:id/sub_menu"))
-        self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
+        # self.click(self.d(resourceId="com.google.android.documentsui:id/sub_menu"))
+        self.click(self.get_random_element('//android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/picture_view"]'))
+        self.wait_a_moment()
+        self.click(self.done_btn)
         self.set_text(self.message_edit_text, 'Random text')
         self.click(self.send_button)
 
@@ -215,9 +217,10 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from gallery"))
         # self.permission.photo_permission_allow()
-        self.click('//*[@resource-id="com.yapmap.yapmap:id/images_recycler_view"]/android.view.ViewGroup[2]')
+        self.click(self.get_random_element('//android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/picture_view"]'))
         self.click(self.attachment_btn)
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
+        self.wait_element('//android.widget.TextView[@resource-id="com.google.android.documentsui:id/header_title"]') #recent files title
         self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
 
     def open_my_notes(self):

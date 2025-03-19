@@ -57,7 +57,7 @@ class GroupsPage(BasePage):
     report_reason_list = '//*[@resource-id="com.yapmap.yapmap:id/reasons_recycler_view"]//android.widget.TextView'
     leave_group_confirm_btn = '//*[@resource-id="android:id/button1" and @text="LEAVE"]'
     leave_group_cancel_btn = '//*[@resource-id="android:id/button1" and @text="CANCEL"]'
-    name_field_limit = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="120/120"]'
+    name_field_limit = '//*[@resource-id="com.yapmap.yapmap:id/name_field"]//*[@resource-id="com.yapmap.yapmap:id/limit_text_view" and @text="50/50"]'
     popup_yes = '//*[@text="YES"]'
 
     @allure.step("Добавление новой группы")

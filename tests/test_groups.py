@@ -59,7 +59,7 @@ class TestGroups:
         page.groups.edit_members()
         page.groups.press_back()
         page.groups.press_back()
-        page.groups.click_yes_popup()
+        # page.groups.click_yes_popup()
         page.groups.send_message(faker.text())
         page.groups.click_edit_group()
         page.groups.delete_and_leave(group_name)

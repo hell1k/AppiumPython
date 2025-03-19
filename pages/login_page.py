@@ -133,7 +133,7 @@ class LoginPage(BasePage):
             country = self.set_country()
             phone = self.set_phone()
             self.click(self.next_btn, "кнопка Next")
-        self.permission.click_while_using_the_app()
+        self.permission.close_2fa()
         self.wait_a_second()
         return new_first_name, new_last_name, status, orientation, religion, ethnos, height, weight, country, phone, mail
 

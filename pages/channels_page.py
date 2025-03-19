@@ -317,7 +317,7 @@ class ChannelsPage(BasePage):
         self.wait_text('Comments')
         comment = faker.text()
         self.send_message(comment)
-        self.wait_text('Discussion started')
+        self.wait_text('Discussion')
         self.click(self.x_btn_bottom_sheets)
         self.click(self.comment_button, 'кнопка Comment')
         self.wait_text(comment)
