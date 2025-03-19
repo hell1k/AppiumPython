@@ -61,6 +61,7 @@ class FavoritesPage(BasePage):
             color = self.get_color_element(self.add_to_favorites_btn)
             assert color == (175, 144, 255) or color == (174, 145, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255) или (174, 145, 255)'
 
+    @allure.step("Create wishlist")
     def create_wishlist(self):
         self.click(self.plus_btn, 'Кнопка +')
         self.wait_text('Create your wish')
@@ -80,6 +81,7 @@ class FavoritesPage(BasePage):
         self.click(self.create_btn, 'кнопка Create')
         self.wait_text('Wish list')
 
+    @allure.step("Open wishlist")
     def open_wishlist(self):
         self.click('//*[@resource-id="com.yapmap.yapmap:id/items_recycler_view"]/android.view.ViewGroup[1]/android.widget.FrameLayout[1]')
 
@@ -99,13 +101,9 @@ class FavoritesPage(BasePage):
         self.open_more_options('Edit')
         self.wait_text('Update your wish')
         self.open_images_options('Cancel')
-
         self.open_images_options('Pick photo')
         self.photo.upload_picture(permission=False)
-
         self.open_images_options('Remove')
-
-
         self.wait_text('Update your wish')
         self.click(self.add_picture_btn, 'кнопка Add one picture')
         self.photo.upload_picture(permission=False)
@@ -124,15 +122,13 @@ class FavoritesPage(BasePage):
         # self.wait_text('Wish')
         self.press_back()
         self.open_more_options('Share')
-        self.wait_text('Share wish')
+        self.wait_text('Share')
         self.click(self.share_button, 'кнопка SHARE')
         assert self.get_text("android:id/title") == 'Share'
         self.press_back()
         self.press_back()
-
         self.open_more_options('Cancel')
         self.wait_hidden_element(self.cancel_button)
-
         self.open_more_options('Remove')
         self.wait_text('Delete wish')
         self.click(self.ok_button, 'кнопка OK')
