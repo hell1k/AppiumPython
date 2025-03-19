@@ -365,7 +365,7 @@ class MarketPage(BasePage):
             self.set_text(self.edit_text_view, random_hours)
             self.click(self.done_button, 'кнопка Done')
 
-        self.swipe_to_element(self.location_selector)
+        # self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
         self.set_address()
 
@@ -377,7 +377,7 @@ class MarketPage(BasePage):
 
         self.swipe_to_element(self.exchange_is_possible_switch)
         self.click(self.exchange_is_possible_switch, 'свитч Exchange is possible')
-        self.swipe_to_element(self.bargaining_is_possible_switch)
+        # self.swipe_to_element(self.bargaining_is_possible_switch)
         self.click(self.bargaining_is_possible_switch, 'свитч Bargaining is possible')
 
         self.swipe_to_element(self.description_field)
@@ -469,7 +469,6 @@ class MarketPage(BasePage):
         self.click(self.is_there_history, 'пункт is_there_history...')
 
         self.swipe_to_element(self.post_button)
-        self.wait_a_second()
         self.click(self.post_button, 'кнопка Post')
 
         self.wait_text('Market')
