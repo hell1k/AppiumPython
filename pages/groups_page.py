@@ -87,6 +87,7 @@ class GroupsPage(BasePage):
         self.wait_text(group_name)
         return group_name
 
+    @allure.step("click_save")
     def click_save(self):
         self.click(self.save_btn, 'кнопка Save')
         self.wait_a_second()

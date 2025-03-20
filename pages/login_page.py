@@ -191,6 +191,7 @@ class LoginPage(BasePage):
         self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.date_ok, "кнопка Ок")
 
+    @allure.step("Получение кода подтверждения")
     def get_verification_code(self, user_name):
         options = webdriver.FirefoxOptions()
         options.add_argument("--no-sandbox")

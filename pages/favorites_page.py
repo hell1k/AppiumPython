@@ -33,6 +33,7 @@ class FavoritesPage(BasePage):
     ok_button = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
     share_title = '//android.widget.TextView[@resource-id="android:id/title" and @text="Share"]'
 
+    @allure.step("open_item")
     def open_item(self, name):
         self.swipe_to_element(f'//*[@text="{name}"]/..')
         self.click(f'//*[@text="{name}"]/..')
@@ -44,6 +45,7 @@ class FavoritesPage(BasePage):
         self.wait_a_second()
         self.wait_text(name)
 
+    @allure.step("click_edit")
     def click_edit(self):
         self.click(self.edit_btn, 'кнопка Редактировать (карандаш в верхнем правом углу)')
         self.wait_a_moment()

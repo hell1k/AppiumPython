@@ -98,9 +98,11 @@ class ChatsPage(BasePage):
         self.wait_a_second()
         self.wait_text(message)
 
+    @allure.step("click_i_own")
     def click_i_own(self):
         self.click(self.i_own, 'I Own')
 
+    @allure.step("click_i_am_interested")
     def click_i_am_interested(self):
         self.click(self.i_am_interested, 'I am interested')
 
@@ -147,6 +149,7 @@ class ChatsPage(BasePage):
         self.click(self.get_random_element(
             '//*[@resource-id="com.yapmap.yapmap:id/stickers_flexbox_layout"]/android.widget.FrameLayout'))
 
+    @allure.step("Удаление стикер пака")
     def del_sticker_pack(self):
         self.click(self.stickers_btn, 'кнопка Sticker')
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[3]')
@@ -154,6 +157,7 @@ class ChatsPage(BasePage):
         self.click(self.ok_btn, 'кнопка OK')
         self.wait_hidden_element(self.sticker_pack_name)
 
+    @allure.step("Добавление стикер пака")
     def add_sticker_pack(self):
         self.click('//*[@resource-id="com.yapmap.yapmap:id/icons_recycler_view"]/android.widget.LinearLayout[1]')
         self.wait_text('Enter at least 3 characters')
@@ -166,6 +170,7 @@ class ChatsPage(BasePage):
         self.click(self.back_button, 'кнопка назад')
         self.click(self.cancel_button, 'кнопка Cancel')
 
+    @allure.step("Добавление комментария у стикер паку")
     def add_sticker_pack_comment(self):
         self.click('com.yapmap.yapmap:id/stickers_layout_button_image_view')
         self.click('com.yapmap.yapmap:id/sticker_picture_view')
@@ -223,15 +228,18 @@ class ChatsPage(BasePage):
         self.wait_element('//android.widget.TextView[@resource-id="com.google.android.documentsui:id/header_title"]') #recent files title
         self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
 
+    @allure.step("Открытие моих заметок")
     def open_my_notes(self):
         self.click(self.my_notes, 'My notes')
 
+    @allure.step("Свайп по горизонтальному меню")
     def swipe_horizontal_menu(self):
         fx, fy = self.get_element(self.menu_tabs).center()
         tx = 50
         ty = fy
         self.swipe_coordinate(fx, fy, tx, ty)
 
+    @allure.step("Свайп по горизонтальни к элементу")
     def swipe_horizontal_to_element(self, locator):
         for i in range(3):
             if self.get_elements_amount(locator) == 0:
@@ -319,6 +327,7 @@ class ChatsPage(BasePage):
         self.wait_text('Discussion started')
         return comment
 
+    @allure.step("Открыть объект по имени")
     def open_item_by_name(self, name_item):
         item = f'//*[@text="{name_item}"]'
         self.swipe_down_to_element(item)
@@ -352,6 +361,7 @@ class ChatsPage(BasePage):
         self.open_places_tab()
         self.click(self.i_own)
 
+    @allure.step("Проверка сообщения в чате")
     def check_message_in_chat(self, message):
         self.wait_a_second()
         self.wait_text(message)

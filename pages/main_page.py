@@ -44,6 +44,7 @@ class MainPage(BasePage):
     events_filter = "com.yapmap.yapmap:id/events_filter_text_view"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
 
+    @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
@@ -106,11 +107,13 @@ class MainPage(BasePage):
         self.click(self.places_filter)
         self.wait_a_second()
 
+    @allure.step("swipe_horizontal_filters")
     def swipe_horizontal_filters(self):
         fx, fy = self.get_element(self.horizontal_scroll_filters).center()
         tx, ty = self.get_element(self.dating_filter).center()
         self.swipe_coordinate(fx, fy, tx, ty)
 
+    @allure.step("swipe_horizontal_markets")
     def swipe_horizontal_markets(self):
         x, fy = self.get_element("com.yapmap.yapmap:id/recycler_view").center()
         ty = fy
@@ -118,6 +121,7 @@ class MainPage(BasePage):
         tx = 50
         self.swipe_coordinate(fx, fy, tx, ty)
 
+    @allure.step("swipe_horizontal_to_element_in_market")
     def swipe_horizontal_to_element_in_market(self, locator):
         for i in range(10):
             if self.get_elements_amount(locator) == 0:
@@ -142,6 +146,7 @@ class MainPage(BasePage):
         self.swipe_down_to_element(element)
         self.click(element)
 
+    @allure.step("swipe_horizontal_to_element")
     def swipe_horizontal_to_element(self, locator):
         for i in range(3):
             if self.get_elements_amount(locator) == 0:

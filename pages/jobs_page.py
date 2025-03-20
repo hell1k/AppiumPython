@@ -60,6 +60,7 @@ class JobsPage(BasePage):
     def click_create_new_jobs(self):
         self.click(self.add_new_jobs_btn, "кнопка создания новой Jobs")
 
+    @allure.step("click_back_btn")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 

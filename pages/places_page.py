@@ -66,6 +66,7 @@ class PlacesPage(BasePage):
     def click_back_btn(self):
         self.click(self.back_btn, "кнопка Назад")
 
+    @allure.step("Нажатие кнопки Добавить новое место")
     def click_add_new_place(self):
         self.click(self.plus_btn, 'кнопка +')
 
@@ -82,6 +83,7 @@ class PlacesPage(BasePage):
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
+    @allure.step("create_new_place")
     def create_new_place(self):
         self.upload_new_photo()
         place_name = self.set_name()
@@ -106,9 +108,11 @@ class PlacesPage(BasePage):
         self.wait_text(place_name)
         return place_name
 
+    @allure.step("click_tab_around")
     def click_tab_around(self):
         self.click(self.around_tab, 'tab Around')
 
+    @allure.step("click_tab_places")
     def click_tab_places(self):
         self.click(self.places_tab, 'tab Places')
 
@@ -205,6 +209,7 @@ class PlacesPage(BasePage):
         self.click(self.get_random_element(self.types), "рандомный тип")
         self.wait_a_moment()
 
+    @allure.step("Нажатие кнопки 'Like")
     def check_like_and_dislike_btn(self):
         count = int(self.get_text(self.rates_count_text_view))
         self.click(self.like_button)
@@ -217,6 +222,7 @@ class PlacesPage(BasePage):
         self.click(self.dislike_button)
         assert int(self.get_text(self.rates_count_text_view)) == count
 
+    @allure.step("Нажатие кнопки 'Груповой чат")
     def click_group_chat_btn(self, place_name):
         self.swipe_to_element(self.group_chat_btn)
         self.click(self.group_chat_btn, 'кнопка Group chat')

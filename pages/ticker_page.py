@@ -47,24 +47,31 @@ class TickerPage(BasePage):
 
     last_post_ticker = '//*[@resource-id="com.yapmap.yapmap:id/ticker_recycler_view"]/android.view.ViewGroup[8]/android.widget.FrameLayout[1]'
 
+    @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
+    @allure.step("click_ticker_option")
     def click_ticker_option(self):
         self.click(self.ticker_options, 'Кнопка ...')
 
+    @allure.step("click_create_a_posting")
     def click_create_a_posting(self):
         self.click(self.create_a_posting, 'Кнопка Create a Posting')
 
+    @allure.step("click_ticker_filters")
     def click_ticker_filters(self):
         self.click(self.ticker_filters, 'Кнопка Ticker Filters')
 
+    @allure.step("Нажатие кнопки 'Отменить")
     def click_cancel_button(self):
         self.click(self.cancel_button, 'Кнопка Cancel')
 
+    @allure.step("Нажатие кнопки 'Добавить фильтр")
     def click_add_file(self):
         self.click(self.add_file_btn, 'Кнопка Add file')
 
+    @allure.step("Нажатие кнопки 'Оплатить сейчас")
     def click_pay_now(self):
         input_string = self.get_text(self.cost_text)
         cost = float(input_string.replace('COST: ', ''))
@@ -73,6 +80,7 @@ class TickerPage(BasePage):
         self.wait_a_second()
         return cost
 
+    @allure.step("click_delete_attachment")
     def click_delete_attachment(self):
         self.click(self.attachment_delete, 'Кнопка Delete attachment')
 
@@ -105,6 +113,7 @@ class TickerPage(BasePage):
         self.click(self.get_random_element_gallery(
             '//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
 
+    @allure.step("swipe_ruler")
     def swipe_ruler(self, locator):
         center = self.get_element(locator).center()
         fx, fy = center
@@ -126,14 +135,17 @@ class TickerPage(BasePage):
             self.swipe_ruler(self.interval_between_rounds_ruler)
         self.get_screen()
 
+    @allure.step("Установить ползунки")
     def click_more_options(self):
         self.click(self.more_options, 'Кнопка ... (more options)')
 
+    @allure.step("check_balance")
     def check_balance(self, start_coins, cost):
         mfc_balance = self.get_mfc_balance()
         count_cost = round(start_coins - mfc_balance, 2)
         assert count_cost == cost, f'Разница начального баланса {start_coins} и текущего баланса {mfc_balance} вышла {count_cost}, что не равно стоимости публикации {cost}'
 
+    @allure.step("get_mfc_balance")
     def get_mfc_balance(self):
         self.menu.open_profile()
         self.swipe_down_to_element(self.balance_coins)
@@ -142,6 +154,7 @@ class TickerPage(BasePage):
         mfc_balance = float(new_string)
         return mfc_balance
 
+    @allure.step("check_purchase_history")
     def check_purchase_history(self, cost):
         self.profile.open_purchase_history()
         amount_text = self.get_text(self.last_purchased_price_text)
@@ -152,10 +165,12 @@ class TickerPage(BasePage):
         assert amount == was_paid, f'Число в описании {was_paid} не совпадает с числом в стоимости {amount}'
         assert amount == cost, f'Число при оформлении {cost} не равно числу в стоимости {amount}'
 
+    @allure.step("select_item_for_posting")
     def select_item_for_posting(self, item_name):
         self.swipe_to_element(f'//*[@text="{item_name}"]')
         self.click(f'//*[@text="{item_name}"]')
 
+    @allure.step("check_selectors")
     def check_selectors(self):
         self.click_more_options()
         self.click('//*[@text="Cancel"]')
@@ -168,6 +183,7 @@ class TickerPage(BasePage):
         self.click('//*[@text="Select all"]')
         self.press_back()
 
+    @allure.step("check_ticker_filters")
     def check_ticker_filters(self):
         self.wait_text('Ticker Filters')
         self.click(self.personal_ads_switch)
@@ -209,17 +225,20 @@ class TickerPage(BasePage):
         self.wait_text('Profession type')
         self.check_selectors()
 
+    @allure.step("check_post")
     def check_post(self, name, message):
         self.click(self.last_post_ticker)
         self.wait_text(name)
         self.wait_text(message)
 
+    @allure.step("check_post_profile_ticker")
     def check_post_profile_ticker(self, message):
         time.sleep(180)
         self.click_coordinates_last_post_ticker()
         self.wait_text(message)
         self.press_back()
 
+    @allure.step("click_coordinates_last_post_ticker")
     def click_coordinates_last_post_ticker(self):
         info = self.get_element(self.ticker_options).bounds()
         center = self.get_element(self.ticker_options).center()

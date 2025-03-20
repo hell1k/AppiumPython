@@ -56,6 +56,7 @@ class PetsPage(BasePage):
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
 
+    @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
@@ -115,6 +116,7 @@ class PetsPage(BasePage):
         # self.wait_text('Others can see it in a few minutes. We wish you a successful sale.')
         return pet_name
 
+    @allure.step("check_pet_in_list")
     def check_pet_in_list(self, pet_name):
         self.wait_element(self.name_in_list)
         self.swipe_down()
@@ -160,9 +162,11 @@ class PetsPage(BasePage):
         self.click(self.map_plus_btn, 'кнопка + на карте')
         self.wait_text('New Pet')
 
+    @allure.step("Открытие карточки питомца")
     def open_pet(self, pet_name):
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{pet_name}"]', pet_name)
 
+    @allure.step("Редактирование питомца")
     def edit_pet(self):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Edit"]')
@@ -226,6 +230,7 @@ class PetsPage(BasePage):
 
         return new_pet_name
 
+    @allure.step("Удаление питомца")
     def delete_pet(self, pet_name):
         self.click(self.more_options, 'кнопка ... в верхнем правом углу')
         self.click('//*[@text="Delete"]')
@@ -305,10 +310,11 @@ class PetsPage(BasePage):
         #     "You can't use the Pets feature because you don't have any Pets added to your profile yet. Do you wish to create?")
             self.click_cancel()
 
-
+    @allure.step("Нажатие кнопки 'Отменить")
     def click_cancel(self):
         self.click(self.cancel_button, 'кнопка Cancel')
 
+    @allure.step("Нажатие кнопки 'Ок")
     def click_ok(self):
         self.click(self.pop_up_ok_btn, 'кнопка OK')
 
@@ -340,9 +346,11 @@ class PetsPage(BasePage):
         self.wait_a_second()
         return message
 
+    @allure.step("Поиск питомца по имени")
     def search_pet_name(self, pet_name):
         self.set_text(self.search_field, pet_name)
 
+    @allure.step("wait_pets_page")
     def wait_pets_page(self):
         self.wait_a_second()
         self.wait_text('Pets')

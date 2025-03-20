@@ -114,14 +114,17 @@ class MarketPage(BasePage):
     contact_seller_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
     input_edit_text = '//*[@resource-id="com.yapmap.yapmap:id/input_edit_text"]'
 
+    @allure.step("Нажатие 'Назад")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
+    @allure.step("click_plus_new_market")
     def click_plus_new_market(self):
         self.wait_a_second()
         self.click(self.plus_market_btn, "кнопка + создания новой сущности Market")
         self.wait_a_second()
 
+    @allure.step("Нажать кнопку 'Создать")
     def click_create(self):
         self.wait_a_second()
         self.click(self.create_btn, "кнопка Create")
@@ -137,6 +140,7 @@ class MarketPage(BasePage):
         self.click(self.more_options, "меню группы")
         self.click(f'//*[@text="{option_name}"]', option_name)
 
+    @allure.step("check_create_buttons")
     def check_create_buttons(self):
         self.click_plus_new_market()
         self.wait_text('Create an ad')
@@ -738,6 +742,7 @@ class MarketPage(BasePage):
         self.wait_a_second()
         assert self.get_text(self.input_edit_text) == 'Type message…', 'Поле ввода с текстом Type message… не найдено'
 
+    @allure.step("create_market_transport")
     def create_market_transport(self):
         self.click_plus_new_market()
         self.select_transportation_type_ad()
@@ -745,6 +750,7 @@ class MarketPage(BasePage):
         ad_name = self.create_new_ad_transport()
         return ad_name
 
+    @allure.step("create_market_stuff")
     def create_market_stuff(self):
         self.click_plus_new_market()
         self.click_create()

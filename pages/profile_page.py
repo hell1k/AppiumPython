@@ -140,6 +140,7 @@ class ProfilePage(BasePage):
         self.click(self.get_profile_data_title(title), title)
         self.wait_a_second()
 
+    @allure.step("get_profile_data_title")
     def get_profile_data_title(self, title):
         return f'//*[@text="{title}"]'
 

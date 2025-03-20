@@ -209,6 +209,7 @@ class BusinessPage(BasePage):
         self.wait_text(new_business_name)
         return new_business_name
 
+    @allure.step("check_more_options")
     def check_more_options(self):
         self.add_to_favorite()
         self.wait_a_second()
@@ -249,10 +250,12 @@ class BusinessPage(BasePage):
         self.click(self.more_options, "меню группы")
         self.click(f'//*[@text="{option_name}"]', option_name)
 
+    @allure.step("user_open_business")
     def user_open_business(self, business_name):
         self.swipe_to_element(f'//*[@text="{business_name}"]')
         self.click(self.d(resourceId="com.yapmap.yapmap:id/name_text_view", text=f'{business_name}'))
 
+    @allure.step("user_check_business")
     def user_check_business(self):
         self.check_more_options()
         self.open_more_options('Send message')

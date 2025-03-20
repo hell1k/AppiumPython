@@ -191,6 +191,7 @@ class ChannelsPage(BasePage):
         self.wait_text("Invite people")
         self.press_back()
 
+    @allure.step("checking_more_options_private")
     def checking_more_options_private(self):
         self.wait_a_moment()
         self.open_more_options("Pending requests")
@@ -267,6 +268,7 @@ class ChannelsPage(BasePage):
         self.open_channel(channel_name)
         self.join_channel()
 
+    @allure.step("Вступление в канал")
     def join_channel(self):
         self.click_edit_channel()
         self.swipe_to_element(self.join_btn)

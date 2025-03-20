@@ -83,6 +83,7 @@ class EventsPage(BasePage):
     dragging_view = "com.yapmap.yapmap:id/dragging_view"
     shevron = '//*[@resource-id="com.yapmap.yapmap:id/dragging_view"]/android.view.View[1]'
 
+    @allure.step("Проверка кнопки 'назад'")
     def click_back_btn(self):
         self.click(self.d(description="Back"), "кнопка Назад")
 
@@ -90,6 +91,7 @@ class EventsPage(BasePage):
     def click_edit(self):
         self.click(self.d(description="User avatar image"), "аватар события")
 
+    @allure.step("Нажать кнопку присоединиться к событию")
     def click_join_event(self):
         self.click(self.join_btn, 'кнопка Join')
 
@@ -99,6 +101,7 @@ class EventsPage(BasePage):
         self.open_event(event_name)
         self.join_event()
 
+    @allure.step("join_event")
     def join_event(self):
         self.wait_a_second()
         if self.get_element(self.join_btn).count > 0:
@@ -239,6 +242,7 @@ class EventsPage(BasePage):
         self.wait_text("Congrats! your are following this event now!")
         self.click(self.join_congrats_ok_btn, "кнопка Ок для закрытия всплывашки об успешном вступлении")
 
+    @allure.step("checking_more_options_private")
     def checking_more_options_private(self):
         self.wait_a_moment()
         self.open_more_options("Pending requests")
