@@ -46,7 +46,16 @@ class Permission(BasePage):
 
     @allure.step("Close Setup 2FA")
     def close_2fa(self):
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         try:
+            if self.get_elements_amount(self.while_using_the_app) != 0:
+                self.click_while_using_the_app()
             self.wait_element(self.cancel_2fa_btn)
             self.click(self.cancel_2fa_btn)
         except:
