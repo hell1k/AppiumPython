@@ -194,8 +194,9 @@ class ProfilePage(BasePage):
             self.check_data_name(orientation)
             self.check_data_name(religion)
             self.check_data_name(ethnos)
-            self.swipe_up()
+            self.swipe_to_element(self.height)
             self.check_data_name(height)
+            self.swipe_to_element(self.weight)
             self.check_data_name(weight)
             self.swipe_up(3)
             self.check_data_name(phone)
@@ -278,6 +279,8 @@ class ProfilePage(BasePage):
     def click_business(self):
         self.swipe_to_element(self.business_btn_in_profile)
         self.click(self.business_btn_in_profile, "кнопка Business")
+        self.wait_text("Business")
+        self.wait_a_second()
 
     @allure.step("Открыть раздел Purchase history")
     def open_purchase_history(self):

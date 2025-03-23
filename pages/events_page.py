@@ -257,7 +257,7 @@ class EventsPage(BasePage):
     def user_open_event(self, event_name):
         self.swipe_to_element("com.yapmap.yapmap:id/recycler_view")
         self.wait_a_second()
-        # self.wait_text(event_name)
+        self.wait_text(event_name)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
     @allure.step("Проверка лимита поля Название канала")
@@ -315,6 +315,7 @@ class EventsPage(BasePage):
         self.wait_a_second()
         self.wait_a_second()
         self.wait_text(message)
+        self.wait_a_second()
 
     @allure.step("Очистка чата")
     def clear_chat_history(self):

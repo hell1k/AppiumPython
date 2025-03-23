@@ -243,6 +243,8 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.wait_a_second()
         self.wait_text(message)
+        self.wait_a_second()
+        self.wait_a_second()
 
     @allure.step("Очистка чата")
     def clear_chat_history(self):

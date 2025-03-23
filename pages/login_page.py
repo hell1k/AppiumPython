@@ -171,6 +171,7 @@ class LoginPage(BasePage):
         self.wait_a_second()
         self.set_text(self.code_third_number, code[2])
         self.wait_a_second()
+        self.wait_a_second()
         self.set_text(self.code_fourth_number, code[3])
 
     @allure.step("Выбор значения в поле Пол")

@@ -93,7 +93,7 @@ class MarketPage(BasePage):
     address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
-    description_field = '//*[@text="Description"]'
+    description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
     post_button = '//*[@resource-id="com.yapmap.yapmap:id/post_button"]'
     done_button = "com.yapmap.yapmap:id/done_button"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
@@ -287,8 +287,8 @@ class MarketPage(BasePage):
         self.click(self.post_button, 'кнопка Post')
 
         self.wait_text('Market')
-        # self.swipe_down_to_element(ad_name)
-        # self.wait_a_second()
+        self.swipe_down_to_element(f'//*[@text="{ad_name}"]')
+        self.wait_a_second()
         # self.wait_a_second()
         self.wait_text(ad_name)
         return ad_name

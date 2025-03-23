@@ -19,7 +19,7 @@ class ChatsPage(BasePage):
     business_tab = '//*[@text="Businesses"]'
     jobs_tab = '//*[@text="Jobs"]'
     tab_layout = '//*[@resource-id="com.yapmap.yapmap:id/tab_layout"]'
-    i_own = '//*[@resource-id="com.yapmap.yapmap:id/owner_layout"]'
+    i_own = '//*[@resource-id="com.yapmap.yapmap:id/empty_list_view"]'
     i_am_interested = '//*[@resource-id="com.yapmap.yapmap:id/member_layout"]'
     business_chats = '//*[@resource-id="com.yapmap.yapmap:id/business_chats_recycler_view"]/android.widget.LinearLayout'
     emoji_btn = "com.yapmap.yapmap:id/emoji_layout_button_image_view"
@@ -324,7 +324,7 @@ class ChatsPage(BasePage):
         self.wait_text('Comments')
         comment = faker.text()
         self.send_message(comment)
-        self.wait_text('Discussion started')
+        self.wait_text('Discussion')
         return comment
 
     @allure.step("Открыть объект по имени")

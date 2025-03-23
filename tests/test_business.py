@@ -11,7 +11,7 @@ class TestBusiness:
     @allure.title("Создание, редактирование, удаление")
     @pytest.mark.smoke
     @pytest.mark.business
-    def test_create_new_business(self, authorization):
+    def test_business_lifecycle(self, authorization):
         page = MainPage()
         page.profile.open_business()
         page.business.clear_business()
