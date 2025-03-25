@@ -70,12 +70,13 @@ class MainPage(BasePage):
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
 
     @allure.step("Открываем свайпом боттом шит")
-    def open_bottom_sheet_chut_chut(self):
+    def open_bottom_sheet_a_bit(self):
         center = self.get_element(self.shevron).center()
         fx, fy = center
         ty = self.d.window_size()[1] * 0.5
         tx = self.d.window_size()[0] / 2
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+
 
     @allure.step("Закрываем боттом шит свайпом вниз")
     def close_bottom_sheet(self):
