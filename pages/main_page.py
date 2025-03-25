@@ -69,6 +69,30 @@ class MainPage(BasePage):
         tx = self.d.window_size()[0]/2
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
 
+    @allure.step("Открываем свайпом боттом шит")
+    def open_bottom_sheet_chut_chut(self):
+        center = self.get_element(self.shevron).center()
+        fx, fy = center
+        ty = self.d.window_size()[1] * 0.5
+        tx = self.d.window_size()[0] / 2
+        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+
+    @allure.step("Закрываем боттом шит свайпом вниз")
+    def close_bottom_sheet(self):
+        center = self.get_element(self.shevron).center()
+        fx, fy = center
+        ty = self.d.window_size()[1] * 0.9  # Смещаем вниз
+        tx = self.d.window_size()[0] / 2
+        self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+
+
+        # start_x = self.d.window_size()[0] / 2
+        # start_y = self.d.window_size()[1] * 0.2
+        # end_y = self.d.window_size()[1] * 0.8
+        # self.d.swipe(start_x, start_y, start_x, end_y, duration=0.2)
+        # self.wait_a_moment()
+
+
     @allure.step("Выбрать фильтр Pets")
     def select_pets_filter(self):
         self.wait_text('Search')
@@ -140,9 +164,8 @@ class MainPage(BasePage):
 
     @allure.step("Открыть Place пользователем")
     def user_open_place(self, place_name):
-        self.wait_a_second()
-        self.wait_a_second()
         element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{place_name}"]'
+        self.wait_element(element)
         self.swipe_down_to_element(element)
         self.click(element)
 
