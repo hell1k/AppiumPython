@@ -75,7 +75,7 @@ class TickerPage(BasePage):
     def click_pay_now(self):
         input_string = self.get_text(self.cost_text)
         cost = float(input_string.replace('COST: ', ''))
-        self.wait_element(self.post_button)
+        self.swipe_to_element(self.post_button)
         self.click(self.post_button, 'Кнопка Pay Now')
         self.wait_a_second()
         return cost
@@ -110,8 +110,11 @@ class TickerPage(BasePage):
         self.wait_a_second()
         self.click_add_file()
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
+        self.wait_a_second()
         self.click(self.get_random_element_gallery(
             '//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
+        self.wait_a_second()
+        self.wait_a_second()
 
     @allure.step("swipe_ruler")
     def swipe_ruler(self, locator):
@@ -148,7 +151,9 @@ class TickerPage(BasePage):
     @allure.step("get_mfc_balance")
     def get_mfc_balance(self):
         self.menu.open_profile()
-        self.swipe_down_to_element(self.balance_coins)
+        self.swipe_down()
+        self.swipe_down()
+        # self.swipe_down_to_element(self.balance_coins)
         mfc_balance = self.get_text(self.balance_coins)
         new_string = mfc_balance.replace(",", "")
         mfc_balance = float(new_string)

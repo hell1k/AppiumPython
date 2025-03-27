@@ -30,10 +30,10 @@ class Photo(BasePage):
 
     @allure.step("Добавление нового фото")
     def upload_picture(self, permission=True):
-        if permission == True:
+        if permission:
             Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
+        if permission:
             Permission().click_while_using_the_app()
         self.wait_element(self.take_a_picture_btn)
         self.wait_a_second()

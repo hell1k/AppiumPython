@@ -111,7 +111,7 @@ class PetsPage(BasePage):
         self.swipe_to_element(self.post_button)
         self.get_element(self.cancel_button)
         self.click(self.post_button, 'кнопка Post')
-        # self.wait_text('You pet has been accepted')
+        self.wait_text('Your pet has been accepted')
         # self.get_screen()
         # self.wait_text('Others can see it in a few minutes. We wish you a successful sale.')
         return pet_name

@@ -175,15 +175,12 @@ class ProfilePage(BasePage):
                                    weight, country, phone, mail):
         with allure.step("Проверка данных в шапке профиля: First name, Last name, Nickname, status/orientation"):
             self.menu.open_profile()
-            assert self.get_text(self.first_name_view) == new_first_name, print(
-                "Поле First name не соответствует регистрации")
-            assert self.get_text(self.last_name_view) == new_last_name, print(
-                "Поле Last name не соответствует регистрации")
-            assert self.get_text(self.nickname_view) == '@' + new_first_name + new_last_name, print(
-                "Nickname не соответствует регистрации")
+            assert self.get_text(self.first_name_view) == new_first_name, "Поле First name не соответствует регистрации"
+            assert self.get_text(self.last_name_view) == new_last_name, "Поле Last name не соответствует регистрации"
+            assert self.get_text(self.nickname_view) == '@' + new_first_name + new_last_name, "Nickname не соответствует регистрации"
             assert status.lower() in self.get_text(
                 self.status_orientation_view).lower() and orientation.lower() in self.get_text(
-                self.status_orientation_view).lower(), print("Статус и ориентация не соответствуют регистрации")
+                self.status_orientation_view).lower(), "Статус и ориентация не соответствуют регистрации"
         with allure.step("Проверка данных профиля"):
             self.click_edit_profile()
             self.check_data_name(new_first_name)
