@@ -159,12 +159,14 @@ class MainPage(BasePage):
     @allure.step("Открыть Market пользователем")
     def user_open_ad(self, ad_name):
         self.wait_a_second()
-        element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]'
+        # f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]'
+        element = f'com.yapmap.yapmap:id/thumbnails_recycler_view'
         self.swipe_horizontal_to_element_in_market(element)
         self.click(element)
 
     @allure.step("Открыть Place пользователем")
     def user_open_place(self, place_name):
+        # thumbnails_
         element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{place_name}"]'
         self.wait_element(element)
         self.swipe_down_to_element(element)

@@ -329,7 +329,8 @@ class ChatsPage(BasePage):
 
     @allure.step("Открыть объект по имени")
     def open_item_by_name(self, name_item):
-        item = f'//*[@text="{name_item}"]'
+        # item = f'//*[@text="{name_item}"]'
+        item = f'//*[text()="{name_item}"]'
         self.swipe_down_to_element(item)
         self.wait_a_second()
         self.click(item)
