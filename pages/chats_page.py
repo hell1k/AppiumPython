@@ -109,7 +109,7 @@ class ChatsPage(BasePage):
     @allure.step("Проверяем чат раздела Business")
     def check_business_message(self, business_name, new_message):
         self.open_businesses_tab()
-        self.click(self.i_own)
+        # self.click(self.i_own)
         self.click(self.business_chats)
         self.wait_text(business_name)
         self.wait_a_second()

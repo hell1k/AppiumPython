@@ -114,6 +114,11 @@ class TestChannels:
         page.login.authorization(test_user_login, test_user_password)
         page.menu.open_channels()
         page.channels.open_channel(channel_name)
+        page.channels.join_channel()
+        page.click_back_btn()
+        page.wait_a_second()
+        page.click_back_btn()
+        page.channels.open_channel(channel_name)
         page.channels.checking_channel_comment_member(comment)
 
 

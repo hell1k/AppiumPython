@@ -149,7 +149,7 @@ class EventsPage(BasePage):
         self.click(self.notification_checkbox, 'чекбокс Notification')
         self.click(self.show_it_to_others_checkbox, 'чекбокс Show it to others')
         self.click(self.show_me_to_this_community, 'чекбокс Show me to this community')
-
+        self.wait_a_second()
         self.click(self.create_event_btn, "кнопка Создать")
         self.wait_element(self.event_name_in_list)
         self.swipe_down_to_element(f'//*[@text="{event_name}"]')

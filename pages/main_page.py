@@ -68,6 +68,7 @@ class MainPage(BasePage):
         ty = self.d.window_size()[1]*0.1
         tx = self.d.window_size()[0]/2
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
+        self.wait_a_second()
 
     @allure.step("Открываем свайпом боттом шит")
     def open_bottom_sheet_a_bit(self):

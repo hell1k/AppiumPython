@@ -80,7 +80,7 @@ class TestChats:
         new_message = faker.text()
         page.channels.send_message(new_message)
         page.click_back_btn()
-        # page.click_back_btn()
+        page.click_back_btn()
         page.channels.open_channel(channel_name)
         page.chats.check_message_in_chat(new_message)
         page.click_back_btn()
@@ -127,10 +127,9 @@ class TestChats:
         page.swipe_to_element(page.events.clear_chat_history_btn)
         page.events.clear_chat_history()
         page.events.checking_empty_chat()
-        page.chats.back_from_chat()
+        page.click_back_btn()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
-        page.profile.open_events()
         page.events.user_open_event(event_name)
         page.events.checking_empty_chat()
 
@@ -190,8 +189,12 @@ class TestChats:
         page.jobs.click_back_btn()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
+        page.wait_a_second()
+        page.swipe_coordinate(100, 500, 1300, 1000)
+        page.wait_a_second()
+        page.open_bottom_sheet_a_bit()
         page.select_jobs_filter()
-        page.open_bottom_sheet()
+        # page.open_bottom_sheet()
         page.jobs.user_open_job(position_name)
         page.jobs.add_to_favorite()
         page.jobs.checking_more_options_user()
@@ -230,7 +233,12 @@ class TestChats:
         page.login.logout()
         # Открываем объявление пользователем 2 и отправляем сообщение пользователю 1
         page.login.authorization(test_user_login, test_user_password)
-        page.open_bottom_sheet()
+        page.wait_a_second()
+        page.wait_a_second()
+        page.swipe_coordinate(100, 500, 1300, 1000)
+        page.wait_a_second()
+        page.open_bottom_sheet_a_bit()
+        # page.open_bottom_sheet()
         page.select_market_filter()
         page.user_open_ad(ad_name)
         page.market.checking_more_options_user()
@@ -245,8 +253,8 @@ class TestChats:
         page.chats.back_from_chat_to_main()
         page.menu.open_chats()
         page.chats.open_market_tab()
-        page.chats.click_i_am_interested()
-        page.chats.open_item_by_name(ad_name)
+        # page.chats.click_i_am_interested()
+        page.chats.open_item_by_name(ad_name) # другое значение в ad_name
         page.chats.check_message_in_chat(message)
         # page.login.logout()
         # Открываем объявление пользователем 1 и проверяем сообщение от пользователя 2
@@ -286,8 +294,11 @@ class TestChats:
         page.press_back()
         page.menu.open_search()
         page.select_pets_filter()
-        page.open_bottom_sheet()
-        page.pets.search_pet_name(pet_name)
+        page.swipe_coordinate(100, 500, 1300, 1000)
+        page.wait_a_second()
+        page.open_bottom_sheet_a_bit()
+        # page.open_bottom_sheet()
+        page.pets.search_pet_name(pet_name) # Не находит никаких pet
         page.pets.open_pet(pet_name)
         page.pets.checking_more_options_user()
         page.pets.add_to_favorite()
@@ -364,7 +375,3 @@ class TestChats:
         # page.user_open_place(place_name)
         # page.place.click_group_chat_btn(place_name)
         # page.place.check_chat_msg(new_message)
-
-
-
-
