@@ -1,6 +1,6 @@
 from faker import Faker
 
-device_id = 'emulator-5554'
+device_id = 'emulator-5556'
 
 faker = Faker()
 
