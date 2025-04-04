@@ -229,6 +229,9 @@ class BusinessPage(BasePage):
 
     @allure.step("Проверка наличия записи и создание новой, если не найдено ни одной")
     def check_business_item_availability(self):
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         if self.get_elements_amount(self.business_item) == 0:
             self.add_new_business()
 

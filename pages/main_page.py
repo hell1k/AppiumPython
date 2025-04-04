@@ -52,7 +52,11 @@ class MainPage(BasePage):
     def add_to_favorite(self):
         self.wait_a_second()
         self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         self.click(self.add_to_favorites_btn, "кнопка добавления в избранное")
+        self.wait_a_second()
+        self.wait_a_second()
         self.wait_a_second()
         self.wait_a_second()
 
