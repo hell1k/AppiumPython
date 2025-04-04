@@ -221,6 +221,9 @@ class BusinessPage(BasePage):
 
     @allure.step("Очистка экрана Business")
     def clear_business(self):
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         if self.get_elements_amount(self.business_item) > 0:
             self.delete_business()
 
