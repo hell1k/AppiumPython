@@ -208,8 +208,7 @@ class ChatsPage(BasePage):
     def check_send_images_from_camera(self):
         self.click(self.camera_btn)
         self.permission.click_while_using_the_app()
-        self.click(self.take_a_picture_btn)
-        self.click(self.take_a_picture_done_btn)
+        self.take_a_photo()
         self.wait_a_second()
         if self.get_elements_amount(self.message_edit_text) > 0:
             self.set_text(self.message_edit_text, 'Random text')

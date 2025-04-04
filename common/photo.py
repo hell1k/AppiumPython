@@ -20,11 +20,7 @@ class Photo(BasePage):
         self.click(self.image_loader, "добавление нового фото")
         if permission == True:
             Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.wait_a_second()
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 
@@ -35,10 +31,6 @@ class Photo(BasePage):
         self.click(self.image_loader, "добавление нового фото")
         if permission:
             Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.wait_a_second()
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
 

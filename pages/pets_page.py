@@ -42,7 +42,7 @@ class PetsPage(BasePage):
     done_button = "com.yapmap.yapmap:id/done_button"
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
-    address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
+    address_popup = 'android:id/text1'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     post_button = "com.yapmap.yapmap:id/post_button"
     name_in_list = 'com.yapmap.yapmap:id/name_text_view'
@@ -55,6 +55,7 @@ class PetsPage(BasePage):
     message = "com.yapmap.yapmap:id/body_text_view"
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
+    share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'
 
     @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
@@ -128,10 +129,7 @@ class PetsPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 
@@ -139,10 +137,7 @@ class PetsPage(BasePage):
     def add_photo_without_permissions(self):
         self.click(self.add_photos_btn, 'кнопка Add photos')
         self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
@@ -252,7 +247,7 @@ class PetsPage(BasePage):
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Share")
-        self.wait_element(self.share_text)
+        self.wait_element(self.share_title)
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Generate QR Code")

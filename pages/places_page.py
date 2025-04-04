@@ -61,6 +61,7 @@ class PlacesPage(BasePage):
     address_apply_btn = 'com.yapmap.yapmap:id/floating_action_button'
 
     title = "com.yapmap.yapmap:id/title_text_view"
+    share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'
 
     @allure.step("Клик по кнопке Назад")
     def click_back_btn(self):
@@ -76,10 +77,7 @@ class PlacesPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
@@ -129,7 +127,7 @@ class PlacesPage(BasePage):
         self.click_back_btn()
         self.wait_a_moment()
         self.open_more_options("Share")
-        self.wait_element(self.share_text)
+        self.wait_element(self.share_title)
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Generate QR Code")
@@ -249,10 +247,7 @@ class PlacesPage(BasePage):
     def add_photo_without_permissions(self):
         self.click(self.add_photo_btn, 'кнопка Add photos')
         self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 

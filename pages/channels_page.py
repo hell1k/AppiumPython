@@ -34,9 +34,9 @@ class ChannelsPage(BasePage):
     save_btn = 'com.yapmap.yapmap:id/action_save'
     back_btn = 'com.yapmap.yapmap:id/back'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
-    more_options = '//*[@content-desc="More options"]'
+    more_options = '//*[@content-desc="More options" or @content-desc="Другие параметры"]'
     more_options_share = '//*[@text="Share"]'
-    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my channel")]'
+    share_text = '//*[(@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my channel")) or (@resource-id="android:id/text1" and contains(@text, "Hey! Join my channel"))]'
     more_options_share_to_yapmap = '//*[@text="Share to Relagram"]'
     more_options_qr = '//*[@text="Generate QR Code"]'
     more_options_invite = '//*[@text="Invite new member"]'
@@ -85,10 +85,7 @@ class ChannelsPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.click(self.done_photo, "подтверждение созданного фото")
         self.set_text(self.description_field, text_1000, 'Description')
@@ -148,19 +145,20 @@ class ChannelsPage(BasePage):
     @allure.step("Переход в приватный канал или создание нового")
     def open_or_create_private_channel(self):
         self.wait_element(self.channel_name_in_list)
-        count = self.d(textContains='Test channel_').count
+        # count = self.d(textContains='Test channel_').count
+        channel_name = self.add_new_channel('private')
 
-        if count > 0:
-            self.click(
-                '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and contains(@text, "Test channel")]',
-                'перваый канал в списке')
-            time.sleep(5)
-            channel_name = self.d(textContains='Test channel_').get_text()
-        else:
-            channel_name = self.add_new_channel('private')
-            self.click(
-                f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and (preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{channel_name}"]',
-                channel_name)
+        # if count > 0:
+        #     self.click(
+        #         '//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and contains(@text, "Test channel")]',
+        #         'первый канал в списке')
+        #     time.sleep(5)
+        #     channel_name = self.d(textContains='Test channel_').get_text()
+        # else:
+        #     channel_name = self.add_new_channel('private')
+        #     self.click(
+        #         f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]',
+        #         channel_name)
         return channel_name
 
     @allure.step("Добавление в избранное")

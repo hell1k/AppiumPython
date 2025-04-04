@@ -74,7 +74,7 @@ class TickerPage(BasePage):
     @allure.step("Нажатие кнопки 'Оплатить сейчас")
     def click_pay_now(self):
         input_string = self.get_text(self.cost_text)
-        cost = float(input_string.replace('COST: ', ''))
+        cost = float(input_string.replace('COST: ', '').replace(',', '.'))
         self.swipe_to_element(self.post_button)
         self.click(self.post_button, 'Кнопка Pay Now')
         self.wait_a_second()
@@ -163,7 +163,7 @@ class TickerPage(BasePage):
     def check_purchase_history(self, cost):
         self.profile.open_purchase_history()
         amount_text = self.get_text(self.last_purchased_price_text)
-        amount = float(amount_text.replace("-", ""))
+        amount = float(amount_text.replace("-", "").replace(',', '.'))
         was_paid_text = self.get_text(self.last_purchased_description)
         was_paid_step = was_paid_text.replace("You have purchased ticker. ", "")
         was_paid = float(was_paid_step.replace(" MFC was paid.", ""))

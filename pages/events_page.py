@@ -42,7 +42,7 @@ class EventsPage(BasePage):
     online_event_check_box = "com.yapmap.yapmap:id/online_event_check_box"
     address_select_btn = '//*[@text="Address"]/..'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
-    address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
+    address_popup = 'android:id/text1'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     number_of_members_field = '//*[@text="Number of members (optional)"]'
     calendar_next_btn = '//*[@resource-id="android:id/next"]'
@@ -51,9 +51,9 @@ class EventsPage(BasePage):
     show_it_to_others_checkbox = '//*[@text="Show it to others"]/..'
     show_me_to_this_community = '//*[@text="Show me to this community"]/..'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
-    more_options = '//*[@content-desc="More options"]'
+    more_options = '//*[@content-desc="More options" or @content-desc="Другие параметры"]'
     more_options_share = '//*[@text="Share"]'
-    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join to my event")]'
+    share_text = '//*[(@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join to my event")) or (@resource-id="android:id/text1" and contains(@text, "Hey! Join to my event"))]'
     more_options_share_to_relagram = '//*[@text="Share to Relagram"]'
     more_options_qr = '//*[@text="Generate QR Code"]'
     more_options_invite = '//*[@text="Invite new member"]'
@@ -128,10 +128,7 @@ class EventsPage(BasePage):
         self.click(self.image_loader, "добавление нового фото")
         if permission == True:
             Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.set_text(self.description_field, text_250, 'Description')
         self.select_random_type()

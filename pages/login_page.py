@@ -157,10 +157,7 @@ class LoginPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+        self.take_a_photo()
 
     @allure.step("Получение и установка проверочного кода")
     def set_verification_code(self, user_name):

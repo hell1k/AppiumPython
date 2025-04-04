@@ -228,3 +228,10 @@ class BasePage:
     def coordinate_click(self, x, y):
         self.d.click(x, y)
 
+    @allure.step("Фото")
+    def take_a_photo(self):
+        self.wait_a_second()
+        self.click("com.sec.android.app.camera:id/center_button_container")
+        self.wait_a_second()
+        self.click('//*[@resource-id="com.sec.android.app.camera:id/okay"]')
+

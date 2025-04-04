@@ -25,9 +25,9 @@ class GroupsPage(BasePage):
     save_btn = 'com.yapmap.yapmap:id/action_save'
     back_btn = 'com.yapmap.yapmap:id/back'
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
-    more_options = '//*[@content-desc="More options"]'
+    more_options = '//*[@content-desc="More options" or @content-desc="Другие параметры"]'
     more_options_share = '//*[@text="Share"]'
-    share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my group")]'
+    share_text = '//*[(@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Join my group")) or (@resource-id="android:id/text1" and contains(@text, "Hey! Join my group"))]'
     more_options_share_to_yapmap = '//*[@text="Share to YapMap"]'
     more_options_qr = '//*[@text="Generate QR Code"]'
     more_options_invite = '//*[@text="Invite new member"]'
@@ -71,10 +71,11 @@ class GroupsPage(BasePage):
         self.click(self.image_loader, "добавление нового фото")
         if permission == True:
             Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+        # self.wait_element(self.take_a_picture_btn)
+        # self.wait_a_second()
+        # self.click(self.take_a_picture_btn, "создание нового фото")
+        # self.click(self.take_a_picture_done_btn, "подтверждение созданного фото")
+        self.take_a_photo()
         self.set_text(self.description_field, text_250, 'поле Description')
 
         if is_private == 'private':

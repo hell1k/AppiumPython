@@ -52,6 +52,7 @@ class TestChannels:
         page = MainPage()
         page.menu.open_channels()
         channel_name = page.channels.open_or_create_private_channel()
+        page.channels.open_channel(channel_name)
         page.channels.click_edit_channel()
         page.channels.checking_channel_name_limit(channel_name)
         page.channels.add_to_favorite()

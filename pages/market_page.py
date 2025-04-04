@@ -90,14 +90,14 @@ class MarketPage(BasePage):
     bargaining_is_possible_switch = '//*[@text="Bargaining is possible"]/..'
     types = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
-    address_popup = '//*[@text="Novosibirsk, Novosibirsk Oblast, Russia"]'
+    address_popup = 'android:id/text1'
     map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
     description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
     post_button = '//*[@resource-id="com.yapmap.yapmap:id/post_button"]'
     done_button = "com.yapmap.yapmap:id/done_button"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
-    more_options = '//*[@content-desc="More options"]'
+    more_options = '//*[@content-desc="More options" or @content-desc="Другие параметры"]'
     qr_code = 'com.yapmap.yapmap:id/qr_code_image_view'
     pop_up_ok_btn = "com.yapmap.yapmap:id/ok_button"
     share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the advertisement")]'
@@ -113,6 +113,7 @@ class MarketPage(BasePage):
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
     contact_seller_btn = "com.yapmap.yapmap:id/contact_seller_text_view"
     input_edit_text = '//*[@resource-id="com.yapmap.yapmap:id/input_edit_text"]'
+    share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'
 
     @allure.step("Нажатие 'Назад")
     def click_back_btn(self):
@@ -186,10 +187,7 @@ class MarketPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
 
@@ -206,10 +204,7 @@ class MarketPage(BasePage):
     def add_photo_without_permissions(self):
         self.click(self.add_photo_btn, 'кнопка Add photos')
         self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')
 
@@ -249,7 +244,7 @@ class MarketPage(BasePage):
 
     @allure.step("Создание нового Ad Stuff")
     def create_new_ad_stuff(self, permissions=True):
-        if permissions == True:
+        if permissions:
             self.upload_new_photo()
         else:
             self.add_photo_without_permissions()
@@ -368,7 +363,7 @@ class MarketPage(BasePage):
             random_hours = random.randrange(1, 1500)
             self.set_text(self.edit_text_view, random_hours)
             self.click(self.done_button, 'кнопка Done')
-
+        self.swipe_up()
         # self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
         self.set_address()
@@ -664,7 +659,7 @@ class MarketPage(BasePage):
             print('Иногда при выходе без редактирования предлагает сохранить изменения, сейчас не предложил')
         self.open_more_options("Share")
         self.wait_a_second()
-        self.wait_element(self.share_text)
+        self.wait_element(self.share_title)
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Generate QR Code")

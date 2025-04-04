@@ -31,7 +31,7 @@ class FavoritesPage(BasePage):
     edit_image_btn = '//*[@resource-id="com.yapmap.yapmap:id/circle_2_view"]'
     share_button = '//android.widget.TextView[@resource-id="com.yapmap.yapmap:id/button" and @text="Share"]'
     ok_button = '//*[@resource-id="com.yapmap.yapmap:id/ok_button"]'
-    share_title = '//android.widget.TextView[@resource-id="android:id/title" and @text="Share"]'
+    share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'
 
     @allure.step("open_item")
     def open_item(self, name):
@@ -125,7 +125,7 @@ class FavoritesPage(BasePage):
         # self.wait_text('Wish')
         self.press_back()
         self.open_more_options('Share')
-        self.wait_text('Share')
+        # self.wait_text('Test wish')
         # self.click(self.share_button, 'кнопка SHARE')
         self.wait_element(self.share_title)
         # self.press_back()

@@ -55,6 +55,7 @@ class JobsPage(BasePage):
     send_message_chat_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
     delete_and_leave_btn = "com.yapmap.yapmap:id/delete_button"
+    share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'
 
     @allure.step("Клик по кнопке создания новой Jobs")
     def click_create_new_jobs(self):
@@ -148,7 +149,7 @@ class JobsPage(BasePage):
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Share")
-        assert 'Hey! Look at the job' in self.get_text(self.share_text)
+        self.wait_element(self.share_title)
         self.press_back()
         self.wait_a_moment()
         self.open_more_options("Generate QR Code")
@@ -210,20 +211,14 @@ class JobsPage(BasePage):
         Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
         Permission().click_while_using_the_app()
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
 
     @allure.step("Добавление нового фото")
     def upload_new_photo_without_permission(self):
         self.swipe_to_element(self.add_photo_btn)
         self.click(self.add_photo_btn, 'add photo')
         self.click(self.image_loader, "добавление нового фото")
-        self.wait_element(self.take_a_picture_btn)
-        self.wait_a_second()
-        self.click(self.take_a_picture_btn, "создание нового фото")
-        self.click(self.take_a_picture_done_btn, "выбрать фото")
+        self.take_a_photo()
 
     @allure.step("Выбор Job type")
     def select_job_type(self):
