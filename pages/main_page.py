@@ -43,6 +43,7 @@ class MainPage(BasePage):
     places_filter = "com.yapmap.yapmap:id/places_filter_text_view"
     events_filter = "com.yapmap.yapmap:id/events_filter_text_view"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
+    search_field = 'com.yapmap.yapmap:id/search_src_text'
 
     @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
@@ -82,7 +83,9 @@ class MainPage(BasePage):
         ty = self.d.window_size()[1] * 0.5
         tx = self.d.window_size()[0] / 2
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
-
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
 
     @allure.step("Закрываем боттом шит свайпом вниз")
     def close_bottom_sheet(self):
@@ -185,6 +188,15 @@ class MainPage(BasePage):
             else:
                 self.wait_element(locator)
                 break
+
+    @allure.step("Заполнение поиска значением {value}")
+    def search_entity(self, value):
+        self.set_text(self.search_field, value)
+        self.wait_a_second()
+        # self.close_bottom_sheet()
+        # self.wait_a_second()
+        self.open_bottom_sheet_a_bit()
+        self.wait_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{value}"]')
 
 
 

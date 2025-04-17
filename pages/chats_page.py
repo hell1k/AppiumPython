@@ -224,6 +224,7 @@ class ChatsPage(BasePage):
         self.click(self.get_random_element('//android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/picture_view"]'))
         self.click(self.attachment_btn)
         self.click(self.d(resourceId="com.yapmap.yapmap:id/button", text="Select from files"))
+        self.wait_a_second()
         self.wait_element('//android.widget.TextView[@resource-id="com.google.android.documentsui:id/header_title"]') #recent files title
         self.click(self.get_random_element('//*[@resource-id="com.google.android.documentsui:id/dir_list"]/android.widget.LinearLayout'))
 

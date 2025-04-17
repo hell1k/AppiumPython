@@ -224,8 +224,9 @@ class MarketPage(BasePage):
     @allure.step("Выбрать адрес")
     def set_address(self, city_name='Novosibirsk'):
         self.wait_text('Choose location')
-        self.set_text(self.type_address_field, city_name)
-        self.click(self.address_popup, 'адрес из всплывашки')
+        # self.set_text(self.type_address_field, city_name)
+        # self.click(self.address_popup, 'адрес из всплывашки')
+        self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
         self.click(self.map_plus_btn, 'кнопка + на карте')
 
     @allure.step("Создание нового Ad")
@@ -261,12 +262,8 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
         self.set_address()
-
-        self.swipe_to_element(self.price_selector)
-        self.click(self.price_selector, 'Price')
-        random_price = random.randrange(1, 10000)
-        self.set_text(self.edit_text_view, random_price)
-        self.click(self.done_button, 'кнопка Done')
+        self.set_zip()
+        self.set_price()
 
         self.swipe_to_element(self.shipping_available_switch)
         self.click(self.shipping_available_switch, 'свитч Shipping available')
@@ -287,6 +284,19 @@ class MarketPage(BasePage):
         # self.wait_a_second()
         self.wait_text(ad_name)
         return ad_name
+
+    def set_zip(self):
+        self.click(self.zip_selector, 'Price')
+        random_zip = random.randrange(100000, 999999)
+        self.set_text(self.edit_text_view, random_zip)
+        self.click(self.done_button, 'кнопка Done')
+
+    def set_price(self):
+        self.swipe_to_element(self.price_selector)
+        self.click(self.price_selector, 'Price')
+        random_price = random.randrange(1, 10000)
+        self.set_text(self.edit_text_view, random_price)
+        self.click(self.done_button, 'кнопка Done')
 
     @allure.step("Создание нового Ad Transport")
     def create_new_ad_transport(self):

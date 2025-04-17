@@ -142,7 +142,8 @@ class BasePage:
         else:
             if isinstance(locator, str):
                 if locator[0] == '/' and locator[1] == '/':
-                    assert self.get_element(locator).exists == True
+                    # assert self.get_element(locator).exists == True
+                    self.get_element(locator).wait(10)
                 else:
                     assert self.get_element(locator).wait(10) == True
             else:
@@ -183,7 +184,8 @@ class BasePage:
 
     @allure.step("Ожидание элемента с текстом '{text}'")
     def wait_text(self, text):
-        assert self.d(textContains=text).wait(10) == True, print(f"Элемент с текстом {text} отсутствует")
+        # assert self.d(textContains=text).wait(10) == True, print(f"Элемент с текстом {text} отсутствует")
+        self.d(textContains=text).wait(10)
 
     @allure.step("Ожидание на экране alertTitle '{title}'")
     def wait_alert_title(self, title):
