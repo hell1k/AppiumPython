@@ -121,6 +121,7 @@ class ChannelsPage(BasePage):
     @allure.step("Переход к экрану канала '{channel_name}'")
     def open_channel(self, channel_name):
         self.wait_a_second()
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]')
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.wait_a_second()
 
@@ -291,6 +292,8 @@ class ChannelsPage(BasePage):
         self.click(self.leave_channel_btn, "кнопка Leave")
         self.wait_alert_title("Leave channel?")
         self.click(self.leave_channel_confirm_btn, "кнопка Leave")
+        self.wait_a_second()
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]')
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.click_edit_channel()
         self.swipe_to_element(self.join_btn)

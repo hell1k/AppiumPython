@@ -232,6 +232,8 @@ class BusinessPage(BasePage):
         self.wait_a_second()
         self.wait_a_second()
         self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         if self.get_elements_amount(self.business_item) == 0:
             self.add_new_business()
 

@@ -286,7 +286,8 @@ class MarketPage(BasePage):
         return ad_name
 
     def set_zip(self):
-        self.click(self.zip_selector, 'Price')
+        self.swipe_to_element(self.zip_selector)
+        self.click(self.zip_selector, 'Zip')
         random_zip = random.randrange(100000, 999999)
         self.set_text(self.edit_text_view, random_zip)
         self.click(self.done_button, 'кнопка Done')
@@ -373,10 +374,11 @@ class MarketPage(BasePage):
             random_hours = random.randrange(1, 1500)
             self.set_text(self.edit_text_view, random_hours)
             self.click(self.done_button, 'кнопка Done')
-        self.swipe_up()
-        # self.swipe_to_element(self.location_selector)
+            self.wait_a_second()
+        self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
         self.set_address()
+        self.set_zip()
 
         self.swipe_to_element(self.price_selector)
         self.click(self.price_selector, 'Price')
@@ -506,6 +508,7 @@ class MarketPage(BasePage):
         self.swipe_to_element(self.location_selector)
         self.click(self.location_selector, 'пункт Location')
         self.set_address()
+        self.set_zip()
 
         self.swipe_to_element(self.price_selector)
         self.click(self.price_selector, 'Price')

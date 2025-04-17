@@ -253,9 +253,11 @@ class GroupsPage(BasePage):
         self.click(self.leave_group_btn, "кнопка Leave")
         self.wait_alert_title("Leave group?")
         self.click(self.leave_group_confirm_btn, "кнопка Leave")
+        self.wait_a_second()
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]')
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]', group_name)
         self.click_edit_group()
-        self.swipe_up()
+        self.swipe_to_element(self.join_btn)
         self.wait_element(self.join_btn, "кнопка Join")
 
     @allure.step("Клик по иконке чата")

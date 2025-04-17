@@ -118,7 +118,7 @@ class ProfilePage(BasePage):
         self.swipe_up()
         ethnos = self.edit_profile_data('Ethnos')
         self.check_data_name(ethnos)
-        self.swipe_up()
+        self.swipe_to_element(self.height)
         height = str(150 + random.randint(1, 50))
         weight = str(50 + random.randint(1, 50))
         self.edit_height(height)
@@ -326,6 +326,8 @@ class ProfilePage(BasePage):
     @allure.step("Открытие раздела Favorites из Профиля")
     def open_favorites(self):
         self.menu.open_profile()
+        self.swipe_down()
+        self.swipe_down()
         self.swipe_to_element(self.favorites_btn_in_profile)
         self.wait_a_second()
         self.click(self.favorites_btn_in_profile)
