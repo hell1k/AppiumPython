@@ -189,8 +189,9 @@ class PlacesPage(BasePage):
     @allure.step("Выбрать адрес")
     def set_address(self, city_name='Stanford'):
         self.wait_text('Choose location')
-        self.set_text(self.type_address_field, city_name)
-        self.click(self.address_popup, 'адрес из всплывашки')
+        # self.set_text(self.type_address_field, city_name)
+        # self.click(self.address_popup, 'адрес из всплывашки')
+        self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
         self.click(self.map_plus_btn, 'кнопка + на карте')
 
     @allure.step("Добавление адреса")
@@ -290,3 +291,7 @@ class PlacesPage(BasePage):
     @allure.step("Проверка наличия сообщения в чате")
     def check_chat_msg(self, message):
         self.wait_text(message)
+
+    @allure.step("Поиск place по названию")
+    def search_place(self, place_name):
+        self.set_text(self.search_field, place_name)
