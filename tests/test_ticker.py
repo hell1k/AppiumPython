@@ -44,7 +44,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(group_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         # page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -95,7 +95,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(business_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -120,7 +120,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(ad_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -145,7 +145,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(ad_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -173,7 +173,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(ad_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -197,7 +197,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(channel_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -225,7 +225,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(position_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -254,7 +254,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(pet_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 
@@ -280,7 +280,7 @@ class TestTicker:
         page.ticker.select_item_for_posting(place_name)
         page.ticker.set_rulers()
         message = page.ticker.set_message()
-#         page.ticker.check_send_attachment()
+        page.ticker.check_send_attachment()
         page.swipe_up()
         cost = page.ticker.click_pay_now()
 

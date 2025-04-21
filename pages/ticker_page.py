@@ -162,6 +162,9 @@ class TickerPage(BasePage):
     @allure.step("check_purchase_history")
     def check_purchase_history(self, cost):
         self.profile.open_purchase_history()
+        self.wait_a_second()
+        self.swipe_down()
+        self.wait_a_second()
         amount_text = self.get_text(self.last_purchased_price_text)
         amount = float(amount_text.replace("-", "").replace(',', '.'))
         was_paid_text = self.get_text(self.last_purchased_description)

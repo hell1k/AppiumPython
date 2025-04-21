@@ -169,7 +169,7 @@ class MainPage(BasePage):
     def user_open_ad(self, ad_name):
         self.wait_a_second()
         element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{ad_name}"]'
-        self.swipe_horizontal_to_element_in_market(element)
+        # self.swipe_horizontal_to_element_in_market(element)
         self.click(element)
 
     @allure.step("Открыть Place пользователем")
