@@ -277,7 +277,7 @@ class TestChats:
     @allure.title("Проверка отправки всех типов медиа в чат PETS")
     @pytest.mark.smoke
     @pytest.mark.pets
-    @pytest.mark.debug
+    @pytest.mark.chats
     # @pytest.mark.login_marker("yapmap.tester+chats@yandex.ru")
     def test_pets_chat(self, authorization):
         # Создаем питомца пользователем 1
