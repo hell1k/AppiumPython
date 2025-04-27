@@ -162,6 +162,7 @@ class LoginPage(BasePage):
     @allure.step("Получение и установка проверочного кода")
     def set_verification_code(self, user_name):
         code = str(self.get_verification_code(user_name))
+        self.wait_a_second()
         self.set_text(self.code_first_number, code[0])
         self.wait_a_second()
         self.set_text(self.code_second_number, code[1])
