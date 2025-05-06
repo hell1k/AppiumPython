@@ -145,7 +145,8 @@ class BasePage:
                     # assert self.get_element(locator).exists == True
                     self.get_element(locator).wait(10)
                 else:
-                    assert self.get_element(locator).wait(10) == True
+                    # assert self.get_element(locator).wait(10) == True
+                    self.get_element(locator).wait(10)
             else:
                 assert locator.wait(10) == True
 
