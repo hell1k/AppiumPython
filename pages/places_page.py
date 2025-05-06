@@ -232,6 +232,7 @@ class PlacesPage(BasePage):
     def test_chat(self):
         message = faker.text()
         self.send_message(message)
+        self.swipe_up()
         self.wait_text(message)
         self.click(self.back_btn_2)
         return message
@@ -242,6 +243,7 @@ class PlacesPage(BasePage):
         self.click(self.send_message_chat_btn, "кнопка отправки сообщения")
         self.wait_a_second()
         self.wait_a_second()
+        self.swipe_up()
         self.wait_text(message)
 
     @allure.step("Добавить фото")

@@ -122,6 +122,7 @@ class ChannelsPage(BasePage):
     def open_channel(self, channel_name):
         self.wait_a_second()
         self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]')
+        self.swipe_down()
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.wait_a_second()
 
@@ -240,9 +241,10 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.click(self.send_message_btn, "кнопка отправки сообщения")
         self.wait_a_second()
-        self.wait_a_second()
+        self.swipe_up()
+        self.swipe_up()
+        self.swipe_up()
         self.wait_text(message)
-        self.wait_a_second()
         self.wait_a_second()
 
     @allure.step("Очистка чата")

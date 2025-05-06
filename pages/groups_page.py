@@ -210,6 +210,7 @@ class GroupsPage(BasePage):
         self.click(self.send_message_btn, "кнопка отправки сообщения")
         self.wait_a_second()
         self.wait_a_second()
+        self.swipe_up()
         self.wait_text(message)
 
     @allure.step("Очистка чата")

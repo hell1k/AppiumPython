@@ -364,5 +364,8 @@ class ChatsPage(BasePage):
     @allure.step("Проверка сообщения в чате")
     def check_message_in_chat(self, message):
         self.wait_a_second()
+        self.swipe_up()
+        self.swipe_up()
+        self.swipe_up()
         self.wait_text(message)
 

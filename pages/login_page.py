@@ -192,7 +192,7 @@ class LoginPage(BasePage):
 
     @allure.step("Получение кода подтверждения")
     def get_verification_code(self, user_name):
-        options = webdriver.FirefoxOptions()
+        options = webdriver.ChromeOptions()
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-gpu")
         options.add_argument("--headless")
@@ -201,7 +201,7 @@ class LoginPage(BasePage):
         options.add_argument("--disable-notifications")
         options.add_argument("--lang=en-US")
         options.page_load_strategy = 'eager'
-        driver = webdriver.Firefox(options=options)
+        driver = webdriver.Chrome(options=options)
         driver.get(f"https://www.mailforspam.com/mail/{user_name}/1")
         code_value = int(re.sub('[^0-9]', "", driver.find_element(By.XPATH,
                                                                   "//span[contains(text(), 'Your Relagram verification code is:')]").text))

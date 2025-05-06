@@ -273,6 +273,7 @@ class BusinessPage(BasePage):
     def test_chat(self):
         message = faker.text()
         self.send_message(message)
+        self.swipe_up()
         self.wait_text(message)
         self.click(self.back_btn_2, 'кнопка <-')
         self.wait_a_second()
