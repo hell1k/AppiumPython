@@ -152,9 +152,9 @@ class PetsPage(BasePage):
     @allure.step("Выбрать адрес")
     def set_address(self, city_name='Novosibirsk'):
         self.wait_text('Choose location')
-        # self.set_text(self.type_address_field, city_name)
-        # self.click(self.address_popup, 'адрес из всплывашки')
-        self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
+        self.set_text(self.type_address_field, city_name)
+        self.click(self.address_popup, 'адрес из всплывашки')
+        # self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
         self.click(self.map_plus_btn, 'кнопка + на карте')
         self.wait_text('New Pet')
 

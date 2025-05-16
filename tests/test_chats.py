@@ -372,7 +372,7 @@ class TestChats:
         page.wait_element('com.yapmap.yapmap:id/name_text_view')
         # page.open_bottom_sheet()
         page.place.search_place(place_name) # Не находит никаких place
-
+        page.open_bottom_sheet_a_bit()
         page.user_open_place(place_name)
         page.place.checking_more_options_user_place(place_name)
         page.place.add_to_favorite()

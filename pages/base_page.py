@@ -100,11 +100,13 @@ class BasePage:
             # self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2, self.d.window_size()[0] / 2,
             #              self.d.window_size()[1] / 4)
             self.d.swipe_ext(Direction.FORWARD)
+        self.wait_a_moment()
 
     @allure.step("Свайп вниз")
     def swipe_down(self):
         self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 4, self.d.window_size()[0] / 2,
                      self.d.window_size()[1] / 2)
+        self.wait_a_moment()
 
     # @allure.step("Свайп к элементу")
     def swipe_to_element(self, locator):

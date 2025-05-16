@@ -123,6 +123,9 @@ class ChannelsPage(BasePage):
         self.wait_a_second()
         self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]')
         self.swipe_down()
+        self.swipe_down()
+        self.swipe_down()
+        self.swipe_down()
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.wait_a_second()
 

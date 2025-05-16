@@ -176,7 +176,7 @@ class MainPage(BasePage):
     def user_open_place(self, place_name):
         element = f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{place_name}"]'
         self.wait_element(element)
-        self.swipe_down_to_element(element)
+        # self.swipe_down_to_element(element)
         self.click(element)
 
     @allure.step("swipe_horizontal_to_element")

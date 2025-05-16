@@ -315,6 +315,8 @@ class ChatsPage(BasePage):
         self.set_text(self.message_field, message, "сообщение")
         self.click(self.send_message_btn, "кнопка отправки сообщения")
         self.wait_a_second()
+        self.swipe_up()
+        self.wait_a_second()
 
     @allure.step("Проверка комментария к сообщению")
     def checking_comment(self):
@@ -330,7 +332,7 @@ class ChatsPage(BasePage):
     @allure.step("Открыть объект по имени")
     def open_item_by_name(self, name_item):
         item = f'//*[@text="{name_item}"]'
-        self.swipe_down_to_element(item)
+        self.swipe_down()
         self.wait_a_second()
         self.click(item)
 

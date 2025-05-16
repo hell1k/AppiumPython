@@ -49,6 +49,8 @@ class BusinessPage(BasePage):
     message = "com.yapmap.yapmap:id/body_text_view"
     send_message_btn = 'com.yapmap.yapmap:id/send_button_image_view'
     back_btn_2 = '//androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]'
+    type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
+    address_popup = 'android:id/text1'
 
     @allure.step("Добавление новой записи Business")
     def add_new_business(self):
@@ -144,13 +146,15 @@ class BusinessPage(BasePage):
     def select_address(self):
         self.swipe_to_element(self.add_address_btn)
         self.click(self.add_address_btn, "add address")
+        # self.set_text(self.type_address_field, "Novosibirsk")
+        # self.click(self.address_popup, 'адрес из всплывашки')
         location_coordinate = self.get_element(self.address_location).center()
         self.d.click(location_coordinate[0], location_coordinate[1])
         self.click(self.address_apply_btn, "добавить выбранный адрес")
 
     @allure.step("Добавление телефона")
     def set_phone(self):
-        self.swipe_to_element(self.phone_field)
+        self.swipe_up()
         phone_number = str(random.randint(10000000, 9999999999))
         self.set_text(self.phone_field, phone_number, "phone")
 
@@ -221,11 +225,11 @@ class BusinessPage(BasePage):
 
     @allure.step("Очистка экрана Business")
     def clear_business(self):
-        self.wait_a_second()
-        self.wait_a_second()
-        self.wait_a_second()
-        if self.get_elements_amount(self.business_item) > 0:
+        try:
+            self.wait_element(self.business_item)
             self.delete_business()
+        except:
+            pass
 
     @allure.step("Проверка наличия записи и создание новой, если не найдено ни одной")
     def check_business_item_availability(self):
@@ -275,6 +279,11 @@ class BusinessPage(BasePage):
         self.send_message(message)
         self.swipe_up()
         self.wait_text(message)
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
         self.click(self.back_btn_2, 'кнопка <-')
         self.wait_a_second()
         self.click_back_btn()

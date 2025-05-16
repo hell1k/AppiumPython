@@ -181,9 +181,9 @@ class EventsPage(BasePage):
         self.swipe_to_element(self.address_select_btn)
         self.click(self.address_select_btn, 'кнопка Address')
         self.wait_text('Choose location')
-        self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
-        # self.set_text(self.type_address_field, 'Novosibirsk')
-        # self.click(self.address_popup, 'всплывашка с адресом')
+        # self.coordinate_click(self.d.window_size()[0] / 2, self.d.window_size()[1] / 2)
+        self.set_text(self.type_address_field, 'Novosibirsk')
+        self.click(self.address_popup, 'всплывашка с адресом')
         self.click(self.map_plus_btn, 'кнопка + на карте')
         self.wait_text('New event')
 
@@ -255,6 +255,7 @@ class EventsPage(BasePage):
     def user_open_event(self, event_name):
         self.swipe_to_element("com.yapmap.yapmap:id/recycler_view")
         self.wait_a_second()
+        self.swipe_down()
         self.wait_text(event_name)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
