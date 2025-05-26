@@ -102,8 +102,8 @@ class PetsPage(BasePage):
         kennel_name = 'DOG KENNEL COLUMBUS OHIO'
         self.set_text(self.edit_text_view, kennel_name)
         self.click(self.done_button, 'кнопка Done')
-        self.swipe_to_element(self.open_for_mating_switch)
-        self.click(self.open_for_mating_switch, 'Open for mating switch')
+        # self.swipe_to_element(self.open_for_mating_switch)
+        # self.click(self.open_for_mating_switch, 'Open for mating switch')
         self.swipe_to_element(self.location)
         self.click(self.location, 'Location')
         self.set_address()
@@ -160,6 +160,7 @@ class PetsPage(BasePage):
 
     @allure.step("Открытие карточки питомца")
     def open_pet(self, pet_name):
+        self.wait_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{pet_name}"]')
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{pet_name}"]', pet_name)
 
     @allure.step("Редактирование питомца")
@@ -328,7 +329,7 @@ class PetsPage(BasePage):
         self.set_text(self.message_field, message, "сообщение")
         self.click(self.send_message_chat_btn, "кнопка отправки сообщения")
         self.wait_a_second()
-        self.wait_a_second()
+        self.swipe_up()
         self.wait_text(message)
 
     @allure.step("Проверяем чат")

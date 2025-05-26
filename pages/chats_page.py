@@ -370,4 +370,7 @@ class ChatsPage(BasePage):
         self.swipe_up()
         self.swipe_up()
         self.wait_text(message)
+        self.wait_a_second()
+        self.wait_a_second()
+        self.wait_a_second()
 

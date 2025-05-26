@@ -137,8 +137,10 @@ class BasePage:
                 if isinstance(locator, str):
                     if locator[0] == '/' and locator[1] == '/':
                         assert self.get_element(locator).exists == True, print(f"Элемент {element_name} отсутствует")
+                        self.get_element(locator).wait(10)
                     else:
                         assert self.get_element(locator).wait(10) == True, print(f"Элемент {element_name} отсутствует")
+                        self.get_element(locator).wait(10)
                 else:
                     assert locator.wait(10) == True, print(f"Элемент {element_name} отсутствует")
         else:

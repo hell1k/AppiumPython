@@ -146,10 +146,10 @@ class BusinessPage(BasePage):
     def select_address(self):
         self.swipe_to_element(self.add_address_btn)
         self.click(self.add_address_btn, "add address")
-        # self.set_text(self.type_address_field, "Novosibirsk")
-        # self.click(self.address_popup, 'адрес из всплывашки')
-        location_coordinate = self.get_element(self.address_location).center()
-        self.d.click(location_coordinate[0], location_coordinate[1])
+        self.set_text(self.type_address_field, "Novosibirsk")
+        self.click(self.address_popup, 'адрес из всплывашки')
+        # location_coordinate = self.get_element(self.address_location).center()
+        # self.d.click(location_coordinate[0], location_coordinate[1])
         self.click(self.address_apply_btn, "добавить выбранный адрес")
 
     @allure.step("Добавление телефона")

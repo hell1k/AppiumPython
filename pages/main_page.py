@@ -44,6 +44,11 @@ class MainPage(BasePage):
     events_filter = "com.yapmap.yapmap:id/events_filter_text_view"
     add_to_favorites_btn = 'com.yapmap.yapmap:id/action_add_to_favourites'
     search_field = 'com.yapmap.yapmap:id/search_src_text'
+    filter_btn = 'com.yapmap.yapmap:id/filter_image_view'
+    pets_tab = '//*[@content-desc="Pets"]'
+    open_for_mating_switch = 'com.yapmap.yapmap:id/switch_compat'
+    filter_close_btn = 'com.yapmap.yapmap:id/close_image_view'
+    ok_btn = 'android:id/button1'
 
     @allure.step("Нажатие кнопки 'Назад")
     def click_back_btn(self):
@@ -103,11 +108,18 @@ class MainPage(BasePage):
         # self.wait_a_moment()
 
 
-    @allure.step("Выбрать фильтр Pets")
+    @allure.step("Выбрать фильтр Pets и фильтр Open for mating")
     def select_pets_filter(self):
         self.wait_text('Search')
         self.swipe_horizontal_to_element(self.pets_filter)
         self.click(self.pets_filter)
+        # self.wait_a_moment()
+        # self.click(self.filter_btn)
+        # self.click(self.ok_btn)
+        # self.click(self.pets_tab)
+        # self.click(self.open_for_mating_switch)
+        # self.wait_a_second()
+        # self.click(self.filter_close_btn)
 
     @allure.step("Выбрать фильтр Local deals")
     def select_local_deals_filter(self):
