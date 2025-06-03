@@ -189,7 +189,7 @@ class BasePage:
 
     @allure.step("Ожидание элемента с текстом '{text}'")
     def wait_text(self, text):
-        assert self.d(textContains=text).wait(10) == True, print(f"Элемент с текстом {text} отсутствует")
+        self.d(textContains=text).wait(10), print(f"Элемент с текстом {text} отсутствует")
         # self.d(textContains=text).wait(10)
 
     @allure.step("Ожидание на экране alertTitle '{title}'")

@@ -62,7 +62,7 @@ class FavoritesPage(BasePage):
                 counter = counter - 1
         else:
             color = self.get_color_element(self.add_to_favorites_btn)
-            assert color == (175, 144, 255) or color == (174, 145, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255) или (174, 145, 255)'
+            assert color == (175, 144, 255) or color == (175, 144, 255, 255) or color == (174, 145, 255), f'Цвет иконки {color}, а должен быть (175, 144, 255) или (174, 145, 255) или (175, 144, 255, 255)'
 
     @allure.step("Create wishlist")
     def create_wishlist(self):

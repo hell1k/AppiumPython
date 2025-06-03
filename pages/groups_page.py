@@ -106,6 +106,9 @@ class GroupsPage(BasePage):
         self.wait_a_second()
         self.click(self.back_btn, "кнопка Назад")
         self.wait_element(self.group_name_in_list)
+        self.swipe_down_to_element(f'//*[@text="{new_group_name}"]')
+        self.wait_a_second()
+        self.swipe_down()
         self.wait_text(new_group_name)
 
     @allure.step("Переход на экран редактирования")

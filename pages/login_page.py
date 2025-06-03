@@ -64,7 +64,7 @@ class LoginPage(BasePage):
             self.set_text(self.password_field, password, "Пароль")
         else:
             # self.set_text(self.email_field, 'yapmap.tester@yandex.ru', "Почта")
-            self.set_text(self.email_field, 'wexezukecei-4791@yopmail.com', "Почта")
+            self.set_text(self.email_field, 'pegoulezeddi-9290@yopmail.com', "Почта")
             self.set_text(self.password_field, 'Qq12345678!', "поле Пароль")
         self.click_sign_in()
 

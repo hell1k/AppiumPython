@@ -253,9 +253,8 @@ class EventsPage(BasePage):
 
     @allure.step("Переход пользователя к событию '{event_name}'")
     def user_open_event(self, event_name):
-        self.swipe_to_element("com.yapmap.yapmap:id/recycler_view")
+        # self.swipe_to_element("com.yapmap.yapmap:id/recycler_view")
         self.wait_a_second()
-        self.swipe_down()
         self.wait_text(event_name)
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
