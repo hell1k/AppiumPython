@@ -177,6 +177,7 @@ class PlacesPage(BasePage):
     @allure.step("Открыть Place")
     def open_place(self, place_name):
         self.wait_a_second()
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{place_name}"]')
         self.click(
             f'//*[@resource-id="com.yapmap.yapmap:id/recycler_view"]/android.widget.LinearLayout//*[@text="{place_name}"]')
 

@@ -126,6 +126,8 @@ class BasePage:
                 self.wait_element(locator)
                 break
 
+            self.wait_a_moment()
+
     def swipe_coordinate(self, fx, fy, tx, ty):
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
 
