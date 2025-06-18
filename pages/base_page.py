@@ -104,7 +104,7 @@ class BasePage:
     @allure.step("Свайп вниз")
     def swipe_a_bit(self):
         self.d.swipe(self.d.window_size()[0] / 2, self.d.window_size()[1] / 4, self.d.window_size()[0] / 2,
-                     self.d.window_size()[1] / 2.2)
+                     self.d.window_size()[1] / 5)
         self.wait_a_moment()
 
     # @allure.step("Свайп к элементу")

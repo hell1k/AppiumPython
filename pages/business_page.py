@@ -154,7 +154,8 @@ class BusinessPage(BasePage):
 
     @allure.step("Добавление телефона")
     def set_phone(self):
-        self.swipe_to_element(self.phone_field)
+        self.swipe_up()
+        self.swipe_a_bit()
         phone_number = str(random.randint(10000000, 9999999999))
         self.set_text(self.phone_field, phone_number, "phone")
 

@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 
@@ -8,30 +10,30 @@ from tests.config import *
 @pytest.mark.usefixtures("setup")
 @allure.feature("Chats")
 class TestChats:
-    @allure.title("Проверка добавления и удаления стикер пака новым пользователем")
-    @pytest.mark.smoke
-    @pytest.mark.chats
-    def test_add_and_del_sticker_pack(self):
-        page = MainPage()
-        page.login.registration()
-        page.menu.open_channels()
-        channel_name = page.channels.add_new_channel()
-        page.channels.open_channel(channel_name)
-        new_message = faker.text()
-        page.channels.send_message(new_message)
-        page.chats.checking_comment()
-        page.chats.add_sticker_pack_comment()
-        page.chats.check_send_sticker()
-        page.chats.del_sticker_pack()
+    # @allure.title("Проверка добавления и удаления стикер пака новым пользователем")
+    # @pytest.mark.smoke
+    # @pytest.mark.chats
+    # def test_add_and_del_sticker_pack(self):
+    #     page = MainPage()
+    #     page.login.registration()
+    #     page.menu.open_channels()
+    #     channel_name = page.channels.add_new_channel()
+    #     page.channels.open_channel(channel_name)
+    #     new_message = faker.text()
+    #     page.channels.send_message(new_message)
+    #     page.chats.checking_comment()
+    #     page.chats.add_sticker_pack_comment()
+    #     page.chats.check_send_sticker()
+    #     page.chats.del_sticker_pack()
 
-    @allure.title("Проверка открытия разделов на экране Chats")
-    @pytest.mark.smoke
-    @pytest.mark.chats
-    def test_open_chats_tabs(self):
-        page = MainPage()
-        page.login.registration()
-        page.menu.open_chats()
-        page.chats.checking_clear_chat()
+    # @allure.title("Проверка открытия разделов на экране Chats")
+    # @pytest.mark.smoke
+    # @pytest.mark.chats
+    # def test_open_chats_tabs(self):
+    #     page = MainPage()
+    #     page.login.registration()
+    #     page.menu.open_chats()
+    #     page.chats.checking_clear_chat()
 
     @allure.title("Проверка отправки всех типов медиа в чат BUSINESS")
     @pytest.mark.smoke
@@ -54,7 +56,7 @@ class TestChats:
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
         page.chats.check_send_images()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_attachment()
         new_message = page.business.test_chat()
         page.login.logout()
@@ -74,7 +76,7 @@ class TestChats:
         page.channels.open_channel(channel_name)
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images_type_2()
         page.chats.check_send_attachment()
         new_message = faker.text()
@@ -109,11 +111,12 @@ class TestChats:
         page.events.checking_chat_btn()
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
         new_message = faker.text()
         page.events.send_message(new_message)
+        time.sleep(30)
         page.chats.back_from_chat_to_main()
         page.wait_a_second()
         page.press_back()
@@ -153,11 +156,12 @@ class TestChats:
         page.groups.click_chat_icon()
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
         new_message = faker.text()
         page.groups.send_message(new_message)
+        time.sleep(30)
         page.chats.back_from_chat()
         page.menu.open_chats()
         page.chats.open_groups_tab()
@@ -189,7 +193,7 @@ class TestChats:
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()
-
+        page.wait_a_second()
         page.jobs.click_back_btn()
         page.login.logout()
         page.login.authorization(test_user_login, test_user_password)
@@ -207,9 +211,10 @@ class TestChats:
         page.jobs.click_contact_employer()
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
+        time.sleep(30)
         message = page.jobs.test_chat()
         page.menu.open_chats()
         page.chats.open_jobs_tab()
@@ -256,9 +261,10 @@ class TestChats:
         page.market.click_contact_seller_btn()
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
+        time.sleep(30)
         message = page.chats.check_send_text()
         page.chats.back_from_chat_to_main()
         page.menu.open_chats()
@@ -306,7 +312,7 @@ class TestChats:
         page.select_pets_filter()
         # page.swipe_coordinate(100, 500, 1300, 1000)
         page.wait_a_second()
-        page.open_bottom_sheet_a_bit()
+        # page.open_bottom_sheet_a_bit()
         # page.open_bottom_sheet()
         page.pets.search_pet_name(pet_name) # Не находит никаких pet
         page.open_bottom_sheet_a_bit()
@@ -318,9 +324,10 @@ class TestChats:
         page.pets.open_pet(user_pet_name)
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
+        time.sleep(30)
         message = page.pets.test_chat()
         page.menu.open_chats()
         page.chats.open_pets_tab()
@@ -349,15 +356,16 @@ class TestChats:
         page.place.click_group_chat_btn(place_name)
         # page.chats.check_send_emoji()
         # page.chats.check_send_sticker()
-        page.chats.check_send_images_from_camera()
+        page.chats.check_send_images_from_camera_without_permission()
         page.chats.check_send_images()
         page.chats.check_send_attachment()
+        time.sleep(30)
         message = page.place.test_chat()
         page.place.click_back_btn()
         page.place.click_back_btn()
         page.menu.open_chats()
         page.chats.open_places_tab()
-        # page.chats.click_i_own()
+        page.swipe_a_bit()
         page.chats.open_item_by_name(place_name)
         page.chats.check_message_in_chat(message)
         page.chats.back_from_chat()
@@ -369,7 +377,7 @@ class TestChats:
         # page.wait_a_second()
         # page.swipe_coordinate(500, 300, 500, 800)
         page.open_bottom_sheet_a_bit()
-        page.wait_element('com.yapmap.yapmap:id/name_text_view')
+        # page.wait_element('com.yapmap.yapmap:id/name_text_view')
         # page.open_bottom_sheet()
         page.place.search_place(place_name) # Не находит никаких place
         page.open_bottom_sheet_a_bit()

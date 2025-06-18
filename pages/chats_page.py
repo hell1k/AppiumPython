@@ -84,7 +84,7 @@ class ChatsPage(BasePage):
     @allure.step("Проверяем чат раздела Pets")
     def check_pets_message(self, pet_name, user_pet_name, message):
         self.open_pets_tab()
-        self.click(self.i_own)
+        # self.click(self.i_own)
         self.click(f'//*[@text="{pet_name}"]', pet_name)
         self.wait_a_second()
         self.click(f'//*[@text="{user_pet_name}"]', user_pet_name)
@@ -214,6 +214,15 @@ class ChatsPage(BasePage):
             self.set_text(self.message_edit_text, 'Random text')
             self.click(self.send_button)
 
+    @allure.step("Отправить images с камеры в чат")
+    def check_send_images_from_camera_without_permission(self):
+        self.click(self.camera_btn)
+        self.take_a_photo()
+        self.wait_a_second()
+        if self.get_elements_amount(self.message_edit_text) > 0:
+            self.set_text(self.message_edit_text, 'Random text')
+            self.click(self.send_button)
+
     @allure.step("Отправить attachment в чат")
     def check_send_attachment(self):
         self.wait_a_second()
@@ -332,7 +341,7 @@ class ChatsPage(BasePage):
     @allure.step("Открыть объект по имени")
     def open_item_by_name(self, name_item):
         item = f'//*[@text="{name_item}"]'
-        self.swipe_down()
+        # self.swipe_down()
         self.wait_a_second()
         self.click(item)
 

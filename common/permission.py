@@ -13,8 +13,11 @@ class Permission(BasePage):
 
     @allure.step("Permission. While using the app")
     def click_while_using_the_app(self):
+        self.wait_a_second()
+        self.wait_a_second()
         try:
-            self.click(self.while_using_the_app)
+            if self.get_elements_amount(self.while_using_the_app) > 0:
+                self.click(self.while_using_the_app)
         except:
             pass
 
@@ -29,8 +32,10 @@ class Permission(BasePage):
     @allure.step("Permission. Permission allow")
     def close_photo_permission(self):
         self.wait_a_second()
+        self.wait_a_second()
         try:
-            self.click(self.photo_permission_allow)
+            if self.get_elements_amount(self.photo_permission_allow) > 0:
+                self.click(self.photo_permission_allow)
         except:
             pass
         self.wait_a_second()
