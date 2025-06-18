@@ -1,8 +1,6 @@
 import allure
 import pytest
-from pages.ticker_page import TickerPage
 from pages.main_page import MainPage
-from tests.config import *
 
 
 @pytest.mark.usefixtures("setup")

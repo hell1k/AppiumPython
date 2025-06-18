@@ -102,6 +102,7 @@ class ChannelsPage(BasePage):
 
     @allure.step("Редактирование канала '{channel_name}'")
     def edit_channel(self, channel_name):
+        self.swipe_a_bit()
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{channel_name}"]', channel_name)
         self.click_edit_channel()
         new_channel_name = 'Test channel_' + str(randint(0, 999999999))

@@ -187,7 +187,7 @@ class PlacesPage(BasePage):
         return ad_name
 
     @allure.step("Выбрать адрес")
-    def set_address(self, city_name='Stanford'):
+    def set_address(self, city_name='Novosibirsk'):
         self.wait_text('Choose location')
         self.set_text(self.type_address_field, city_name)
         self.click(self.address_popup, 'адрес из всплывашки')

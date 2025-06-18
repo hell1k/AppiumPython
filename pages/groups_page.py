@@ -96,6 +96,7 @@ class GroupsPage(BasePage):
 
     @allure.step("Редактирование группы '{group_name}'")
     def edit_group(self, group_name):
+        self.swipe_down()
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{group_name}"]', group_name)
         self.wait_a_second()
         self.click_edit_group()
