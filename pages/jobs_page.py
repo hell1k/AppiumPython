@@ -208,9 +208,9 @@ class JobsPage(BasePage):
     def upload_new_photo(self):
         self.swipe_to_element(self.add_photo_btn)
         self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        # Permission().click_while_using_the_app()
         self.take_a_photo()
 
     @allure.step("Добавление нового фото")

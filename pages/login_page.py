@@ -154,9 +154,9 @@ class LoginPage(BasePage):
     @allure.step("Выбор значения в поле Фото")
     def set_photo(self):
         self.click(self.profile_photo, "поле Photo")
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        # Permission().click_while_using_the_app()
         self.take_a_photo()
 
     @allure.step("Получение и установка проверочного кода")

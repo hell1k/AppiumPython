@@ -1,3 +1,4 @@
+import subprocess
 import time
 from tests.config import *
 import allure
@@ -24,6 +25,21 @@ def open_app():
     # d.uiautomator.start()
     d.press('home')
     d.app_clear("com.yapmap.yapmap")
+    permissions = [
+        'android.permission.READ_EXTERNAL_STORAGE',
+        'android.permission.CAMERA',
+        'android.permission.ACCESS_FINE_LOCATION'
+    ]
+    package_name = 'com.yapmap.yapmap'
+
+    for permission in permissions:
+        cmd = [
+            'adb', 'shell', 'pm', ' grant', package_name, permission
+        ]
+        try:
+            subprocess.run(cmd, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Ошибка при предоставлении разрешения {permission}: {e}")
     d.app_start("com.yapmap.yapmap")
 
 
@@ -55,7 +71,7 @@ def authorization(request):
     else:
         LoginPage().authorization()
 
-    Permission().click_allow()
+    # Permission().click_allow()
 
 
 @pytest.fixture()

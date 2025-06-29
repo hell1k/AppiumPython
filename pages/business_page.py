@@ -61,6 +61,7 @@ class BusinessPage(BasePage):
         self.set_description("Some description")
         self.add_new_photo()
         self.select_address()
+        self.swipe_up()
         self.set_phone()
         self.swipe_up()
         self.wait_a_second()
@@ -137,9 +138,9 @@ class BusinessPage(BasePage):
     @allure.step("Добавление нового фото")
     def upload_new_photo(self):
         self.click(self.upload_a_picture, 'upload a picture')
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        # Permission().click_while_using_the_app()
         self.take_a_photo()
 
     @allure.step("Добавление адреса")
@@ -155,7 +156,7 @@ class BusinessPage(BasePage):
     @allure.step("Добавление телефона")
     def set_phone(self):
         self.swipe_up()
-        self.swipe_a_bit()
+        self.swipe_up()
         phone_number = str(random.randint(10000000, 9999999999))
         self.set_text(self.phone_field, phone_number, "phone")
 
@@ -234,12 +235,9 @@ class BusinessPage(BasePage):
 
     @allure.step("Проверка наличия записи и создание новой, если не найдено ни одной")
     def check_business_item_availability(self):
-        self.wait_a_second()
-        self.wait_a_second()
-        self.wait_a_second()
-        self.wait_a_second()
-        self.wait_a_second()
-        if self.get_elements_amount(self.business_item) == 0:
+        try:
+            self.wait_element(self.business_item)
+        except:
             self.add_new_business()
 
     @allure.step("Клик по кнопке Назад")

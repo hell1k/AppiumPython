@@ -184,9 +184,9 @@ class MarketPage(BasePage):
     @allure.step("Добавление нового фото")
     def upload_new_photo(self):
         self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        # Permission().click_while_using_the_app()
         self.take_a_photo()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
@@ -194,7 +194,7 @@ class MarketPage(BasePage):
     @allure.step("Добавление фото")
     def upload_photo(self):
         self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.first_photo)
         self.wait_a_second()
         self.click(self.done_photo, 'кнопка Done')

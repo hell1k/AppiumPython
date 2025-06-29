@@ -61,16 +61,12 @@ class GroupsPage(BasePage):
     popup_yes = '//*[@text="YES"]'
 
     @allure.step("Добавление новой группы")
-    def add_new_group(self, is_private=None, permission=True):
+    def add_new_group(self, is_private=None):
         group_name = 'Test group_' + str(randint(0, 999999999))
         self.click(self.add_new_group_btn, "добавить новую группу")
         self.set_text(self.name_field, group_name, "Name group")
         self.click(self.upload_a_picture, 'upload a picture')
-        if permission == True:
-            Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
-            Permission().click_while_using_the_app()
         # self.wait_element(self.take_a_picture_btn)
         # self.wait_a_second()
         # self.click(self.take_a_picture_btn, "создание нового фото")
@@ -83,6 +79,7 @@ class GroupsPage(BasePage):
             self.click(self.private_checkbox, 'чекбокс Private')
 
         self.click(self.create_group_btn, "кнопка Создать группу")
+        self.wait_element(self.add_new_group_btn)
         self.wait_element(self.group_name_in_list)
         self.swipe_down()
         self.wait_text(group_name)
@@ -118,6 +115,7 @@ class GroupsPage(BasePage):
 
     @allure.step("Переход к экрану открытой группы '{group_name}'")
     def open_an_open_group(self, group_name):
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]')
         self.click(
             f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and not(preceding-sibling::android.widget.ImageView[@resource-id="com.yapmap.yapmap:id/is_locked_image_view"]) and @text="{group_name}"]',
             group_name)

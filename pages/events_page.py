@@ -124,10 +124,12 @@ class EventsPage(BasePage):
         self.set_text(self.name_field, event_name, "Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
         if permission == True:
-            Permission().close_photo_permission()
+            # Permission().close_photo_permission()
+            pass
         self.click(self.image_loader, "добавление нового фото")
         if permission == True:
-            Permission().click_while_using_the_app()
+            # Permission().click_while_using_the_app()
+            pass
         self.take_a_photo()
         self.wait_a_second()
         self.set_text(self.description_field, text_250, 'Description')
@@ -249,6 +251,7 @@ class EventsPage(BasePage):
 
     @allure.step("Переход к экрану события '{event_name}'")
     def open_event(self, event_name):
+        self.swipe_down_to_element(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]')
         self.click(f'//*[@resource-id="com.yapmap.yapmap:id/name_text_view" and @text="{event_name}"]', event_name)
 
     @allure.step("Переход пользователя к событию '{event_name}'")

@@ -132,21 +132,18 @@ class BasePage:
         self.d.swipe(fx, fy, tx, ty, duration=0.1, steps=None)
 
     def wait_element(self, locator, element_name=None):
-        if element_name:
-            with allure.step(f"Ожидание элемента '{element_name}'"):
-                element = self.get_element(locator)
-                try:
-                    element.wait(10)
-                    return True
-                except Exception:
-                    # print(f"Элемент {element_name} не найден")
-                    return False
+        if isinstance(locator, str):
+            if element_name:
+                with allure.step(f"Ожидание элемента '{element_name}'"):
+                    self.get_element(locator).wait(10)
+            else:
+                self.get_element(locator).wait(10)
         else:
-            try:
-                return locator.wait(10)
-            except Exception:
-                # print(f"Элемент {element_name} не найден")
-                return False
+            if element_name:
+                with allure.step(f"Ожидание элемента '{element_name}'"):
+                    locator.wait(10)
+            else:
+                locator.wait(10)
 
     def wait_hidden_element(self, locator, element_name=None):
         if element_name is not None:

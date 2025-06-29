@@ -74,9 +74,9 @@ class PlacesPage(BasePage):
     @allure.step("Добавление нового фото")
     def upload_new_photo(self):
         self.click(self.add_photo_btn, 'add photo')
-        Permission().close_photo_permission()
+        # Permission().close_photo_permission()
         self.click(self.image_loader, "добавление нового фото")
-        Permission().click_while_using_the_app()
+        # Permission().click_while_using_the_app()
         self.take_a_photo()
         self.click(self.done_photo, 'кнопка Done')
         self.wait_a_second()
@@ -101,7 +101,7 @@ class PlacesPage(BasePage):
         self.click(self.create_button, 'кнопка ADD A PLACE')
 
         self.wait_text('Places to Visit')
-        self.swipe_down()
+        # self.swipe_down()
         self.wait_a_second()
         self.wait_text(place_name)
         return place_name
