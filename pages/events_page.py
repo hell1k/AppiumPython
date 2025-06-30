@@ -123,13 +123,7 @@ class EventsPage(BasePage):
         self.click(self.add_new_event_btn, "добавить новый Event")
         self.set_text(self.name_field, event_name, "Channel Name")
         self.click(self.upload_a_picture, 'upload a picture')
-        if permission == True:
-            # Permission().close_photo_permission()
-            pass
         self.click(self.image_loader, "добавление нового фото")
-        if permission == True:
-            # Permission().click_while_using_the_app()
-            pass
         self.take_a_photo()
         self.wait_a_second()
         self.set_text(self.description_field, text_250, 'Description')
