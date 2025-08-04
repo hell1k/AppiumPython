@@ -43,7 +43,7 @@ class EventsPage(BasePage):
     address_select_btn = '//*[@text="Address"]/..'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
     address_popup = 'android:id/text1'
-    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
+    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/plus_button"]'
     number_of_members_field = '//*[@text="Number of members (optional)"]'
     calendar_next_btn = '//*[@resource-id="android:id/next"]'
     calendar_ok = '//*[@resource-id="android:id/button1"]'

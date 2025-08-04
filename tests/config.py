@@ -49,8 +49,8 @@ text_1000_2 = 'A textbook is an informative manual or book on a specific subject
 
 name_120 = 'Name_120_sybmols_jRJDKNd89kLB2K8pE5waql80WXVKVQeS3QCi1U7n9OPwrKi1KAWz4zyg8TYeuzh1d8Hzlv66LXhP4CZl4ziRWy8H7e5gFkXDvUgL_1234567'
 
-test_user_login = 'test39816695@mailforspam.com'
-# test_user_login = 'hell1k@yandex.ru'
+# test_user_login = 'test63326290@mailforspam.com'
+test_user_login = 'hell1k@yandex.ru'
 test_user_password = 'Qq12345678!'
 
 login = 'relagram.auto@yandex.ru'

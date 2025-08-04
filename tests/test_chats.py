@@ -189,7 +189,7 @@ class TestChats:
     def test_jobs_chat(self, authorization):
         page = MainPage()
         page.profile.open_business()
-        page.business.check_business_item_availability()
+        page.business.check_businёess_item_availability()
         page.business.click_back_btn()
         page.profile.click_jobs()
         position_name = page.jobs.create_new_jobs()

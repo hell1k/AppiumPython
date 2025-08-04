@@ -135,15 +135,15 @@ class BasePage:
         if isinstance(locator, str):
             if element_name:
                 with allure.step(f"Ожидание элемента '{element_name}'"):
-                    self.get_element(locator).wait(10)
+                    self.get_element(locator).wait(20)
             else:
-                self.get_element(locator).wait(10)
+                self.get_element(locator).wait(20)
         else:
             if element_name:
                 with allure.step(f"Ожидание элемента '{element_name}'"):
-                    locator.wait(10)
+                    locator.wait(20)
             else:
-                locator.wait(10)
+                locator.wait(20)
 
     def wait_hidden_element(self, locator, element_name=None):
         if element_name is not None:

@@ -35,7 +35,7 @@ class PlacesPage(BasePage):
     types = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
     address_popup = "android:id/text1"
-    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
+    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/plus_button"]'
     description_field = "com.yapmap.yapmap:id/description_edit_text"
 
     more_options = "com.yapmap.yapmap:id/action_show_option_menu"
@@ -58,7 +58,7 @@ class PlacesPage(BasePage):
 
     add_address_btn = 'com.yapmap.yapmap:id/address_location_field'
     address_location = 'com.yapmap.yapmap:id/activity_content_container'
-    address_apply_btn = 'com.yapmap.yapmap:id/floating_action_button'
+    address_apply_btn = 'com.yapmap.yapmap:id/plus_button'
 
     title = "com.yapmap.yapmap:id/title_text_view"
     share_title = '//*[(@resource-id="android:id/title" and @text="Share") or @resource-id="android:id/sem_chooser_share_live_icon"]'

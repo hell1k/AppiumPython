@@ -34,8 +34,7 @@ class Permission(BasePage):
         self.wait_a_second()
         self.wait_a_second()
         try:
-            if self.get_elements_amount(self.photo_permission_allow) > 0:
-                self.click(self.photo_permission_allow)
+            self.click(self.photo_permission_allow)
         except:
             pass
         self.wait_a_second()

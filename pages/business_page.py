@@ -27,7 +27,7 @@ class BusinessPage(BasePage):
     done_photo = 'com.yapmap.yapmap:id/action_done'
     add_address_btn = 'com.yapmap.yapmap:id/address_location_field'
     address_location = 'com.yapmap.yapmap:id/activity_content_container'
-    address_apply_btn = 'com.yapmap.yapmap:id/floating_action_button'
+    address_apply_btn = 'com.yapmap.yapmap:id/plus_button'
     phone_field = '//*[@resource-id="com.yapmap.yapmap:id/phone_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     site_field = '//*[@resource-id="com.yapmap.yapmap:id/site_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_input_layout"]'
     # phone_field = '//*[@resource-id="com.yapmap.yapmap:id/phone_field"]/*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'

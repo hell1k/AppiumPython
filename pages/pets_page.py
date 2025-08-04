@@ -43,7 +43,7 @@ class PetsPage(BasePage):
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
     address_popup = 'android:id/text1'
-    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
+    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/plus_button"]'
     post_button = "com.yapmap.yapmap:id/post_button"
     name_in_list = 'com.yapmap.yapmap:id/name_text_view'
     share_text = '//*[@resource-id="android:id/content_preview_text" and contains(@text, "Hey! Look at the pet")]'
@@ -87,9 +87,7 @@ class PetsPage(BasePage):
         self.click(f'//*[@text={str(random_date)}]', f'дата {random_date}')
         self.click(self.calendar_ok, 'кнопка OK на календаре')
         self.swipe_to_element(self.pedigree)
-        self.click(self.pedigree, 'Pedigree')
-        self.wait_text('Pedigree')
-        self.select_random_type()
+        self.select_random_pedigree()
         self.swipe_to_element(self.color)
         self.click(self.color, 'Color')
         self.wait_text('Color')
@@ -116,6 +114,12 @@ class PetsPage(BasePage):
         # self.get_screen()
         # self.wait_text('Others can see it in a few minutes. We wish you a successful sale.')
         return pet_name
+
+    def select_random_pedigree(self):
+        self.click(self.pedigree, 'Pedigree')
+        self.wait_text('Pedigree')
+        self.click(
+            self.get_random_element("//*[@resource-id='com.yapmap.yapmap:id/value_text_view' and not(@text='Other')]"))
 
     @allure.step("check_pet_in_list")
     def check_pet_in_list(self, pet_name):

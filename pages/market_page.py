@@ -91,7 +91,7 @@ class MarketPage(BasePage):
     types = '//androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout'
     type_address_field = "com.yapmap.yapmap:id/auto_complete_text_view"
     address_popup = 'android:id/text1'
-    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/floating_action_button"]'
+    map_plus_btn = '//*[@resource-id="com.yapmap.yapmap:id/plus_button"]'
     edit_text_view = "com.yapmap.yapmap:id/edit_text_view"
     description_field = '//*[@resource-id="com.yapmap.yapmap:id/description_field"]//*[@resource-id="com.yapmap.yapmap:id/relagram_input_edit_text_field_edit_text"]'
     post_button = '//*[@resource-id="com.yapmap.yapmap:id/post_button"]'
