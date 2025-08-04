@@ -2,7 +2,7 @@ import time
 
 import uiautomator2 as u2
 
-d = u2.connect('R58N63MW4QR')
+d = u2.connect('emulator-5554')
 
 # d.service('uiautomator').stop()
 d.uiautomator.stop()
